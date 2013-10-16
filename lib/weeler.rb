@@ -15,13 +15,13 @@ module Weeler
   @@use_weeler_i18n = true
 
   def self.setup
-    yield self
-
     I18n.available_locales = Weeler.available_locales
 
     if Weeler.use_weeler_i18n
       require "i18n/weeler"
     end
+
+    yield self
 
   end
 end

@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  foo:
+    bar:
+      baz: "Views awsome"

@@ -292,23 +292,65 @@ a {
 <div id="div_group_3" class="example_group passed">
   <dl style="margin-left: 30px;">
   <dt id="example_group_3" class="passed">when exception is I18n::MissingTranslation</dt>
-    <script type="text/javascript">moveProgressBar('50.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">humanizes missing translations</span><span class='duration'>0.05838s</span></dd>
+    <script type="text/javascript">moveProgressBar('20.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">humanizes missing translations</span><span class='duration'>0.06041s</span></dd>
   </dl>
 </div>
 <div id="div_group_4" class="example_group passed">
   <dl style="margin-left: 30px;">
   <dt id="example_group_4" class="passed">when exception is not I18n::MissingTranslation</dt>
-    <script type="text/javascript">moveProgressBar('100.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">does not intercept it</span><span class='duration'>0.00571s</span></dd>
+    <script type="text/javascript">moveProgressBar('40.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">does not intercept it</span><span class='duration'>0.00541s</span></dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.06573 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "2 examples, 0 failures";</script>
+<div id="div_group_5" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_5" class="passed">#lookup</dt>
+    <script type="text/javascript">moveProgressBar('60.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns translation</span><span class='duration'>0.05717s</span></dd>
+  </dl>
+</div>
+<div id="div_group_6" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_6" class="passed">missing translations</dt>
+    <script type="text/javascript">makeRed('rspec-header');</script>
+    <script type="text/javascript">makeRed('div_group_6');</script>
+    <script type="text/javascript">makeRed('example_group_6');</script>
+    <script type="text/javascript">moveProgressBar('80.0');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">persists the key</span>
+      <span class="duration">0.00495s</span>
+      <div class="failure" id="failure_1">
+        <div class="message"><pre>
+expected: 1
+     got: 0
+
+(compared using ==)
+</pre></div>
+        <div class="backtrace"><pre>./spec/weeler/i18n_backend_weeler_spec.rb:38:in `block (3 levels) in &lt;top (required)&gt;&#39;</pre></div>
+    <pre class="ruby"><code><span class="linenum">36</span>        
+<span class="linenum">37</span>        I18n.t('foo.bar.baz')
+<span class="offending"><span class="linenum">38</span>        expect(I18n::Backend::Weeler::Translation.count).to eq(1)</span>
+<span class="linenum">39</span>        expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('foo.bar.baz')).to_not be(nil)
+<span class="linenum">40</span>      end
+<span class="linenum">41</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_7" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_7" class="passed">I18n::Backend::Weeler</dt>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">can persist</span><span class='duration'>0.00937s</span></dd>
+  </dl>
+</div>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.14302 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "5 examples, 1 failure";</script>
 </div>
 </div>
 </body>
 </html>
 
-Randomized with seed 13091
+Randomized with seed 14895
 

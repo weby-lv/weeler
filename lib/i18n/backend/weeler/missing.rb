@@ -54,9 +54,14 @@ module I18n
         end
 
         def translate(locale, key, options = {})
+          p "======== Called translete #{locale}: #{key} ============="
           super
         rescue I18n::MissingTranslationData => e
+          p "======== MissingTranslationData ============="
           self.store_default_translations(locale, key, options)
+          raise e
+        rescue I18n::MissingTranslation => e
+          p "======== MissingTranslation ============="
           raise e
         end
       end

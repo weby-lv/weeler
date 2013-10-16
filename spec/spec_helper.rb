@@ -38,6 +38,8 @@ RSpec.configure do |config|
   # disable empty translation creation
   Weeler.create_missing_translations = false
 
+  # Weeler.use_weeler_i18n = false # Don't use to test fallbacks
+
   config.before(:each) do
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.start

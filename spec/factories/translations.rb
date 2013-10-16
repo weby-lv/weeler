@@ -1,5 +1,7 @@
 FactoryGirl.define do
  factory :translation, class: I18n::Backend::Weeler::Translation do
-    key "save"
+    locale "en"
+    key "title"
+    value "This is weeler"
   end
 end

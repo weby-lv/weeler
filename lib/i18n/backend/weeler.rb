@@ -4,6 +4,7 @@ require 'i18n/backend/weeler/translation'
 module I18n
   module Backend
     class Weeler
+
       autoload :Missing,     'i18n/backend/weeler/missing'
       autoload :StoreProcs,  'i18n/backend/weeler/store_procs'
       autoload :Translation, 'i18n/backend/weeler/translation'

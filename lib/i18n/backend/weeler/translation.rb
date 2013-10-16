@@ -50,7 +50,6 @@ module I18n
         FALSY_CHAR = "\002"
 
         self.table_name = 'weeler_translations'
-        # attr_protected :is_proc, :interpolations
 
         serialize :value
         serialize :interpolations, Array
