@@ -73,7 +73,7 @@ module I18n
           end
 
           def available_locales
-            Translation.find(:all, :select => 'DISTINCT locale').map { |t| t.locale.to_sym }
+            Translation.select("DISTINCT locale").map { |t| t.locale.to_sym }
           end
         end
 
