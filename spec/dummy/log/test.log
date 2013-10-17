@@ -8774,3 +8774,168 @@ Migrating to CreateWeelerTranslations (20131015144900)
   [1m[36m (1.8ms)[0m  [1mDELETE FROM "weeler_translations";[0m
   [1m[35m (0.1ms)[0m  SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';
   [1m[36m (1.5ms)[0m  [1mDELETE FROM sqlite_sequence where name = 'weeler_translations';[0m
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('i18n.transliterate.rule') OR "key" LIKE 'i18n.transliterate.rule.%')[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (3.0ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "i18n.transliterate.rule"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[35m (26.6ms)[0m  commit transaction
+  [1m[36m (1.8ms)[0m  [1mDELETE FROM "weeler_translations";[0m
+  [1m[35m (0.2ms)[0m  SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';
+  [1m[36m (1.3ms)[0m  [1mDELETE FROM sqlite_sequence where name = 'weeler_translations';[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.4ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('some.missing translation') OR "key" LIKE 'some.missing translation.%')
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "some.missing translation"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (1.7ms)[0m  DELETE FROM "weeler_translations";
+  [1m[36m (0.1ms)[0m  [1mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (1.0ms)[0m  DELETE FROM sqlite_sequence where name = 'weeler_translations';
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "title"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", "--- This is weeler\n...\n"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.3ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('title') OR "key" LIKE 'title.%')
+  [1m[36m (1.8ms)[0m  [1mDELETE FROM "weeler_translations";[0m
+  [1m[35m (0.1ms)[0m  SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';
+  [1m[36m (1.4ms)[0m  [1mDELETE FROM sqlite_sequence where name = 'weeler_translations';[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo.bar.baz') OR "key" LIKE 'foo.bar.baz.%')
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "foo.bar.baz"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo.bar.baz') OR "key" LIKE 'foo.bar.baz.%')
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "weeler_translations"[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND "weeler_translations"."key" = 'foo.bar.baz' LIMIT 1
+  [1m[36m (1.6ms)[0m  [1mDELETE FROM "weeler_translations";[0m
+  [1m[35m (0.2ms)[0m  SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';
+  [1m[36m (1.3ms)[0m  [1mDELETE FROM sqlite_sequence where name = 'weeler_translations';[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo') OR "key" LIKE 'foo.%')
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "---\n- :count\n"], ["key", "foo.zero"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[36m (1.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "---\n- :count\n"], ["key", "foo.one"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[35m (1.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "---\n- :count\n"], ["key", "foo.other"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND "weeler_translations"."key" IN ('foo.zero', 'foo.one', 'foo.other')
+  [1m[36m (1.7ms)[0m  [1mDELETE FROM "weeler_translations";[0m
+  [1m[35m (0.1ms)[0m  SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';
+  [1m[36m (1.7ms)[0m  [1mDELETE FROM sqlite_sequence where name = 'weeler_translations';[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo.bar.baz') OR "key" LIKE 'foo.bar.baz.%')
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "---\n- :cow\n"], ["key", "foo.bar.baz"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.3ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo.bar.baz') OR "key" LIKE 'foo.bar.baz.%') ORDER BY "weeler_translations"."id" ASC LIMIT 1
+  [1m[36m (1.6ms)[0m  [1mDELETE FROM "weeler_translations";[0m
+  [1m[35m (0.3ms)[0m  SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';
+  [1m[36m (1.6ms)[0m  [1mDELETE FROM sqlite_sequence where name = 'weeler_translations';[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('hello') OR "key" LIKE 'hello.%')
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "hello"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[36m (1.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "weeler_translations"
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.1ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND "weeler_translations"."key" = 'hello' LIMIT 1[0m
+  [1m[35m (1.8ms)[0m  DELETE FROM "weeler_translations";
+  [1m[36m (0.1ms)[0m  [1mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (1.7ms)[0m  DELETE FROM sqlite_sequence where name = 'weeler_translations';
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo.bar') OR "key" LIKE 'foo.bar.%')[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "---\n- :count\n"], ["key", "foo.bar.zero"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[35m (1.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "---\n- :count\n"], ["key", "foo.bar.one"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[36m (1.8ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "---\n- :count\n"], ["key", "foo.bar.other"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.3ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND "weeler_translations"."key" IN ('foo.bar.zero', 'foo.bar.one', 'foo.bar.other')[0m
+  [1m[35m (1.7ms)[0m  DELETE FROM "weeler_translations";
+  [1m[36m (0.1ms)[0m  [1mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (1.7ms)[0m  DELETE FROM sqlite_sequence where name = 'weeler_translations';
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo.baz') OR "key" LIKE 'foo.baz.%')[0m
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "foo.baz"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo.baz') OR "key" LIKE 'foo.baz.%') ORDER BY "weeler_translations"."id" ASC LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mUPDATE "weeler_translations" SET "value" = ?, "updated_at" = ?, "interpolations" = ? WHERE "weeler_translations"."id" = 1[0m  [["value", "--- baz!\n...\n"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"]]
+  [1m[35m (1.6ms)[0m  commit transaction
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.3ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo.baz') OR "key" LIKE 'foo.baz.%')[0m
+  [1m[35m (1.7ms)[0m  DELETE FROM "weeler_translations";
+  [1m[36m (0.2ms)[0m  [1mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (1.6ms)[0m  DELETE FROM sqlite_sequence where name = 'weeler_translations';
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo.bazzab') OR "key" LIKE 'foo.bazzab.%')[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "foo.baz\u0001zab"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.3ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo.bazzab') OR "key" LIKE 'foo.bazzab.%') ORDER BY "weeler_translations"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "weeler_translations" SET "value" = ?, "updated_at" = ?, "interpolations" = ? WHERE "weeler_translations"."id" = 1[0m  [["value", "--- baz!\n...\n"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"]]
+  [1m[35m (1.0ms)[0m  commit transaction
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.3ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo.bazzab') OR "key" LIKE 'foo.bazzab.%')[0m
+  [1m[35m (1.6ms)[0m  DELETE FROM "weeler_translations";
+  [1m[36m (0.1ms)[0m  [1mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (1.3ms)[0m  DELETE FROM sqlite_sequence where name = 'weeler_translations';
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo') OR "key" LIKE 'foo.%')[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "---\n- :count\n"], ["key", "foo.zero"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[35m (1.8ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "---\n- :count\n"], ["key", "foo.one"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[36m (1.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "---\n- :count\n"], ["key", "foo.other"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", nil]]
+  [1m[35m (1.5ms)[0m  commit transaction
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo') OR "key" LIKE 'foo.%')[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.1ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND "weeler_translations"."key" = 'foo' LIMIT 1
+  [1m[36m (1.8ms)[0m  [1mDELETE FROM "weeler_translations";[0m
+  [1m[35m (0.1ms)[0m  SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';
+  [1m[36m (1.2ms)[0m  [1mDELETE FROM sqlite_sequence where name = 'weeler_translations';[0m
+  [1m[35mSQL (2.2ms)[0m  DELETE FROM "weeler_translations"
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo') OR "key" LIKE 'foo.%')[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "foo"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", "--- foo\n...\n"]]
+  [1m[35m (1.2ms)[0m  commit transaction
+  [1m[36mSQL (1.8ms)[0m  [1mDELETE FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo','foo.bar') OR "key" LIKE 'foo.bar.%')[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "foo.bar"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", "--- bar\n...\n"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo','foo.baz') OR "key" LIKE 'foo.baz.%')[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "foo.baz"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", "--- baz\n...\n"]]
+  [1m[35m (1.2ms)[0m  commit transaction
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.3ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo') OR "key" LIKE 'foo.%')[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo') OR "key" LIKE 'foo.%')
+  [1m[36m (1.8ms)[0m  [1mDELETE FROM "weeler_translations";[0m
+  [1m[35m (0.2ms)[0m  SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';
+  [1m[36m (1.3ms)[0m  [1mDELETE FROM sqlite_sequence where name = 'weeler_translations';[0m
+  [1m[35mSQL (1.8ms)[0m  DELETE FROM "weeler_translations"
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo','foo.bar') OR "key" LIKE 'foo.bar.%')[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "foo.bar"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", "--- bar\n...\n"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo','foo.baz') OR "key" LIKE 'foo.baz.%')[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "foo.baz"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", "--- baz\n...\n"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36mSQL (1.5ms)[0m  [1mDELETE FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo') OR "key" LIKE 'foo.%')[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "foo"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", "--- foo\n...\n"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  [1mSELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo') OR "key" LIKE 'foo.%')[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('foo') OR "key" LIKE 'foo.%')
+  [1m[36m (1.6ms)[0m  [1mDELETE FROM "weeler_translations";[0m
+  [1m[35m (0.2ms)[0m  SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';
+  [1m[36m (1.5ms)[0m  [1mDELETE FROM sqlite_sequence where name = 'weeler_translations';[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'es' AND ("key" IN ('Pagina''s') OR "key" LIKE 'Pagina''s.%')
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "--- []\n"], ["key", "Pagina's"], ["locale", "es"], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", "--- Pagina's\n...\n"]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mI18n::Backend::Weeler::Translation Load (0.2ms)[0m  SELECT "weeler_translations".* FROM "weeler_translations" WHERE "weeler_translations"."locale" = 'es' AND ("key" IN ('Pagina''s') OR "key" LIKE 'Pagina''s.%')
+  [1m[36m (1.9ms)[0m  [1mDELETE FROM "weeler_translations";[0m
+  [1m[35m (0.1ms)[0m  SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';
+  [1m[36m (0.9ms)[0m  [1mDELETE FROM sqlite_sequence where name = 'weeler_translations';[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["interpolations", "---\n- count\n- name\n"], ["key", "foo"], ["locale", :en], ["updated_at", Thu, 17 Oct 2013 13:23:26 UTC +00:00], ["value", "--- bar\n...\n"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36m (1.9ms)[0m  [1mDELETE FROM "weeler_translations";[0m
+  [1m[35m (0.1ms)[0m  SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';
+  [1m[36m (1.8ms)[0m  [1mDELETE FROM sqlite_sequence where name = 'weeler_translations';[0m

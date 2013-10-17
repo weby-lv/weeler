@@ -1,5 +1,9 @@
 # Weeler
 
+[![Gem Version](https://badge.fury.io/rb/weeler.png)](http://badge.fury.io/rb/weeler)
+[![Build Status](https://travis-ci.org/weby-lv/weeler.png?branch=master)](https://travis-ci.org/weby-lv/weeler)
+[![Coverage Status](https://coveralls.io/repos/weby-lv/weeler/badge.png)](https://coveralls.io/r/weby-lv/weeler)
+
 CMS for weby.lv projects.
 
 ## Installation
