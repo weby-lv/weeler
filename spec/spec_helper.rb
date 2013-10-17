@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
@@ -10,6 +13,7 @@ require 'database_cleaner'
 require 'shoulda-matchers'
 # require 'support/helpers'
 # require 'timecop'
+
 
 Rails.backtrace_cleaner.remove_silencers!
 # Load support files
@@ -36,7 +40,7 @@ RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
 
   # disable empty translation creation
-  Weeler.create_missing_translations = false
+  Weeler.create_missing_translations = true
 
   # Weeler.use_weeler_i18n = false # Don't use to test fallbacks
 

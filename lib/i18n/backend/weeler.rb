@@ -4,8 +4,9 @@ require 'i18n/backend/weeler/translation'
 module I18n
   module Backend
     class Weeler
+      PLURAL_KEYS = ["zero", "one", "other"]
 
-      autoload :Missing,     'i18n/backend/weeler/missing'
+      # autoload :Missing,     'i18n/backend/weeler/missing'
       autoload :StoreProcs,  'i18n/backend/weeler/store_procs'
       autoload :Translation, 'i18n/backend/weeler/translation'
 
@@ -35,6 +36,11 @@ module I18n
           result = Translation.locale(locale).lookup(key).load
 
           if result.empty?
+            if ::Weeler.create_missing_translations
+              interpolations = options.keys - I18n::RESERVED_KEYS
+              keys = options[:count] ? PLURAL_KEYS.map { |k| [key, k].join(FLATTEN_SEPARATOR) } : [key]
+              keys.each { |key| store_translation(locale, key, interpolations) }
+            end
             nil
           elsif result.first.key == key
             result.first.value
@@ -54,6 +60,14 @@ module I18n
             keys << [keys.last, key].compact.join(FLATTEN_SEPARATOR)
           end
         end
+
+        # Store single empty translation
+        def store_translation(locale, key, interpolations)
+          translation = Weeler::Translation.new :locale => locale.to_s, :key => key
+          translation.interpolations = interpolations
+          translation.save
+        end
+
       end
 
       include Implementation
