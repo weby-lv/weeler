@@ -1,6 +1,6 @@
 require "weeler/version"
 require "rails"
-# Require our engine
+require "weeler/route_mapper"
 require "weeler/engine"
 
 module Weeler

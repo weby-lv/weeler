@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+        <head>
+                <title>Weeler</title>
+                
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+                
+                <%= stylesheet_link_tag "weeler", :media => "all" %>
+                <%= javascript_include_tag "weeler" %>
+                
+                <%= csrf_meta_tags %>
+                
+                <% flash.each do |name, message| %>
+                        <script type="text/javascript">
+                                $(function(){
+                                        $.pnotify({
+                                                type: '<%= name %>', // 'notice', 'info', 'success', 'error'
+                                                title: '<%= name %>',
+                                                text: '<%= message %>',
+                                                styling: 'bootstrap',
+                                                shadow: false,
+                                                animation: 'fade',
+                                                closer: true,
+                                                history: false,
+                                                auto_display: true
+                                        });
+                                });
+                        </script>
+                <% end %>
+        </head>
+
+        <body>
+            <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+                  <div class="container">
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="<%= weeler_root_path %>">Weeler</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                      <ul class="nav navbar-nav">
+                        <li class="active"><a href="<%= weeler_root_path %>">Home</a></li>
+                        <li><a href="<%= weeler_about_path %>">About</a></li>
+                      </ul>
+                    </div><!-- /.nav-collapse -->
+                  </div><!-- /.container -->
+                </div><!-- /.navbar -->
+
+                <div class="container">
+
+                  <div class="row row-offcanvas row-offcanvas-right">
+                    <div class="col-xs-12 col-sm-9">
+                      <%= yield %>
+                    </div><!--/span-->
+
+                    <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+                      <div class="well sidebar-nav">
+                        <ul class="nav">
+                          <li>Configuration</li>
+                          <li class="<%= "active" %> "><a href="<%= weeler_translations_path %>">Translations</a></li>
+                          <li>Content</li>
+
+                        </ul>
+                      </div><!--/.well -->
+                    </div><!--/span-->
+                  </div><!--/row-->
+
+                  <hr>
+
+                  <footer>
+                    <p>&copy; Weby 2013</p>
+                  </footer>
+
+                </div><!--/.container-->
+
+        </body>
+
+</html>
