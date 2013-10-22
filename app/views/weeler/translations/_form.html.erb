@@ -1,0 +1,43 @@
+<%= form_for translation, {url: weeler_translation_path(translation), html: {class: "form-horizontal", role: "form"}} do |f| %>
+  <h4>Basic (required)</h4>
+  <div class="form-group">
+    <label class="col-lg-2 col-md-2 control-label">Locale</label>
+    <div class="col-lg-10 col-md-10">
+      <%= f.text_field :locale, {class: "form-control", placeholder: "en"} %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-lg-2 col-md-2 control-label">Key</label>
+    <div class="col-lg-10 col-md-10">
+      <%= f.text_field :key, {class: "form-control", placeholder: "footer.middle"} %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-lg-2 col-md-2 control-label">Value</label>
+    <div class="col-lg-10 col-md-10">
+      <%= f.text_area :value, {class: "form-control"} %>
+    </div>
+  </div>
+  <h4>Ext</h4>
+
+  <div class="form-group">
+    <label class="col-lg-2 col-md-2 control-label">Interpolations</label>
+    <div class="col-lg-10 col-md-10">
+      <p class="form-control-static">
+        <label><%= translation.interpolations.join(", ") %></label>
+      </p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-lg-2 col-md-2 control-label">Is procedure?</label>
+    <div class="col-lg-4 col-md-4">
+      <%= f.select :is_proc, {"No" => false, "Yes" => true}, {}, {class: "form-control"} %>
+    </div>
+  </div>
+  <p class="text-center">
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-link" href="<%= weeler_translations_path %>">Cancel</a>
+    <%= link_to 'Remove', weeler_translation_path(translation), :confirm => "Are you sure you want remove?", :method => :delete, :class => "btn btn-danger" %>
+  </p>
+<% end %>

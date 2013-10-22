@@ -2,6 +2,7 @@ require "weeler/version"
 require "rails"
 require "weeler/route_mapper"
 require "weeler/engine"
+require "kaminari"
 
 module Weeler
 

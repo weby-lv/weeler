@@ -4,7 +4,6 @@ module Weeler::RouteMapper
   def weeler_resources(*args, &block)
     resources *args do
       yield if block_given?
-      puts ">>>>>>>>>>>> RESOURCES: #{args[0]}"
       get   :confirm_destroy, :on => :member if include_confirm_destroy?(args.last)
     end
   end
@@ -35,7 +34,7 @@ module Weeler::RouteMapper
   # Mount translations controller
   def mount_translations_controller
     weeler_resources :translations, :except => [:show] do
-      member do
+      collection do
         get :export
         post :import
       end

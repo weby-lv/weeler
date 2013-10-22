@@ -55,6 +55,7 @@ module I18n
         serialize :interpolations, Array
 
         class << self
+
           def locale(locale)
             where(:locale => locale.to_s)
           end
@@ -74,6 +75,13 @@ module I18n
 
           def available_locales
             Translation.select("DISTINCT locale").map { |t| t.locale.to_sym }
+          end
+
+          # This problably works only with PG
+          def groups
+            # Translation.select("DISTINCT split_part(key, '.', 1), split_part(key, '.', 1) AS key_group").order("key_group").map { |t| t.key_group.to_sym }
+            groups_records = Translation.select("key").order("key").map{ |t| t.key.split(".")[0] }.uniq{ |t| t}
+            groups_records.uniq{ |t| t }
           end
         end
 

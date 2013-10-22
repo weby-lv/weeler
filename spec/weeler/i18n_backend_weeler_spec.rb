@@ -53,6 +53,25 @@ describe I18n::Backend::Weeler do
     #end
   end
 
+  describe "groups" do
+
+    before(:all) do
+      I18n.backend.store_translations(:en, :group2 => { :test2 => 'bar' } )
+      I18n.backend.store_translations(:en, :group1 => { :test => 'bar' })
+      I18n.backend.store_translations(:en, :group1 => { :test3 => 'bar' })
+      @groups = I18n::Backend::Weeler::Translation.groups
+    end
+
+    it "returns 2 groups" do
+      expect(@groups.size).to eq(2)
+    end
+
+    it "returns ordered list" do
+      expect(@groups[0]).to eq("group1")
+      expect(@groups[1]).to eq("group2")
+    end
+  end
+
   describe "#store_translations" do
     it "store_translations does not allow ambiguous keys (1)" do
       I18n::Backend::Weeler::Translation.delete_all
