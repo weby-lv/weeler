@@ -47,9 +47,6 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.start
-    # set settings
-    I18n.locale = Weeler.available_locales.first
-    I18n.default_locale = Weeler.available_locales.first
   end
 
   config.after do

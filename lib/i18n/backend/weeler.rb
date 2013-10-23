@@ -6,7 +6,6 @@ module I18n
     class Weeler
       PLURAL_KEYS = ["zero", "one", "other"]
 
-      # autoload :Missing,     'i18n/backend/weeler/missing'
       autoload :StoreProcs,  'i18n/backend/weeler/store_procs'
       autoload :Translation, 'i18n/backend/weeler/translation'
 
@@ -43,7 +42,11 @@ module I18n
             end
             nil
           elsif result.first.key == key
-            result.first.value
+            if result.first.value.present?
+              result.first.value
+            else
+              nil
+            end
           else
             chop_range = (key.size + FLATTEN_SEPARATOR.size)..-1
             result = result.inject({}) do |hash, r|

@@ -82,7 +82,7 @@ module Weeler
         format.xlsx do
           outstrio = StringIO.new
           outstrio.write(p.to_stream.read)
-          send_data(outstrio.string, filename: "translations" + '.xlsx', type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+          send_data(outstrio.string, filename: "translations" + '.xlsx')
         end
       end
 
