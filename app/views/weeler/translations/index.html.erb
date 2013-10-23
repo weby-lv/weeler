@@ -3,7 +3,7 @@
     <div class="col-lg-12">
       <div class="page-header">
         <h1>Translations</h1>
-        <p class="lead text-muted">Display I18n translations</p>
+        <p class="lead text-muted">Statis translation data over all your app. You can safely edit translation values. Also you can export excel document, translate in all locales you need and import it back.</p>
       </div>
       
     </div>
@@ -16,9 +16,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
 
-      <ul class="nav navbar-nav">
+      <!-- Groups dropdown -->
+      <ul class="nav navbar-nav navbar-left">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= (params[:group].capitalize if params[:group]) || "Groups" %> <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= (params[:group].capitalize if params[:group]) || "All groups" %> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="<%= weeler_translations_path(locale: params[:locale]) %>">All</a></li>
             <% @groups.each do |group| %>
@@ -30,6 +31,22 @@
         </li>
       </ul>
 
+       <!-- Locales dropdown -->
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= (params[:locale].capitalize if params[:locale]) || "All locales" %> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="<%= weeler_translations_path(group: params[:group]) %>">All</a></li>
+            <% I18n::Backend::Weeler::Translation.available_locales.each do |locale| %>
+            <% if locale.present? %>
+              <li><a href="<%= weeler_translations_path(group: params[:group], locale: locale) %>"><%= locale.capitalize %></a></li>
+            <% end %>
+          <% end %>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Import and export data -->
       <form class="navbar-form navbar-left" role="import" method="post" action="<%= import_weeler_translations_path %>" enctype="multipart/form-data">
       <%= form_tag import_weeler_translations_path, {:multipart => true, class: "navbar-form navbar-left"} do %>
           <div class="form-group fileupload fileupload-new" data-provides="fileupload">
@@ -43,20 +60,15 @@
         </div>
       <% end %>
 
-
-      <ul class="nav navbar-nav navbar-right">
-        <li class="<%= "active" if params[:locale].blank? %>">
-          <a href="<%= weeler_translations_path(group: params[:group]) %>">ALL</a>
-        </li>
-
-        <% I18n::Backend::Weeler::Translation.available_locales.each do |locale| %>
-          <% if locale.present? %>
-          <li class="<%= "active" if (params[:locale].present? && params[:locale].to_s == locale.to_s) %>">
-            <a href="<%= weeler_translations_path(locale: locale, group: params[:group]) %>"><%= locale.upcase %></a>
-          </li>
-          <% end %>
-        <% end %>
-      </ul>
+      <!-- Search -->
+      <%= form_tag weeler_translations_path, method: 'get', class: "navbar-form navbar-right", role: "search" do %>
+        <%= hidden_field_tag :locale, params[:locale] if params[:locale].present? %>
+        <%= hidden_field_tag :group, params[:group] if params[:group].present? %>
+        <div class="form-group">
+          <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Search" %>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      <% end %>
 
     </div><!-- /.navbar-collapse -->
   </nav>

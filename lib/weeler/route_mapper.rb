@@ -2,48 +2,41 @@ module Weeler::RouteMapper
   # Pass given resource to "resources" mount method and
   # add extra routes for members and collections needed by weeler
   def weeler_resources(*args, &block)
+    add_menu_item args[0] if args[0].present? && args[1].present? && args[1][:include_in_weeler_menu] == true
     resources *args do
       yield if block_given?
-      get   :confirm_destroy, :on => :member if include_confirm_destroy?(args.last)
     end
   end
 
   def mount_weeler_at mount_location, options={}, &block
-
     mount_location_namespace = mount_location.gsub("/", "").to_sym
     scope mount_location do
-      if mount_location_namespace.empty?
-        yield if block_given?
-      else
-        namespace mount_location_namespace, :path => nil do
-          yield if block_given?
-        end
-      end
-
       namespace :weeler, :path => nil do
         mount_translations_controller
 
         root :to => "home#index"
         get "/about" => "home#about"
+
+        yield if block_given?
       end
     end
   end
 
   private
 
+  # Add menu item for resource
+  def add_menu_item resource
+    Weeler.menu_items << resource unless Weeler.menu_items.select{ |item| item == resource }.size > 0
+  end
+
   # Mount translations controller
   def mount_translations_controller
-    weeler_resources :translations, :except => [:show] do
+    resources :translations, :except => [:show] do
       collection do
         get :export
         post :import
       end
     end
-  end
-
-  # Check whether add confirm destroy route
-  def include_confirm_destroy? options
-    return include_routes? :destroy, options
   end
 
   def include_routes? route, options

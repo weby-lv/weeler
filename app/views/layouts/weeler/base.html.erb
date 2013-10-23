@@ -60,6 +60,10 @@
                           <li>Configuration</li>
                           <li class="<%= "active" %> "><a href="<%= weeler_translations_path %>">Translations</a></li>
                           <li>Content</li>
+                          
+                          <% Weeler.menu_items.each do |item| %>
+                            <li><%= link_to item.to_s.capitalize, eval("weeler_#{item.to_s}_path") %></li>
+                          <% end %>
 
                         </ul>
                       </div><!--/.well -->

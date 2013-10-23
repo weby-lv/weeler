@@ -93,15 +93,43 @@ module Weeler
       xls = Roo::Excelx.new(params[:file].tempfile.path, file_warning: :ignore)
 
       xls.each_with_pagename do |name, sheet|
-        # read locales
+        
+        # Lookup locales
         locales = []
         sheet.row(1).each_with_index do |cell, i|
           if i > 0
             locales.push(cell.downcase)
-            p ">>>>>>>>>>>> locale: #{cell.downcase}"
           end
         end
-      end
+
+        # Lookup values
+        (2..sheet.last_row).each do |row_no|
+          locale = nil
+          key = nil
+          value = nil
+          sheet.row(row_no).each_with_index do |cell, i|
+            if i == 0
+              key = cell
+            else
+              locale = locales[ i - 1 ]
+              value = cell.nil? ? '' : cell
+
+              p "> Readed: #{locale}.#{key} = #{value} "
+              if locale.present? && key.present?
+                translation = I18n::Backend::Weeler::Translation.find_or_initialize_by locale: locale, key: key
+                if translation.value != value
+                  translation.value = value
+                  translation.save
+                end
+              end
+
+            end
+          end # cells
+
+        end # rows
+
+      end # sheets
+      redirect_to weeler_translations_path, flash: {success: "Translations succesfully imported."}
     end
 
     private
@@ -113,6 +141,7 @@ module Weeler
       def translations_by_params
         translations = I18n::Backend::Weeler::Translation.order("locale, key")
 
+        translations = translations.where("key LIKE ?", "%#{params[:query]}%") if params[:query] 
         translations = translations.where(locale: params[:locale]) if params[:locale].present?
         translations = translations.lookup(params[:group]) if params[:group].present?
         translations

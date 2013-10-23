@@ -15,8 +15,11 @@ module Weeler
   mattr_accessor :use_weeler_i18n
   @@use_weeler_i18n = true
 
+  mattr_accessor :menu_items
+  @@menu_items = []
+
   def self.setup
-    I18n.available_locales = Weeler.available_locales
+    # I18n.available_locales = Weeler.available_locales
 
     if Weeler.use_weeler_i18n
       require "i18n/weeler"
