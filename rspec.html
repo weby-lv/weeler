@@ -281,162 +281,174 @@ a {
 <div class="results">
 <div id="div_group_1" class="example_group passed">
   <dl style="margin-left: 0px;">
-  <dt id="example_group_1" class="passed">#&lt;ActionDispatch::Routing::RouteSet:0x007f95927383c0&gt;</dt>
+  <dt id="example_group_1" class="passed">I18n::HumanizeMissingTranslations</dt>
   </dl>
 </div>
 <div id="div_group_2" class="example_group passed">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_2" class="passed">#mount Weeler::Engine</dt>
-    <script type="text/javascript">moveProgressBar('3.2');</script>
-    <dd class="example passed"><span class="passed_spec_name">/weeler returns home</span><span class='duration'>0.07835s</span></dd>
+  <dt id="example_group_2" class="passed">.call</dt>
   </dl>
 </div>
 <div id="div_group_3" class="example_group passed">
-  <dl style="margin-left: 15px;">
-  <dt id="example_group_3" class="passed">#add_menu_item</dt>
-    <script type="text/javascript">moveProgressBar('6.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">adds resource to weeler menu item</span><span class='duration'>0.01818s</span></dd>
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_3" class="passed">when exception is I18n::MissingTranslation</dt>
+    <script type="text/javascript">moveProgressBar('3.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">humanizes missing translations</span><span class='duration'>0.12772s</span></dd>
   </dl>
 </div>
 <div id="div_group_4" class="example_group passed">
-  <dl style="margin-left: 15px;">
-  <dt id="example_group_4" class="passed">#weeler_resources</dt>
-    <script type="text/javascript">moveProgressBar('9.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">mounts resource edit route</span><span class='duration'>0.02514s</span></dd>
-    <script type="text/javascript">moveProgressBar('12.9');</script>
-    <dd class="example passed"><span class="passed_spec_name">mounts resource new route</span><span class='duration'>0.02266s</span></dd>
-    <script type="text/javascript">moveProgressBar('16.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">mounts resource destroy route</span><span class='duration'>0.02670s</span></dd>
-    <script type="text/javascript">moveProgressBar('19.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">mounts resource create route</span><span class='duration'>0.06006s</span></dd>
-    <script type="text/javascript">moveProgressBar('22.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">mounts resources index route</span><span class='duration'>0.02367s</span></dd>
-    <script type="text/javascript">moveProgressBar('25.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">mounts resource show route</span><span class='duration'>0.02159s</span></dd>
-    <script type="text/javascript">moveProgressBar('29.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">mounts resource update route</span><span class='duration'>0.02305s</span></dd>
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_4" class="passed">when exception is not I18n::MissingTranslation</dt>
+    <script type="text/javascript">moveProgressBar('6.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">does not intercept it</span><span class='duration'>0.01036s</span></dd>
   </dl>
 </div>
 <div id="div_group_5" class="example_group passed">
-  <dl style="margin-left: 30px;">
-  <dt id="example_group_5" class="passed">when destroy route is skiped within with only: option</dt>
-    <script type="text/javascript">moveProgressBar('32.2');</script>
-    <dd class="example passed"><span class="passed_spec_name">does not mount destroy confirm route</span><span class='duration'>0.03204s</span></dd>
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_5" class="passed">I18n::Backend::Weeler</dt>
   </dl>
 </div>
 <div id="div_group_6" class="example_group passed">
-  <dl style="margin-left: 30px;">
-  <dt id="example_group_6" class="passed">when custom block given</dt>
-    <script type="text/javascript">moveProgressBar('35.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">calls it within resources method</span><span class='duration'>0.03012s</span></dd>
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_6" class="passed">#lookup</dt>
+    <script type="text/javascript">moveProgressBar('9.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns translation</span><span class='duration'>0.01065s</span></dd>
   </dl>
 </div>
 <div id="div_group_7" class="example_group passed">
-  <dl style="margin-left: 0px;">
-  <dt id="example_group_7" class="passed">I18n::Backend::Weeler</dt>
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_7" class="passed">missing translations</dt>
+    <script type="text/javascript">moveProgressBar('12.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">creates a stub when a custom separator is used and the key contains the flatten separator (a dot character)</span><span class='duration'>0.01711s</span></dd>
+    <script type="text/javascript">moveProgressBar('15.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">creates one stub per pluralization</span><span class='duration'>0.02318s</span></dd>
+    <script type="text/javascript">moveProgressBar('18.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">creates a stub per pluralization when a custom separator is used</span><span class='duration'>0.01792s</span></dd>
+    <script type="text/javascript">moveProgressBar('21.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">lookup persists interpolation keys when looked up directly</span><span class='duration'>0.01146s</span></dd>
+    <script type="text/javascript">moveProgressBar('25.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">creates no stub for base key in pluralization</span><span class='duration'>0.01677s</span></dd>
+    <script type="text/javascript">moveProgressBar('28.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">creates a stub when a custom separator is used</span><span class='duration'>0.01429s</span></dd>
+    <script type="text/javascript">moveProgressBar('31.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">lookup does not persist the key twice</span><span class='duration'>0.01123s</span></dd>
+    <script type="text/javascript">moveProgressBar('34.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">persists the key</span><span class='duration'>0.01046s</span></dd>
   </dl>
 </div>
 <div id="div_group_8" class="example_group passed">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_8" class="passed">#value</dt>
-    <script type="text/javascript">moveProgressBar('38.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">returns boolean if translation boolean</span><span class='duration'>0.03843s</span></dd>
+  <dt id="example_group_8" class="passed">#store_translations</dt>
+    <script type="text/javascript">moveProgressBar('37.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">finds one locale</span><span class='duration'>0.00343s</span></dd>
+    <script type="text/javascript">moveProgressBar('40.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">finds all existing locales if theres is translations in other locale</span><span class='duration'>0.00895s</span></dd>
   </dl>
 </div>
 <div id="div_group_9" class="example_group passed">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_9" class="passed">#lookup</dt>
-    <script type="text/javascript">moveProgressBar('41.9');</script>
-    <dd class="example passed"><span class="passed_spec_name">returns translation</span><span class='duration'>0.01672s</span></dd>
+  <dt id="example_group_9" class="passed">groups</dt>
+    <script type="text/javascript">moveProgressBar('43.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns 2 groups</span><span class='duration'>0.00442s</span></dd>
+    <script type="text/javascript">moveProgressBar('46.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns ordered list</span><span class='duration'>0.00306s</span></dd>
   </dl>
 </div>
 <div id="div_group_10" class="example_group passed">
-  <dl style="margin-left: 30px;">
-  <dt id="example_group_10" class="passed">missing translations</dt>
-    <script type="text/javascript">moveProgressBar('45.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">creates one stub per pluralization</span><span class='duration'>0.02158s</span></dd>
-    <script type="text/javascript">moveProgressBar('48.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">lookup persists interpolation keys when looked up directly</span><span class='duration'>0.01272s</span></dd>
-    <script type="text/javascript">moveProgressBar('51.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">creates a stub when a custom separator is used and the key contains the flatten separator (a dot character)</span><span class='duration'>0.01565s</span></dd>
-    <script type="text/javascript">moveProgressBar('54.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">lookup does not persist the key twice</span><span class='duration'>0.01237s</span></dd>
-    <script type="text/javascript">moveProgressBar('58.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">persists the key</span><span class='duration'>0.01170s</span></dd>
-    <script type="text/javascript">moveProgressBar('61.2');</script>
-    <dd class="example passed"><span class="passed_spec_name">creates a stub when a custom separator is used</span><span class='duration'>0.01469s</span></dd>
-    <script type="text/javascript">moveProgressBar('64.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">creates a stub per pluralization when a custom separator is used</span><span class='duration'>0.01664s</span></dd>
-    <script type="text/javascript">moveProgressBar('67.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">creates no stub for base key in pluralization</span><span class='duration'>0.01832s</span></dd>
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_10" class="passed">#value</dt>
+    <script type="text/javascript">moveProgressBar('50.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns boolean if translation boolean</span><span class='duration'>0.01143s</span></dd>
   </dl>
 </div>
 <div id="div_group_11" class="example_group passed">
   <dl style="margin-left: 15px;">
   <dt id="example_group_11" class="passed">#store_translations</dt>
-    <script type="text/javascript">moveProgressBar('70.9');</script>
-    <dd class="example passed"><span class="passed_spec_name">finds one locale</span><span class='duration'>0.00361s</span></dd>
-    <script type="text/javascript">moveProgressBar('74.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">finds all existing locales if theres is translations in other locale</span><span class='duration'>0.00851s</span></dd>
+    <script type="text/javascript">moveProgressBar('53.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">can store translations with keys that are translations containing special chars</span><span class='duration'>0.01174s</span></dd>
+    <script type="text/javascript">moveProgressBar('56.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">store_translations does not allow ambiguous keys (2)</span><span class='duration'>0.02556s</span></dd>
+    <script type="text/javascript">moveProgressBar('59.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">store_translations does not allow ambiguous keys (1)</span><span class='duration'>0.02593s</span></dd>
   </dl>
 </div>
 <div id="div_group_12" class="example_group passed">
   <dl style="margin-left: 15px;">
   <dt id="example_group_12" class="passed">#interpolations</dt>
-    <script type="text/javascript">moveProgressBar('77.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">can persist</span><span class='duration'>0.05046s</span></dd>
+    <script type="text/javascript">moveProgressBar('62.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">can persist</span><span class='duration'>0.00841s</span></dd>
   </dl>
 </div>
 <div id="div_group_13" class="example_group passed">
-  <dl style="margin-left: 15px;">
-  <dt id="example_group_13" class="passed">groups</dt>
-    <script type="text/javascript">moveProgressBar('80.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">returns 2 groups</span><span class='duration'>0.00406s</span></dd>
-    <script type="text/javascript">moveProgressBar('83.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">returns ordered list</span><span class='duration'>0.00295s</span></dd>
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_13" class="passed">#&lt;ActionDispatch::Routing::RouteSet:0x007fb1dd007a58&gt;</dt>
   </dl>
 </div>
 <div id="div_group_14" class="example_group passed">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_14" class="passed">#store_translations</dt>
-    <script type="text/javascript">moveProgressBar('87.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">store_translations does not allow ambiguous keys (1)</span><span class='duration'>0.02491s</span></dd>
-    <script type="text/javascript">moveProgressBar('90.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">store_translations does not allow ambiguous keys (2)</span><span class='duration'>0.02214s</span></dd>
-    <script type="text/javascript">moveProgressBar('93.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">can store translations with keys that are translations containing special chars</span><span class='duration'>0.01035s</span></dd>
+  <dt id="example_group_14" class="passed">#weeler_resources</dt>
+    <script type="text/javascript">moveProgressBar('65.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">mounts resource destroy route</span><span class='duration'>0.02389s</span></dd>
+    <script type="text/javascript">moveProgressBar('68.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">mounts resource create route</span><span class='duration'>0.02307s</span></dd>
+    <script type="text/javascript">moveProgressBar('71.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">mounts resource show route</span><span class='duration'>0.02348s</span></dd>
+    <script type="text/javascript">moveProgressBar('75.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">mounts resource edit route</span><span class='duration'>0.02632s</span></dd>
+    <script type="text/javascript">moveProgressBar('78.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">mounts resource new route</span><span class='duration'>0.02224s</span></dd>
+    <script type="text/javascript">moveProgressBar('81.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">mounts resource update route</span><span class='duration'>0.02268s</span></dd>
+    <script type="text/javascript">moveProgressBar('84.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">mounts resources index route</span><span class='duration'>0.02276s</span></dd>
   </dl>
 </div>
 <div id="div_group_15" class="example_group passed">
-  <dl style="margin-left: 0px;">
-  <dt id="example_group_15" class="passed">I18n::HumanizeMissingTranslations</dt>
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_15" class="passed">when destroy route is skiped within with only: option</dt>
+    <script type="text/javascript">moveProgressBar('87.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">does not mount destroy confirm route</span><span class='duration'>0.07051s</span></dd>
   </dl>
 </div>
 <div id="div_group_16" class="example_group passed">
-  <dl style="margin-left: 15px;">
-  <dt id="example_group_16" class="passed">.call</dt>
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_16" class="passed">when custom block given</dt>
+    <script type="text/javascript">moveProgressBar('90.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">calls it within resources method</span><span class='duration'>0.03966s</span></dd>
   </dl>
 </div>
 <div id="div_group_17" class="example_group passed">
-  <dl style="margin-left: 30px;">
-  <dt id="example_group_17" class="passed">when exception is I18n::MissingTranslation</dt>
-    <script type="text/javascript">moveProgressBar('96.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">humanizes missing translations</span><span class='duration'>0.01036s</span></dd>
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_17" class="passed">#add_menu_item</dt>
+    <script type="text/javascript">moveProgressBar('93.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">adds resource to weeler menu item</span><span class='duration'>0.01719s</span></dd>
   </dl>
 </div>
 <div id="div_group_18" class="example_group passed">
-  <dl style="margin-left: 30px;">
-  <dt id="example_group_18" class="passed">when exception is not I18n::MissingTranslation</dt>
-    <script type="text/javascript">moveProgressBar('100.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">does not intercept it</span><span class='duration'>0.01001s</span></dd>
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_18" class="passed">#mount Weeler::Engine</dt>
+    <script type="text/javascript">moveProgressBar('96.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">/weeler returns home</span><span class='duration'>0.01893s</span></dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.71443 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "31 examples, 0 failures";</script>
+<div id="div_group_19" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_19" class="passed">Weeler::TranslationsController</dt>
+  </dl>
+</div>
+<div id="div_group_20" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_20" class="passed">GET #index</dt>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">list translations</span><span class='duration'>0.04020s</span></dd>
+  </dl>
+</div>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.75284 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "32 examples, 0 failures";</script>
 </div>
 </div>
 </body>
 </html>
 
-Randomized with seed 49427
+Randomized with seed 19119
 

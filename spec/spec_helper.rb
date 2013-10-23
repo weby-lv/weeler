@@ -26,13 +26,11 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.color_enabled = true
+
   config.add_formatter(:progress)
   config.add_formatter(:html, 'rspec.html')
 
-  # config.include Helpers
-  # config.include WaitSteps
-
-  config.include Rails.application.routes.url_helpers
+  # config.include Rails.application.routes.url_helpers
 
   # FactoryGirl
   config.include FactoryGirl::Syntax::Methods
@@ -41,8 +39,6 @@ RSpec.configure do |config|
 
   # disable empty translation creation
   Weeler.create_missing_translations = true
-
-  # Weeler.use_weeler_i18n = false # Don't use to test fallbacks
 
   config.before(:each) do
     DatabaseCleaner.strategy = :truncation

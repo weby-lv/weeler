@@ -87,7 +87,7 @@
             <th class="text-center">Created</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="translations">
           <% @translations.each do |translation| %>
             <%= render :partial => "weeler/translations/translation", locals: {translation: translation} %>
           <% end %>

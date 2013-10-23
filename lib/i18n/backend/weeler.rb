@@ -42,11 +42,7 @@ module I18n
             end
             nil
           elsif result.first.key == key
-            if result.first.value.present?
-              result.first.value
-            else
-              nil
-            end
+            result.first.value
           else
             chop_range = (key.size + FLATTEN_SEPARATOR.size)..-1
             result = result.inject({}) do |hash, r|
