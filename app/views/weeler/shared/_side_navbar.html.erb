@@ -1,0 +1,14 @@
+<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+  <div class="well sidebar-nav">
+    <ul class="nav">
+      <li>Configuration</li>
+      <li class="<%= "active" %> "><a href="<%= weeler_translations_path %>">Translations</a></li>
+      <li>Content</li>
+      
+      <% Weeler.menu_items.each do |item| %>
+        <li><%= link_to item.to_s.capitalize, "#{weeler_root_url}/#{item}" %></li>
+      <% end %>
+
+    </ul>
+  </div><!--/.well -->
+</div><!--/span-->

@@ -15,7 +15,7 @@ module Weeler::RouteMapper
         mount_translations_controller
 
         root :to => "home#index"
-        get "/about" => "home#about"
+        get "/home/about"
 
         yield if block_given?
       end
