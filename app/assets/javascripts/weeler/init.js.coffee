@@ -1,5 +1,5 @@
 #= require jquery
 #= require jquery_ujs
 #= require_tree "./vendor"
-<%= require_asset "weeler/app" %>
+#= require weeler/app
 #= require_self
