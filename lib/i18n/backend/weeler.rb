@@ -1,5 +1,7 @@
 require 'i18n/backend/base'
 require 'i18n/backend/weeler/translation'
+require 'i18n/backend/weeler/exporter'
+require 'i18n/backend/weeler/importer'
 
 module I18n
   module Backend
@@ -8,6 +10,8 @@ module I18n
 
       autoload :StoreProcs,  'i18n/backend/weeler/store_procs'
       autoload :Translation, 'i18n/backend/weeler/translation'
+      autoload :Exporter,    'i18n/backend/weeler/exporter'
+      autoload :Importer,    'i18n/backend/weeler/importer'
 
       module Implementation
         include Base, Flatten

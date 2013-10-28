@@ -47,7 +47,6 @@
       </ul>
 
       <!-- Import and export data -->
-      <form class="navbar-form navbar-left" role="import" method="post" action="<%= import_weeler_translations_path %>" enctype="multipart/form-data">
       <%= form_tag import_weeler_translations_path, {:multipart => true, class: "navbar-form navbar-left"} do %>
           <div class="form-group fileupload fileupload-new" data-provides="fileupload">
             <span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" name="file" /></span>
