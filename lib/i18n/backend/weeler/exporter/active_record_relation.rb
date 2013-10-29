@@ -4,6 +4,7 @@ module I18n
       module Exporter
 
         module ActiveRecordRelation
+          
           def as_xlsx_package
             # construct xlsx file
             p = Axlsx::Package.new

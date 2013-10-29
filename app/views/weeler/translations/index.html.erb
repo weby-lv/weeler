@@ -49,9 +49,13 @@
       <!-- Import and export data -->
       <%= form_tag import_weeler_translations_path, {:multipart => true, class: "navbar-form navbar-left"} do %>
           <div class="form-group fileupload fileupload-new" data-provides="fileupload">
-            <span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" name="file" /></span>
-            <span class="fileupload-preview"></span>
-            <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+            <span class="btn btn-file">
+              <span class="fileupload-new">Select file</span>
+              <span class="fileupload-exists">Change</span>
+              <input type="file" name="file" /></span>
+              <span class="fileupload-preview"></span>
+              <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+            </span>
           </div>
         <div class="btn-group">
           <button type="submit" class="btn btn-default">Import</button>

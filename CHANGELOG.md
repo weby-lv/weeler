@@ -1,3 +1,17 @@
+## 0.0.4
+
+### Features & Enhancements
+
+* Refacture translations import and export. Moved logic to lib/i18n/backend/weeler .
+
+### Bug Fixes
+
+* Fixed export multiply export bug.
+
+### Contributors
+
+* Arturs Braucs
+
 ## 0.0.3
 
 ### Bug Fixes
