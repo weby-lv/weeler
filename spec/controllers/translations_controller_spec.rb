@@ -21,9 +21,14 @@ describe Weeler::TranslationsController do
   end
 
   describe "#create" do
-    # it "creates translation in DB" do
-      # post :create, i18n_backend_weeler_translation: FactoryGirl.attributes_for(:translation)
-    # end
+    it "creates translation in DB" do
+      expect(I18n.t("title", locale: :en)).to eq("Title")
+      I18n::Backend::Weeler::Translation.delete_all
+
+      post :create, i18n_backend_weeler_translation: FactoryGirl.attributes_for(:translation)
+
+      expect(I18n.t("title", locale: :en)).to eq("This is weeler")
+    end
   end
 
   describe "#update" do
