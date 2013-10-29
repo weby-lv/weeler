@@ -2,8 +2,6 @@ require "spec_helper"
 
 describe I18n::Backend::Weeler::Exporter do
 
-
-
   describe :as_xlsx_package do
 
     context "all translations" do
