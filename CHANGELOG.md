@@ -3,10 +3,12 @@
 ### Features & Enhancements
 
 * Refacture translations import and export. Moved logic to lib/i18n/backend/weeler .
+* Increase test covorage.
 
 ### Bug Fixes
 
 * Fixed export multiply export bug.
+* Change file browser button to fix dependency error.
 
 ### Contributors
 

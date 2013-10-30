@@ -1,0 +1,7 @@
+# class Weeler::ExampleController < Weeler::BaseController
+  
+  # def index
+  # # index action is required for menu items
+  # end
+
+# end

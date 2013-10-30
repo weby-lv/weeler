@@ -33,13 +33,22 @@ module Weeler
       #  copy_files 'models', 'app/models'
       #end
 
-      #def install_views
-      #  copy_files 'views', 'app/views'
-      #end
+      def install_views
+        copy_files 'views', 'app/views'
+      end
 
-      #def install_controllers
-      #  copy_files 'controllers', 'app/controllers'
-      #end
+      def install_controllers
+        copy_files 'controllers', 'app/controllers'
+      end
+
+      class_option :routes, :desc => "Generate routes", :type => :boolean, :default => true
+      def add_weeler_routes
+        weeler_routes  = "mount_weeler_at \"weeler\" do \n"
+        weeler_routes << "    # weeler_resources :example, include_in_weeler_menu: true \n"
+        weeler_routes << "  end"
+        route weeler_routes
+      end
+
 
       private
 
