@@ -3,6 +3,7 @@
 ### Features & Enhancements
 
 * Refacture translations import and export. Moved logic to lib/i18n/backend/weeler .
+* Append routes and controller example generators.
 * Increase test covorage.
 
 ### Bug Fixes
