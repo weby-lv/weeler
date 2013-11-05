@@ -35,7 +35,7 @@ describe Weeler::Engine.routes do
 
     it "adds resource to weeler menu item" do
       expect(Weeler.menu_items.size).to eq(1)
-      expect(Weeler.menu_items[0]).to eq(:mini_posts)
+      expect(Weeler.menu_items[0][:controller]).to eq(:mini_posts)
     end
   end
 

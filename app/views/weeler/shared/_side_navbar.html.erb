@@ -6,7 +6,12 @@
       <li>Content</li>
       
       <% Weeler.menu_items.each do |item| %>
-        <li><%= link_to item.to_s.capitalize, "#{weeler_root_url}/#{item}" %></li>
+        <% if item[:params] %>
+          <li><%= link_to item[:name], url_for({controller: item[:controller]}.merge(item[:params])) %></li>
+        <% else %>
+          <li><%= link_to item[:name], url_for({controller: item[:controller]}) %></li>
+        <% end %>
+        
       <% end %>
 
     </ul>

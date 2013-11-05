@@ -26,7 +26,7 @@ module Weeler::RouteMapper
 
   # Add menu item for resource
   def add_menu_item resource
-    Weeler.menu_items << resource unless Weeler.menu_items.select{ |item| item == resource }.size > 0
+    Weeler.menu_items << {name: resource.to_s.capitalize, controller: resource} unless Weeler.menu_items.select{ |item| item[:name] == resource.to_s.capitalize }.size > 0
   end
 
   # Mount translations controller

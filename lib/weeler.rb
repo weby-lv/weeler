@@ -12,11 +12,11 @@ module Weeler
   mattr_accessor :use_weeler_i18n
   @@use_weeler_i18n = true
 
-  mattr_accessor :menu_items
-  @@menu_items = []
-
   mattr_accessor :required_user_method
   @@required_user_method = nil
+
+  mattr_accessor :menu_items
+  @@menu_items = []
 
   def self.setup
     if Weeler.use_weeler_i18n
