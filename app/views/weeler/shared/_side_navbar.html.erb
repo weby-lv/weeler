@@ -6,14 +6,8 @@
       <li>Content</li>
       
       <% Weeler.menu_items.each do |item| %>
-        <% if item[:params] %>
-          <li><%= link_to item[:name], url_for({controller: item[:controller]}.merge(item[:params])) %></li>
-        <% else %>
-          <li><%= link_to item[:name], url_for({controller: item[:controller]}) %></li>
-        <% end %>
-        
+        <li><%= link_to item[:name], "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}/" %></li>
       <% end %>
-
     </ul>
   </div><!--/.well -->
 </div><!--/span-->

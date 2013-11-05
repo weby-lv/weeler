@@ -18,11 +18,13 @@ module Weeler
   mattr_accessor :menu_items
   @@menu_items = []
 
+  mattr_accessor :mount_location_namespace
+  @@mount_location_namespace = "weeler"
+
   def self.setup
     if Weeler.use_weeler_i18n
       require "i18n/weeler"
     end
-
     yield self
   end
 end

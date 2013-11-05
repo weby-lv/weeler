@@ -9,7 +9,7 @@ module Weeler::RouteMapper
   end
 
   def mount_weeler_at mount_location, options={}, &block
-    mount_location_namespace = mount_location.gsub("/", "").to_sym
+    Weeler.mount_location_namespace = mount_location.gsub("/", "").to_sym
     scope mount_location do
       namespace :weeler, :path => nil do
         mount_translations_controller
@@ -26,7 +26,8 @@ module Weeler::RouteMapper
 
   # Add menu item for resource
   def add_menu_item resource
-    Weeler.menu_items << {name: resource.to_s.capitalize, controller: resource} unless Weeler.menu_items.select{ |item| item[:name] == resource.to_s.capitalize }.size > 0
+    # Weeler.menu_items << {name: resource.to_s.capitalize, controller: resource} unless Weeler.menu_items.select{ |item| item == resource.to_s.capitalize }.size > 0
+    Weeler.menu_items << {name: resource.to_s.capitalize, weeler_path: resource} unless Weeler.menu_items.select{ |item| item[:name] == resource.to_s.capitalize }.size > 0
   end
 
   # Mount translations controller
