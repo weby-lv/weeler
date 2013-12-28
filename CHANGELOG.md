@@ -1,8 +1,13 @@
-## 0.0.5
+## 0.1.0
 
 ### Features & Enhancements
 
 * Improve menu item routing. Now it is possible to add item with params, custom action or scope.
+* Menu structure. Add content and configurations section.
+
+### Contributors
+
+* Arturs Braucs
 
 ## 0.0.4
 
