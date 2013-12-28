@@ -4,7 +4,7 @@
       <li>Content</li>
       
       <% Weeler.menu_items.each do |item| %>
-        <li><%= link_to item[:name], "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}/" %></li>
+        <li><%= link_to item[:name].humanize, "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}/" %></li>
       <% end %>
     </ul>
   </div><!--/.well -->
