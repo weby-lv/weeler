@@ -11,18 +11,18 @@
       
       <%= csrf_meta_tags %>
       
-      <%= render "weeler/shared/flash" %>
+      <%= render "flash" %>
 
       <%= yield :weeler_header %>
     </head>
 
     <body <%= yield :weeler_body_tag %> >
-      <%= render "weeler/shared/header_navbar" %>
+      <%= render "header_navbar" %>
 
       <div class="container">
         <div class="row row-offcanvas row-offcanvas-right">
 
-          <%= render "weeler/shared/side_navbar" %>
+          <%= render "side_navbar" %>
 
           <div class="col-xs-12 col-sm-9">
             <%= yield %>
@@ -31,7 +31,7 @@
 
         <hr>
 
-        <%= render "weeler/shared/footer" %>
+        <%= render "footer" %>
 
       </div><!--/.container-->
 

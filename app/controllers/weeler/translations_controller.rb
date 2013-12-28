@@ -18,8 +18,6 @@ module Weeler
     def create
       @translation = I18n::Backend::Weeler::Translation.new(translation_params)
 
-      
-
       if @translation.save
         redirect_to edit_weeler_translation_path(@translation), flash: {success: "Translation saved."}
       else
@@ -59,20 +57,24 @@ module Weeler
       redirect_to weeler_translations_path, flash: {success: "Translations succesfully imported."}
     end
 
-    private
+  private
+    
+    def set_current_menu_item
+      @current_menu_item = "configurations"
+    end
+    
+    def translation_params
+      params.require(:i18n_backend_weeler_translation).permit([:locale, :key, :value, :is_proc, :interpolations => []])
+    end
 
-      def translation_params
-        params.require(:i18n_backend_weeler_translation).permit([:locale, :key, :value, :is_proc, :interpolations => []])
-      end
+    def translations_by_params
+      translations = I18n::Backend::Weeler::Translation.order("locale, key")
 
-      def translations_by_params
-        translations = I18n::Backend::Weeler::Translation.order("locale, key")
-
-        translations = translations.where("key LIKE ?", "%#{params[:query]}%") if params[:query] 
-        translations = translations.where(locale: params[:locale]) if params[:locale].present?
-        translations = translations.lookup(params[:group]) if params[:group].present?
-        translations
-      end
+      translations = translations.where("key LIKE ?", "%#{params[:query]}%") if params[:query] 
+      translations = translations.where(locale: params[:locale]) if params[:locale].present?
+      translations = translations.lookup(params[:group]) if params[:group].present?
+      translations
+    end
 
   end
 end

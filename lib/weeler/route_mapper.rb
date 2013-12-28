@@ -17,6 +17,9 @@ module Weeler::RouteMapper
         root :to => "home#index"
         get "/home/about"
 
+        get "/content", to: "content#index"
+        get "/configurations", to: "configurations#index"
+
         yield if block_given?
       end
     end
