@@ -24,7 +24,7 @@ module Weeler
       end
 
       def install_migrations
-        get_file_list('migrations').each do |migration|
+        get_file_list('migrations/install').each do |migration|
           migration_template "migrations/#{migration}", "db/migrate/#{migration}"
         end
       end
