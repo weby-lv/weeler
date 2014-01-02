@@ -21,11 +21,17 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 4.0"
   spec.add_dependency "i18n", '>= 0.5.0'
   spec.add_dependency "rails-settings-cached", "~> 0.3"
-  spec.add_dependency "sass-twitter-bootstrap-rails"
+  spec.add_dependency "globalize", "~> 4.0.0.alpha.3"
+
   spec.add_dependency "kaminari"
+  spec.add_dependency "sass-twitter-bootstrap-rails"
+  spec.add_dependency "jquery-ui-rails"
+  spec.add_dependency "redactor-rails", "~> 0.4.1"
+  spec.add_dependency "carrierwave"
+  spec.add_dependency "mini_magick"
+
   spec.add_dependency "axlsx"
   spec.add_dependency "roo"
-  spec.add_dependency "globalize", "~> 4.0.0.alpha.3"
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"

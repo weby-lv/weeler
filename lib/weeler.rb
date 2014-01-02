@@ -3,6 +3,11 @@ require "rails"
 require "weeler/route_mapper"
 require "weeler/engine"
 require "kaminari"
+require "globalize"
+require "jquery-ui-rails"
+require "carrierwave"
+require "mini_magick"
+require "redactor-rails"
 
 module Weeler
 

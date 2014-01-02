@@ -20,27 +20,9 @@ module Weeler
       source_root File.expand_path('../templates', __FILE__)
 
       def install_migrations
-        get_file_list('migrations/seo').each do |migration|
-          migration_template "migrations/seo/#{migration}", "db/migrate/#{migration}"
-        end
+        migration_template "migrations/seo/create_weeler_seos", "db/migrate/create_weeler_seos"
+        migration_template "migrations/seo/translate_weeler_seos", "db/migrate/translate_weeler_seos"
       end
-
-
-      private
-
-        def get_file_list subdir
-          raise ArgumentError unless subdir.is_a? String
-          raise ArgumetnError if subdir.blank?
-          dir = get_current_dir
-          search_path = [dir, 'templates', subdir].join('/') + '/'
-          file_list = Dir.glob(search_path + '**/*').map { |filename| File.directory?(filename) ? nil : filename.sub(search_path, '') }
-          file_list.delete nil
-          return file_list
-        end
-
-        def get_current_dir
-          File.dirname(__FILE__)
-        end
 
     end
   end

@@ -9,10 +9,15 @@ module Weeler::RouteMapper
   end
 
   def mount_weeler_at mount_location, options={}, &block
+    mount_redactor_rails
+    
     Weeler.mount_location_namespace = mount_location.gsub("/", "").to_sym
     scope mount_location do
       namespace :weeler, :path => nil do
         mount_translations_controller
+
+
+        weeler_resources :seos, :only => [:update]
 
         root :to => "home#index"
         get "/home/about"
@@ -41,5 +46,10 @@ module Weeler::RouteMapper
         post :import
       end
     end
+  end
+
+  # Mount redactor rails for image and file upload
+  def mount_redactor_rails
+    mount RedactorRails::Engine => '/redactor_rails'
   end
 end # Weeler::RouteMapper

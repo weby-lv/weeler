@@ -1,0 +1,25 @@
+#content
+  %h2 All #{collection.klass.to_s.underscore.humanize.downcase} items
+  %h6
+    - path_options = {} if path_options.nil?
+
+    = link_to "click here to add a new #{collection.klass.to_s.underscore.humanize.downcase} item", {action: :new}.merge(path_options)
+
+  - if collection.count < 1
+    .no_news
+      = "Sorry, It seams there are no #{collection.klass.to_s.underscore.humanize.downcase} items at this moment.. "
+      = link_to "press here to add a new #{collection.klass.to_s.underscore.humanize.downcase} item", {action: :new}.merge(path_options)
+
+  - else
+    #sortable{class: "list-group", "data-url" => "#{url_for({action: :order}.merge(path_options)) }"}
+      - collection.each do |item|
+        .list-group-item{:id => "order_#{item.id}"}
+          %span
+            - if defined? item.weeler_image_path
+              = image_tag(item.weeler_image_path, style: "max-width: 75px")
+            %b
+              = item.title
+          %span{class: "pull-right"}
+            = link_to "Edit", edit_polymorphic_path([:weeler, item])
+            - if !defined? item.fixed or !item.fixed
+              = link_to "Delete", [:weeler, item], :confirm => 'Are you sure?', :method => :delete

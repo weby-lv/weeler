@@ -23,5 +23,9 @@ module Weeler
       "#{self.id}#{transliterated}"
     end
 
+    def to_param
+      slug
+    end
+
   end
 end

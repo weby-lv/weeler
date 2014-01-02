@@ -1,5 +1,3 @@
-require "globalize"
-
 module Weeler
   class Seo < ActiveRecord::Base
     self.table_name = "weeler_seos"

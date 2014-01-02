@@ -1,0 +1,5 @@
+- if object.errors.any?
+  %div{class: "alert alert-danger"}
+    - for message in object.errors.full_messages
+      %li
+        = message
