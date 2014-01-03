@@ -5,8 +5,8 @@ module Weeler
 
     included do
       # Set relations
-      has_one :seo,   as: :seoable,   :dependent => :destroy
-      accepts_nested_attributes_for :seo,   :reject_if => :all_blank, :allow_destroy => true
+      has_one :seo, as: :seoable, dependent: :destroy, class_name: "Weeler::Seo"
+      accepts_nested_attributes_for :seo, reject_if: :all_blank, allow_destroy: true
 
       # Callbacks
       after_save :generate_seo
@@ -17,7 +17,7 @@ module Weeler
     # Generate seo data in each avaivable locale
     #
     def generate_seo
-      self.seo = Seo.create if self.seo.blank?
+      self.seo = Weeler::Seo.create if self.seo.blank?
 
       I18n.available_locales.each do |locale|
         Globalize.with_locale(locale) do

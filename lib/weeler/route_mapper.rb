@@ -8,14 +8,11 @@ module Weeler::RouteMapper
     end
   end
 
-  def mount_weeler_at mount_location, options={}, &block
-    mount_redactor_rails
-    
+  def mount_weeler_at mount_location, options={}, &block    
     Weeler.mount_location_namespace = mount_location.gsub("/", "").to_sym
     scope mount_location do
       namespace :weeler, :path => nil do
         mount_translations_controller
-
 
         weeler_resources :seos, :only => [:update]
 
@@ -25,12 +22,14 @@ module Weeler::RouteMapper
         get "/content", to: "content#index"
         get "/configurations", to: "configurations#index"
 
+        add_ordable_concerns
+
         yield if block_given?
       end
     end
   end
 
-  private
+private
 
   # Add menu item for resource
   def add_menu_item resource
@@ -48,8 +47,12 @@ module Weeler::RouteMapper
     end
   end
 
-  # Mount redactor rails for image and file upload
-  def mount_redactor_rails
-    mount RedactorRails::Engine => '/redactor_rails'
+  # Ordable route concern for dynamic sorting
+  def add_ordable_concerns
+    concern :orderable do
+      collection do
+        post :order
+      end
+    end
   end
 end # Weeler::RouteMapper

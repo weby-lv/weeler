@@ -4,7 +4,6 @@
 #= require turbolinks
 #= require_tree ./vendor
 #= require_tree ./lib
-#= require redactor-rails
 #= require weeler/app
 #= require_self
 

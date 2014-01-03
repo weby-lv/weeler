@@ -29,12 +29,16 @@ module Weeler
         end
       end
 
-      #def install_models
-      #  copy_files 'models', 'app/models'
-      #end
-
       def install_views
         copy_files 'views', 'app/views'
+      end
+
+      def install_javascripts_assets
+        copy_files 'assets/javascripts', 'lib/assets/javascripts'
+      end
+
+      def install_stylesheets_assets
+        copy_files 'assets/stylesheets', 'lib/assets/stylesheets'
       end
 
       def install_controllers
@@ -49,33 +53,32 @@ module Weeler
         route weeler_routes
       end
 
+    private
 
-      private
+      def copy_files subdir, dest_dir
+        raise ArgumEnterror unless subdir.is_a? String
+        raise ArgumEnterror unless dest_dir.is_a? String
+        raise ArgumetnError if subdir.blank?
+        raise ArgumetnError if dest_dir.blank?
 
-        def copy_files subdir, dest_dir
-          raise ArgumEnterror unless subdir.is_a? String
-          raise ArgumEnterror unless dest_dir.is_a? String
-          raise ArgumetnError if subdir.blank?
-          raise ArgumetnError if dest_dir.blank?
-
-          get_file_list(subdir).each do |image|
-            copy_file [subdir, image].join('/'), [dest_dir, image].join('/')
-          end
+        get_file_list(subdir).each do |image|
+          copy_file [subdir, image].join('/'), [dest_dir, image].join('/')
         end
+      end
 
-        def get_file_list subdir
-          raise ArgumentError unless subdir.is_a? String
-          raise ArgumetnError if subdir.blank?
-          dir = get_current_dir
-          search_path = [dir, 'templates', subdir].join('/') + '/'
-          file_list = Dir.glob(search_path + '**/*').map { |filename| File.directory?(filename) ? nil : filename.sub(search_path, '') }
-          file_list.delete nil
-          return file_list
-        end
+      def get_file_list subdir
+        raise ArgumentError unless subdir.is_a? String
+        raise ArgumetnError if subdir.blank?
+        dir = get_current_dir
+        search_path = [dir, 'templates', subdir].join('/') + '/'
+        file_list = Dir.glob(search_path + '**/*').map { |filename| File.directory?(filename) ? nil : filename.sub(search_path, '') }
+        file_list.delete nil
+        return file_list
+      end
 
-        def get_current_dir
-          File.dirname(__FILE__)
-        end
+      def get_current_dir
+        File.dirname(__FILE__)
+      end
 
     end
   end

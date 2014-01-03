@@ -3,7 +3,13 @@
 ### Features & Enhancements
 
 * Improve menu item routing. Now it is possible to add item with params, custom action or scope.
-* Menu structure. Add content and configurations section.
+* Update menu structure. Add content and configurations section.
+* Add SEO module for static and dynamic SEO content.
+* Add slug generator module.
+* Add dynamic sort feature.
+* Add error_messages, list, sortable_list, section_seo templates (must extend content controller to use those).
+* Improve install generator (add assets, migrations for SEO). Also add SEO generator.
+* Append weeler assets to precompile path.
 
 ### Contributors
 

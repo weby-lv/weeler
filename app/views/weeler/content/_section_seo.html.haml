@@ -5,9 +5,11 @@
   = form_for @seo, html: {class: "form-vertical", role: "form"}, builder: GlobalizeFormBuilder  do |f|
     = f.hidden_field :section, :value => controller_name
 
+
     - I18n.available_locales.each do |lang|
-      %h3
-        = lang.capitalize
+      - if I18n.available_locales.size > 1
+        %h3
+          = lang.capitalize
 
       - f.globalize_fields_for lang do |g|
         .form-group
