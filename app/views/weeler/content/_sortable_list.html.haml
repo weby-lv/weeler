@@ -11,7 +11,7 @@
       = link_to "press here to add a new #{collection.klass.to_s.underscore.humanize.downcase} item", {action: :new}.merge(path_options)
 
   - else
-    #sortable{class: "list-group", "data-url" => "#{url_for({action: :order}.merge(path_options)) }"}
+    .sortable{class: "list-group", "data-url" => "#{url_for({action: :order}.merge(path_options)) }"}
       - collection.each do |item|
         .list-group-item{:id => "order_#{item.id}"}
           %span
