@@ -18,8 +18,7 @@ module Weeler::RouteMapper
 
         root :to => "home#index"
         get "/home/about"
-
-        get "/content", to: "content#index"
+        get "/content", to: "content_section#index"
         get "/configurations", to: "configurations#index"
 
         add_ordable_concerns

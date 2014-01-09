@@ -1,14 +1,14 @@
 #content
-  %h2 All #{collection.klass.to_s.underscore.humanize.downcase} items
+  %h2 All #{item_humanized_name} items
   %h6
     - path_options = {} if path_options.nil?
 
-    = link_to "click here to add a new #{collection.klass.to_s.underscore.humanize.downcase} item", {action: :new}.merge(path_options)
+    = link_to "click here to add a new #{item_humanized_name} item", {action: :new}.merge(path_options)
 
   - if collection.count < 1
     .no_news
-      = "Sorry, It seams there are no #{collection.klass.to_s.underscore.humanize.downcase} items at this moment.. "
-      = link_to "press here to add a new #{collection.klass.to_s.underscore.humanize.downcase} item", {action: :new}.merge(path_options)
+      = "Sorry, It seams there are no #{item_humanized_name} items at this moment.. "
+      = link_to "press here to add a new #{item_humanized_name} item", {action: :new}.merge(path_options)
 
   - else
     .sortable.list-group{data: {url: "#{url_for({action: :order}.merge(path_options)) }"} }

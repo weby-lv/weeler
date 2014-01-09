@@ -9,7 +9,7 @@ module Weeler
     #
     def sort(items)
 
-      # parse string to know the records order TODO: refactur!
+      # parse string to know the records order TODO: refactor!
       items_sequence = params[:orders][8..-1].split("&order[]=")
 
       items.each do |item|
