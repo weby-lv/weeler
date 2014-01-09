@@ -57,3 +57,15 @@ footer {
     width: 50%; /* 6 columns */
   }
 }
+
+/*
+ * List
+ * ----------
+ *
+*/
+.sortable.list-group {
+  .list-group-item {
+    cursor: move;
+    min-height: 42px;
+  }
+}

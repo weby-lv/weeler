@@ -10,8 +10,6 @@
       <%= javascript_include_tag "weeler/init" %>
       
       <%= csrf_meta_tags %>
-      
-      <%= render "flash" %>
 
       <%= yield :weeler_header %>
     </head>
@@ -34,7 +32,7 @@
         <%= render "footer" %>
 
       </div><!--/.container-->
-
+      <%= render "flash" %>
     </body>
 
 </html>

@@ -11,14 +11,14 @@
       = link_to "press here to add a new #{collection.klass.to_s.underscore.humanize.downcase} item", {action: :new}.merge(path_options)
 
   - else
-    .sortable{class: "list-group", "data-url" => "#{url_for({action: :order}.merge(path_options)) }"}
+    .sortable.list-group{data: {url: "#{url_for({action: :order}.merge(path_options)) }"} }
       - collection.each do |item|
         .list-group-item{:id => "order_#{item.id}"}
           %span
             - if defined? item.weeler_image_path
               = image_tag(item.weeler_image_path, style: "max-width: 75px")
             %b
-              = item.title
+              = raw item.to_s
           %span{class: "pull-right"}
             = link_to "Edit", edit_polymorphic_path([:weeler, item])
             - if !defined? item.fixed or !item.fixed

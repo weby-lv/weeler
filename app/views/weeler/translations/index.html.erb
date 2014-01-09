@@ -96,8 +96,6 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-12">
-      <%= paginate @translations, params: {controller: "weeler/translations", action: "index", locale: params[:locale], group: params[:group] }, previous_label: "<<", next_label: ">>" %>
-    </div>
+    <%= paginate @translations, params: {controller: "weeler/translations", action: "index", locale: params[:locale], group: params[:group] }, previous_label: "<<", next_label: ">>", theme: "weeler" %>
   </div>
 </div>

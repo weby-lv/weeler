@@ -7,6 +7,14 @@
 #= require weeler/app
 #= require_self
 
+app = {
+  boot: () ->
+    $('.weeler-file-inputs').bootstrapFileInput()
+    sortable.init()
+}
+
 $(document).ready () ->
-  $('.weeler-file-inputs').bootstrapFileInput()
-  sortable.init()
+  app.boot()
+
+$(document).on 'page:load', () ->
+  app.boot()
