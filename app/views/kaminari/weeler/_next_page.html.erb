@@ -9,6 +9,6 @@
 
 <% unless current_page.last? -%>
   <li class="next">
-    <%= link_to raw(t 'views.pagination.next'), url, :remote => remote, :rel => 'next' %>
+    <%= link_to ">", url, :remote => remote, :rel => 'next' %>
   </li>
 <% end -%>
