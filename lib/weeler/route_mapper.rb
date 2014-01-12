@@ -21,7 +21,7 @@ module Weeler::RouteMapper
         get "/content", to: "content_section#index"
         get "/configurations", to: "configurations#index"
 
-        add_ordable_concerns
+        add_concerns
 
         yield if block_given?
       end
@@ -46,11 +46,17 @@ private
     end
   end
 
-  # Ordable route concern for dynamic sorting
-  def add_ordable_concerns
+  # Ordable route concern for dynamic sorting and removing image
+  def add_concerns
     concern :orderable do
       collection do
         post :order
+      end
+    end
+
+    concern :imageable do
+      member do
+        get "remove_image"
       end
     end
   end

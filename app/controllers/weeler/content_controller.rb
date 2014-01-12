@@ -1,17 +1,16 @@
 module Weeler
   class ContentController < BaseController
-    @@ar_klass = nil
 
     def index
       @items = loaded_collection
     end
 
     def new
-      @item = @@ar_klass.new
+      @item = active_record_klass.new
     end
 
     def edit
-      @item = @@ar_klass.find(params[:id])
+      @item = active_record_klass.find(params[:id])
     end
 
     def order
@@ -19,7 +18,7 @@ module Weeler
     end
 
     def create
-      @item = @@ar_klass.new(items_params)
+      @item = active_record_klass.new(items_params)
       if @item.save
         redirect_to({ action: :index}, {:notice => "Successfully created item"})
       else
@@ -28,7 +27,7 @@ module Weeler
     end
 
     def update
-      @item = @@ar_klass.find(params[:id])
+      @item = active_record_klass.find(params[:id])
       if @item.update_attributes(items_params)
         redirect_to({ action: :index}, {:notice => "Successfully updated item"})
       else
@@ -37,9 +36,19 @@ module Weeler
     end
 
     def destroy
-      @item = @@ar_klass.find(params[:id])
+      @item = active_record_klass.find(params[:id])
       @item.destroy
       redirect_to({ action: :index}, {:notice => "Successfully destroyed item"})
+    end
+
+    def remove_image
+      @item = active_record_klass.find(params[:id])
+      if @item.image.present?
+        @item.image.destroy
+        @item.image_file_name = nil
+        @item.save
+      end
+      redirect_to({ action: :edit, id: @item.id}, {:notice => "Image successfully removed"})
     end
 
   protected
@@ -49,20 +58,24 @@ module Weeler
     def collection; end
 
     def item_humanized_name
-      "#{@@ar_klass.to_s.underscore.humanize.downcase}"
+      "#{active_record_klass.to_s.underscore.humanize.downcase}"
     end
     helper_method :item_humanized_name
 
   private
 
+    def active_record_klass
+      nil
+    end
+
     def loaded_collection
       return @loaded_collection if @loaded_collection.present?
-      if @@ar_klass
-        if collection.present?
+      if active_record_klass
+        if collection
           @loaded_collection = collection
         else
-          @loaded_collection = @@ar_klass.all
-          if @@ar_klass.new.has_attribute?(:sequence)
+          @loaded_collection = active_record_klass.all
+          if active_record_klass.new.has_attribute?(:sequence)
             @loaded_collection.order(:sequence)
           else
             @loaded_collection.order(created_at: :desc)
