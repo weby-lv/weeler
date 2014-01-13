@@ -1,5 +1,5 @@
 module Weeler
-  class TranslationsController < BaseController
+  class TranslationsController < ConfigurationsController
     
     def index
       @translations = translations_by_params
@@ -58,10 +58,6 @@ module Weeler
     end
 
   private
-    
-    def set_current_menu_item
-      @current_menu_item = "configurations"
-    end
     
     def translation_params
       params.require(:i18n_backend_weeler_translation).permit([:locale, :key, :value, :is_proc, :interpolations => []])

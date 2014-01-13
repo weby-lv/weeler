@@ -16,6 +16,8 @@ module Weeler::RouteMapper
 
         weeler_resources :seos, :only => [:update]
 
+        weeler_resources :settings, :only => [:index, :edit, :update]
+
         root :to => "home#index"
         get "/home/about"
         get "/content", to: "content_section#index"

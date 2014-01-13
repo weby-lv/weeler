@@ -5,6 +5,7 @@ require "weeler/engine"
 require "kaminari"
 require "globalize"
 require "jquery-ui-rails"
+require "rails-settings-cached"
 
 module Weeler
 

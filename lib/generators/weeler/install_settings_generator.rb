@@ -4,7 +4,7 @@ require 'rails/generators/active_record'
 
 module Weeler
   module Generators
-    class InstallSeoGenerator < Rails::Generators::Base
+    class InstallSettingsGenerator < Rails::Generators::Base
       include Rails::Generators::Migration
 
       def self.next_migration_number(path)
@@ -20,8 +20,7 @@ module Weeler
       source_root File.expand_path('../templates', __FILE__)
 
       def install_migrations
-        migration_template "migrations/create_weeler_seos", "db/migrate/create_weeler_seos"
-        migration_template "migrations/translate_weeler_seos", "db/migrate/translate_weeler_seos"
+        migration_template "migrations/create_weeler_settings.rb", "db/migrate/create_weeler_settings"
       end
 
     end
