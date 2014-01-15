@@ -3,8 +3,7 @@ module Weeler
     extend ActiveSupport::Concern
     
     included do
-      after_save :
-
+      after_save :set_slug
       @@sluger_param = :title
     end
 
