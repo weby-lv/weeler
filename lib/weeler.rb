@@ -1,4 +1,5 @@
 require "weeler/version"
+require 'logger'
 require "rails"
 require "weeler/route_mapper"
 require "weeler/engine"
@@ -25,9 +26,9 @@ module Weeler
   @@mount_location_namespace = "weeler"
 
   def self.setup
-    if Weeler.use_weeler_i18n
+    yield self
+    if Weeler.use_weeler_i18n == true
       require "i18n/weeler"
     end
-    yield self
   end
 end

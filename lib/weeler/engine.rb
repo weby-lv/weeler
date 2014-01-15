@@ -4,6 +4,8 @@ module Weeler
     config.weeler = Weeler
 
     config.assets.precompile += ["weeler/init.js", "weeler/init.css"]
+
+    
   end
 
   ActiveSupport.on_load :action_controller do
