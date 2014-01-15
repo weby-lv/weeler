@@ -3,7 +3,9 @@ module Weeler
     extend ActiveSupport::Concern
     
     included do
-      after_save :set_slug
+      after_save :
+
+      @@sluger_param = :title
     end
 
     def set_slug
@@ -18,7 +20,7 @@ module Weeler
     end
 
     def generate_slug
-      transliterated = "-#{I18n.transliterate(self.title).parameterize}" if self.title.present?
+      transliterated = "-#{I18n.transliterate(self[@@sluger_param]).parameterize}" if self[@@sluger_param].present?
       transliterated = "" if transliterated.blank?
       "#{self.id}#{transliterated}"
     end
