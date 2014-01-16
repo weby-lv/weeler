@@ -2,8 +2,10 @@
   <div class="well sidebar-nav">
     <ul class="nav">
       <li>Configurations</li>
+      <% if Weeler.use_weeler_i18n %>
       <li><a href="<%= weeler_translations_path %>">
         Translations</a></li>
+      <% end %>
       <li><a href="<%= weeler_settings_path %>">
         Settings</a></li>
     </ul>
