@@ -82,3 +82,12 @@ footer {
     color: #fff;
   }
 }
+
+.navbar-brand.weeler {
+  display: inline-block;
+  width: 104px;
+  height: 50px;
+  @include hide-text;
+  margin-right: 25px;
+  background: image-url('weeler/logo.png') left center no-repeat;
+}
