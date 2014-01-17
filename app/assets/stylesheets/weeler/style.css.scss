@@ -11,9 +11,15 @@
 body {
   padding-top: 70px;
 }
+
 footer {
   padding-left: 15px;
   padding-right: 15px;
+  background-color: #ececec;
+  text-align: center;
+  .navbar-text {
+    float: none;
+  }
 }
 
 /*
