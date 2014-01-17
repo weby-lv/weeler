@@ -113,10 +113,10 @@ div[class^="col-"] > div {
 
 .navbar-brand.weeler {
   display: inline-block;
-  width: 104px;
+  width: 119px;
   height: 50px;
-  margin-left: 0 !important;
+  padding-left: 15px;
   @include hide-text;
   margin-right: 25px;
-  background: image-url('weeler/logo.png') left center no-repeat;
+  background: image-url('weeler/logo.png') 15px center no-repeat;
 }
