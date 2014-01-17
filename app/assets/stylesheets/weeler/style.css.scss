@@ -9,7 +9,7 @@
  * --------------------------------------------------
  */
 body {
-  padding-top: 70px;
+  padding-top: 90px;
   background-color: #f5f5f5;
 }
 
@@ -106,6 +106,7 @@ div[class^="col-"] > div {
 
 .navbar-inverse {
   background-color: #424242;
+  border-top: 10px solid #292929;
   .navbar-nav > li > a {
     color: #fff;
   }
@@ -118,5 +119,5 @@ div[class^="col-"] > div {
   padding-left: 15px;
   @include hide-text;
   margin-right: 25px;
-  background: image-url('weeler/logo.png') 15px center no-repeat;
+  background: image-url('weeler/logo.png') 15px 10px no-repeat;
 }
