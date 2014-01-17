@@ -10,6 +10,7 @@
  */
 body {
   padding-top: 70px;
+  background-color: #f5f5f5;
 }
 
 footer {
@@ -20,6 +21,11 @@ footer {
   .navbar-text {
     float: none;
   }
+}
+
+.container {
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 /*
@@ -70,6 +76,22 @@ footer {
   }
 }
 
+div[class^="col-"] > div {
+  min-height: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ebebeb;
+  box-shadow: 0 0 5px rgba(0,0,0,.1);
+  border-top: 3px solid #40b4f0;
+  &.sidebar-nav {
+    border-top-color: #8b8b8b;
+  }
+}
+
+.container .jumbotron {
+  border-radius: 0;
+}
+
 /*
  * List
  * ----------
@@ -93,6 +115,7 @@ footer {
   display: inline-block;
   width: 104px;
   height: 50px;
+  margin-left: 0 !important;
   @include hide-text;
   margin-right: 25px;
   background: image-url('weeler/logo.png') left center no-repeat;
