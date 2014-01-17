@@ -75,3 +75,10 @@ footer {
     min-height: 42px;
   }
 }
+
+.navbar-inverse {
+  background-color: #424242;
+  .navbar-nav > li > a {
+    color: #fff;
+  }
+}
