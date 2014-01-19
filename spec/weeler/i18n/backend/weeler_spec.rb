@@ -114,12 +114,25 @@ describe I18n::Backend::Weeler do
 
       context "exist in yml" do
 
-        it "persist it" do
-          I18n.t('hello')
+        context "new translation" do
 
-          expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('hello').value).to eq(I18n.t('hello'))
+          it "persist it" do
+            I18n.t('hello')
+            expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('hello').value).to eq(I18n.t('hello'))
+          end
+
         end
 
+        context "already stored" do
+          before(:all) do
+            FactoryGirl.create(:translation, key: "weeler.test.cms_title", locale: "en", value: nil)
+          end
+
+          it "saves the fallback backend value" do
+            I18n.t('weeler.test.cms_title')
+            expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('weeler.test.cms_title').value).to eq("Weeler is cool")
+          end
+        end
       end
 
       it "persists the key" do
