@@ -28,7 +28,7 @@ module I18n
           escape = options.fetch(:escape, true)
           flatten_translations(locale, data, escape, false).each do |key, value|
             Translation.locale(locale).lookup(expand_keys(key)).delete_all
-            Translation.create(:locale => locale.to_s, :key => key.to_s, :value => value)
+            Translation.create(locale: locale.to_s, key: key.to_s, value: value)
           end
         end
 
@@ -42,7 +42,7 @@ module I18n
             if ::Weeler.create_missing_translations
               interpolations = options.keys - I18n::RESERVED_KEYS
               keys = options[:count] ? PLURAL_KEYS.map { |k| [key, k].join(FLATTEN_SEPARATOR) } : [key]
-              keys.each { |key| store_translation(locale, key, interpolations) }
+              keys.each { |key| store_empty_translation(locale, key, interpolations) }
             end
             nil
           elsif result.first.key == key
@@ -57,6 +57,8 @@ module I18n
           end
         end
 
+      private
+
         # For a key :'foo.bar.baz' return ['foo', 'foo.bar', 'foo.bar.baz']
         def expand_keys(key)
           key.to_s.split(FLATTEN_SEPARATOR).inject([]) do |keys, key|
@@ -65,9 +67,16 @@ module I18n
         end
 
         # Store single empty translation
-        def store_translation(locale, key, interpolations)
+        def store_empty_translation(locale, key, interpolations, value = nil)
           translation = Weeler::Translation.new :locale => locale.to_s, :key => key
           translation.interpolations = interpolations
+
+          if I18n.backend.backends.size > 1
+            alternative_backend = I18n.backend.backends[1]
+            value = alternative_backend.send(:lookup, locale, key)
+          end
+
+          translation.value = value if value.present?
           translation.save
         end
 

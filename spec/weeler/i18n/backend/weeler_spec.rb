@@ -16,7 +16,7 @@ describe I18n::Backend::Weeler do
   describe "#store_translations" do
 
     it "finds one locale" do
-      expect(I18n.backend.available_locales.count).to be(1) 
+      expect(I18n.backend.available_locales.count).to be(1)
     end
 
     it "finds all existing locales if theres is translations in other locale" do
@@ -92,9 +92,9 @@ describe I18n::Backend::Weeler do
       I18n.backend.store_translations(:en, :foo => 'foo')
 
       translations = I18n::Backend::Weeler::Translation.locale(:en).lookup('foo')
-      expect(translations.map(&:value)).to eq(%w(foo)) 
+      expect(translations.map(&:value)).to eq(%w(foo))
 
-      expect(I18n.t(:foo)).to eq('foo') 
+      expect(I18n.t(:foo)).to eq('foo')
     end
 
     it "can store translations with keys that are translations containing special chars" do
@@ -112,9 +112,18 @@ describe I18n::Backend::Weeler do
 
     context "missing translations" do
 
-      it "persists the key" do        
+      context "exist in yml" do
+
+        it "persist it" do
+          I18n.t('hello')
+
+          expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('hello').value).to eq(I18n.t('hello'))
+        end
+
+      end
+
+      it "persists the key" do
         I18n.t('hello')
-        
         expect(I18n::Backend::Weeler::Translation.count).to eq(1)
         expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('hello')).to_not be(nil)
       end

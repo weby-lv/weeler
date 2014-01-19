@@ -10,6 +10,7 @@
 * Add error_messages, list, sortable_list, section_seo templates (must extend content controller to use those).
 * Improve install generator (add assets, migrations for SEO). Also add SEO generator.
 * Append weeler assets to precompile path.
+* Adds existing fallback backend translation data in database (I18n::Backend::Weeler)
 
 ### Contributors
 
