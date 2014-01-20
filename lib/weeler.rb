@@ -3,6 +3,7 @@ require 'logger'
 require "rails"
 require "weeler/route_mapper"
 require "weeler/engine"
+require "haml"
 require "kaminari"
 require "globalize"
 require "jquery-ui-rails"
