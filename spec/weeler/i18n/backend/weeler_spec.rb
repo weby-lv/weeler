@@ -52,8 +52,12 @@ describe I18n::Backend::Weeler do
       @html_value_translation = I18n::Backend::Weeler::Translation.create(:key => 'methods.body', :value => "Super <b>duper</b>", :locale => :en)
     end
 
-    it "returns that translation is html" do
+    it "is true if key is html" do
       expect(@html_key_translation.html?).to be(true)
+    end
+
+    it "is true if value contains html" do
+      expect(@html_value_translation.html?).to be(true)
     end
 
   end

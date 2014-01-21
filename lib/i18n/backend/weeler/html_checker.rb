@@ -8,7 +8,7 @@
 # was extracted from the original backend.
 
 begin
-
+  require 'action_view/vendor/html-scanner'
 rescue LoadError => e
   puts "can't use Html because: #{e.message}"
 end
@@ -19,7 +19,8 @@ module I18n
       module HtmlChecker
 
         def html?
-          if html_safe_translation_key? self.key
+          if html_safe_translation_key?(self.key) ||
+            !( self.value && HTML::FullSanitizer.new.sanitize(self.value).length == self.value.length )
             return true
           else
             return false
