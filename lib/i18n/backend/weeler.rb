@@ -1,5 +1,6 @@
 require 'i18n/backend/base'
 require 'i18n/backend/weeler/translation'
+require 'i18n/backend/weeler/dedupe'
 require 'i18n/backend/weeler/html_checker'
 require 'i18n/backend/weeler/exporter'
 require 'i18n/backend/weeler/importer'
@@ -11,6 +12,7 @@ module I18n
 
       autoload :StoreProcs,  'i18n/backend/weeler/store_procs'
       autoload :HtmlChecker, 'i18n/backend/weeler/html_checker'
+      autoload :Translation, 'i18n/backend/weeler/dedupe'
       autoload :Translation, 'i18n/backend/weeler/translation'
       autoload :Exporter,    'i18n/backend/weeler/exporter'
       autoload :Importer,    'i18n/backend/weeler/importer'
@@ -78,7 +80,7 @@ module I18n
           interpolations = options.keys - I18n::RESERVED_KEYS
           keys = options[:count] ? PLURAL_KEYS.map { |k| [key, k].join(FLATTEN_SEPARATOR) } : [key]
           keys.each do |key|
-            translation = Weeler::Translation.new locale: locale.to_s, key: key, interpolations: interpolations
+            translation = Weeler::Translation.find_or_initialize_by locale: locale.to_s, key: key, interpolations: interpolations
             fallback_value = fallback_backend_translation locale, key
             translation.value = fallback_value if fallback_value.present?
             translation.save

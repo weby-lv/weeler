@@ -2,9 +2,9 @@
 # checks if translation is html
 #
 #   I18n.backend = I18n::Backend::Weeler.new
-#   I18n::Backend::Weeler::Translation.send(:include, I18n::Backend::Weeler::Html)
+#   I18n::Backend::Weeler::Translation.send(:include, I18n::Backend::Weeler::HtmlChecker)
 #
-# The StoreProcs module requires CGI
+# The HtmlChecker module requires html-scanner
 # was extracted from the original backend.
 
 begin
