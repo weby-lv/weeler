@@ -1,5 +1,6 @@
 require 'i18n/backend/base'
 require 'i18n/backend/weeler/translation'
+require 'i18n/backend/weeler/html_checker'
 require 'i18n/backend/weeler/exporter'
 require 'i18n/backend/weeler/importer'
 
@@ -9,6 +10,7 @@ module I18n
       PLURAL_KEYS = ["zero", "one", "other"]
 
       autoload :StoreProcs,  'i18n/backend/weeler/store_procs'
+      autoload :HtmlChecker, 'i18n/backend/weeler/html_checker'
       autoload :Translation, 'i18n/backend/weeler/translation'
       autoload :Exporter,    'i18n/backend/weeler/exporter'
       autoload :Importer,    'i18n/backend/weeler/importer'

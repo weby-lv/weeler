@@ -46,6 +46,18 @@ describe I18n::Backend::Weeler do
 
   end
 
+  describe "#html?" do
+    before(:all) do
+      @html_key_translation = I18n::Backend::Weeler::Translation.create(:key => 'methods.body_html', :value => "Super duper", :locale => :en)
+      @html_value_translation = I18n::Backend::Weeler::Translation.create(:key => 'methods.body', :value => "Super <b>duper</b>", :locale => :en)
+    end
+
+    it "returns that translation is html" do
+      expect(@html_key_translation.html?).to be(true)
+    end
+
+  end
+
   describe "#lookup" do
     it "show warning" do
       I18n::Backend::Weeler::Translation.should_receive(:warn).with("[DEPRECATION] Giving a separator to Translation.lookup is deprecated. You can change the internal separator by overwriting FLATTEN_SEPARATOR.")
