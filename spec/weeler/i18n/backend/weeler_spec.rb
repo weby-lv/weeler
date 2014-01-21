@@ -50,6 +50,7 @@ describe I18n::Backend::Weeler do
     before(:all) do
       @html_key_translation = I18n::Backend::Weeler::Translation.create(:key => 'methods.body_html', :value => "Super duper", :locale => :en)
       @html_value_translation = I18n::Backend::Weeler::Translation.create(:key => 'methods.body', :value => "Super <b>duper</b>", :locale => :en)
+      @html_fake_value_translation = I18n::Backend::Weeler::Translation.create(:key => 'methods.body_fake', :value => "Super < b", :locale => :en)
     end
 
     it "is true if key is html" do
@@ -58,6 +59,11 @@ describe I18n::Backend::Weeler do
 
     it "is true if value contains html" do
       expect(@html_value_translation.html?).to be(true)
+    end
+
+    it "is false if value not contains html" do
+
+      expect(@html_fake_value_translation.html?).to be(false)
     end
 
   end
