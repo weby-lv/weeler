@@ -1,0 +1,46 @@
+module Weeler
+
+  module FormHelper
+    def self.included(base)
+      ActionView::Helpers::FormBuilder.instance_eval do
+        include FormBuilderMethods
+      end
+    end
+
+    module FormBuilderMethods
+      def image_upload_field(info_size: "200x80", name: :image, image_url_method: "image.url(\"normal\")")
+        self.multipart = true
+        buffer = @template.label(@object_name, name, class: "col-lg-2 col-md-2 control-label")
+        buffer += @template.content_tag :div, class: "col-lg-5 col-md-5" do
+          sub_buffer = @template.content_tag :div, class: "row" do
+            @template.content_tag :div, class: "col-lg-12 col-md-12" do
+              @template.file_field @object_name, name, :class => 'form-control'
+            end
+          end
+          sub_buffer += @template.content_tag :div, class: "row" do
+            @template.content_tag :div, class: "col-lg-12 col-md-12" do
+              "Size should be #{info_size}"
+            end
+          end
+          sub_buffer
+        end
+        buffer += @template.content_tag :div, class: "col-lg-5 col-md-5" do
+          if @object.image.present?
+            sub_buffer = @template.content_tag :div, class: "row" do
+              @template.content_tag :div, class: "col-lg-12 col-md-12" do
+                @template.image_tag @object.instance_eval(image_url_method), style: "height: 80px;"
+              end
+            end
+            sub_buffer += @template.content_tag :div, class: "row" do
+              @template.content_tag :div, class: "col-lg-12 col-md-12" do
+                @template.link_to("Remove", action: "remove_image")
+              end
+            end
+            sub_buffer
+          end
+        end
+        buffer
+      end
+    end
+  end
+end
