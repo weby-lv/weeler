@@ -11,7 +11,7 @@ module Weeler
       # Callbacks
       after_save :generate_seo
 
-      @@force_seoable = false
+      @@force_seoable = true
     end
 
     # Generate seo data in each avaivable locale
@@ -21,9 +21,22 @@ module Weeler
 
       I18n.available_locales.each do |locale|
         Globalize.with_locale(locale) do
-          
-          self.seo.title = seo_attribute :title
-          self.seo.description = seo_attribute :content, length: 159
+
+          if self.respond_to? :seo_title
+            self.seo.title = prepare_seoabled_text(seo_title) if (self.seo.title.blank? || @@force_seoable)
+          else
+            self.seo.title = seo_attribute :title
+          end
+
+          if self.respond_to? :seo_description
+            self.seo.description = prepare_seoabled_text(seo_description, length: 159) if (self.seo.description.blank? || @@force_seoable)
+          else
+            self.seo.description = seo_attribute :content, length: 159
+          end
+
+          if self.respond_to? :seo_keywords
+            self.seo.keywords = prepare_seoabled_text(seo_keywords, length: 200) if (self.seo.keywords.blank? || @@force_seoable)
+          end
 
           self.seo.save
         end
