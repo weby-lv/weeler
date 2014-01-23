@@ -44,6 +44,10 @@ RSpec.configure do |config|
     DatabaseCleaner.start
   end
 
+  config.before(:all) do
+    I18n.available_locales = [:en, :lv]
+  end
+
   config.after do
     # Timecop.return
     DatabaseCleaner.clean

@@ -44,10 +44,8 @@ describe I18n::Backend::Weeler::Exporter do
         I18n.backend.store_translations(:en, foo: {two: nil })
         I18n.backend.store_translations(:lv, foo: {two: "some"})
 
-        translations = I18n::Backend::Weeler::Translation.where(key: "foo.one").load
-        translations.size
+        translations = I18n::Backend::Weeler::Translation.where(key: "foo.one")
         @other_rows = translations.as_xlsx_package.workbook.worksheets[0].rows
-       
       end
 
       it "should have 2 rows" do

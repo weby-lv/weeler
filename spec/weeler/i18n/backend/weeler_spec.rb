@@ -13,17 +13,10 @@ describe I18n::Backend::Weeler do
 
   end
 
-  describe "#store_translations" do
+  describe "#available_locales" do
 
     it "finds one locale" do
-      expect(I18n.backend.available_locales.count).to be(1)
-    end
-
-    it "finds all existing locales if theres is translations in other locale" do
-      translation = I18n::Backend::Weeler::Translation.new(:key => 'foo', :value => 'bar', :locale => :lv)
-      translation.interpolations = %w(count name)
-      translation.save
-      expect(I18n.backend.available_locales.count).to be(2)
+      expect(I18n.available_locales.count).to be(2)
     end
 
   end

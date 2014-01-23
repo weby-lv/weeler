@@ -73,9 +73,9 @@ module I18n
             where("#{column_name} IN (?) OR #{column_name} LIKE ?", keys, namespace)
           end
 
-          def available_locales
-            Translation.select("DISTINCT locale").map { |t| t.locale.to_sym }
-          end
+          #def available_locales
+            #Translation.select("DISTINCT locale").map { |t| t.locale.to_sym }
+          #end
 
           # This problably works only with PG
           def groups

@@ -11,7 +11,7 @@ module I18n
     class Weeler
 
       Translation.send(:include, Exporter::ActiveRecord)
-      ActiveRecord::Relation::ActiveRecord_Relation_I18n_Backend_Weeler_Translation.send(:include, Exporter::ActiveRecordRelation)
+      # ActiveRecord::Relation::ActiveRecord_Relation_I18n_Backend_Weeler_Translation.send(:include, Exporter::ActiveRecordRelation)
 
     end
   end

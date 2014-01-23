@@ -5,7 +5,7 @@
         <h1>Translations</h1>
         <p class="lead text-muted">Statis translation data over all your app. You can safely edit translation values. Also you can export excel document, translate in all locales you need and import it back.</p>
       </div>
-      
+
     </div>
   </div>
 </div>
@@ -37,7 +37,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= (params[:locale].capitalize if params[:locale]) || "All locales" %> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="<%= weeler_translations_path(group: params[:group]) %>">All</a></li>
-            <% I18n::Backend::Weeler::Translation.available_locales.each do |locale| %>
+            <% I18n.available_locales.each do |locale| %>
             <% if locale.present? %>
               <li><a href="<%= weeler_translations_path(group: params[:group], locale: locale) %>"><%= locale.capitalize %></a></li>
             <% end %>

@@ -20,13 +20,13 @@ module I18n
       module Implementation
         include Base, Flatten
 
-        def available_locales
-          begin
-            Translation.available_locales
-          rescue ::ActiveRecord::StatementInvalid
-            []
-          end
-        end
+        #def available_locales
+        #  begin
+        #    Translation.available_locales
+        #  rescue ::ActiveRecord::StatementInvalid
+        #    []
+        #  end
+        #end
 
         def store_translations(locale, data, options = {})
           escape = options.fetch(:escape, true)
