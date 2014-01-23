@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 4.0"
   spec.add_dependency "i18n", '>= 0.5.0'
   spec.add_dependency "rails-settings-cached", "~> 0.3"
-  spec.add_dependency "globalize"
+  spec.add_dependency "globalize", "~> 4.0.0.alpha.3"
 
   spec.add_dependency "kaminari"
   spec.add_dependency "haml"

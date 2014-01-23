@@ -8,8 +8,9 @@ module Weeler
     end
 
     module FormBuilderMethods
-      def image_upload_field(info_size: "200x80", name: :image, image_url_method: "image.url(\"normal\")")
+      def image_upload_field(name, size_info: "200x80", image_url_method: "image.url(\"normal\")", info_size: nil)
         self.multipart = true
+        size_info = info_size if info_size.present?
         buffer = @template.label(@object_name, name, class: "col-lg-2 col-md-2 control-label")
         buffer += @template.content_tag :div, class: "col-lg-5 col-md-5" do
           sub_buffer = @template.content_tag :div, class: "row" do
@@ -19,7 +20,7 @@ module Weeler
           end
           sub_buffer += @template.content_tag :div, class: "row" do
             @template.content_tag :div, class: "col-lg-12 col-md-12" do
-              "Size should be #{info_size}"
+              "Size should be #{size_info}"
             end
           end
           sub_buffer
