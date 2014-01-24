@@ -1,5 +1,6 @@
 require 'i18n/backend/base'
 require 'i18n/backend/weeler/translation'
+require 'i18n/backend/weeler/store_procs'
 require 'i18n/backend/weeler/dedupe'
 require 'i18n/backend/weeler/html_checker'
 require 'i18n/backend/weeler/exporter'
@@ -19,14 +20,6 @@ module I18n
 
       module Implementation
         include Base, Flatten
-
-        #def available_locales
-        #  begin
-        #    Translation.available_locales
-        #  rescue ::ActiveRecord::StatementInvalid
-        #    []
-        #  end
-        #end
 
         def store_translations(locale, data, options = {})
           escape = options.fetch(:escape, true)

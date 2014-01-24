@@ -73,12 +73,11 @@ module I18n
             where("#{column_name} IN (?) OR #{column_name} LIKE ?", keys, namespace)
           end
 
-          #def available_locales
-            #Translation.select("DISTINCT locale").map { |t| t.locale.to_sym }
-          #end
 
-          # This problably works only with PG
           def groups
+            #
+            # This problably works only with PG
+            #
             # Translation.select("DISTINCT split_part(key, '.', 1), split_part(key, '.', 1) AS key_group").order("key_group").map { |t| t.key_group.to_sym }
             groups_records = Translation.select("key").order("key").map{ |t| t.key.split(".")[0] }.uniq{ |t| t}
             groups_records.uniq{ |t| t }

@@ -31,6 +31,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "carrierwave"
   spec.add_dependency "mini_magick"
 
+  spec.add_dependency "ruby2ruby"
+
   spec.add_dependency "axlsx"
   spec.add_dependency "roo"
 
