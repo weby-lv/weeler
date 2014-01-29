@@ -6,8 +6,6 @@ module Weeler
     config.i18n.available_locales = [:en] unless config.i18n.available_locales.present?
 
     config.assets.precompile += ["weeler/init.js", "weeler/init.css"]
-
-
   end
 
   ActiveSupport.on_load :action_controller do

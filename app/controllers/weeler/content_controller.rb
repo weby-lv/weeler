@@ -14,7 +14,7 @@ module Weeler
     end
 
     def order
-      sort(loaded_collection)
+      sort(active_record_class)
     end
 
     def create
@@ -52,7 +52,7 @@ module Weeler
     end
 
   protected
-      
+
     def items_params; end
 
     def collection; end
