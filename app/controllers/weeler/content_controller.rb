@@ -1,5 +1,6 @@
 module Weeler
   class ContentController < BaseController
+    before_filter :load_record, only: [:edit, :update, :destroy, :remove_image]
 
     def index
       @items = loaded_collection
@@ -9,9 +10,7 @@ module Weeler
       @item = active_record_class.new
     end
 
-    def edit
-      @item = active_record_class.find(params[:id])
-    end
+    def edit; end
 
     def order
       sort(active_record_class)
@@ -27,7 +26,6 @@ module Weeler
     end
 
     def update
-      @item = active_record_class.find(params[:id])
       if @item.update_attributes(items_params)
         redirect_to({ action: :index}, {:notice => "Successfully updated item"})
       else
@@ -36,13 +34,11 @@ module Weeler
     end
 
     def destroy
-      @item = active_record_class.find(params[:id])
       @item.destroy
       redirect_to({ action: :index}, {:notice => "Successfully destroyed item"})
     end
 
     def remove_image
-      @item = active_record_class.find(params[:id])
       if @item.image.present?
         @item.image.destroy
         @item.image_file_name = nil
@@ -82,6 +78,10 @@ module Weeler
           end
         end
       end
+    end
+
+    def load_record
+      @item = active_record_class.find(params[:id])
     end
 
   end
