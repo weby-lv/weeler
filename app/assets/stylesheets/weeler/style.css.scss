@@ -76,17 +76,20 @@ footer {
   }
 }
 
-div[class^="col-"] > div {
+
+.content_container {
   min-height: 20px;
   padding: 10px;
   background-color: #fff;
   border: 1px solid #ebebeb;
   box-shadow: 0 0 5px rgba(0,0,0,.1);
   border-top: 3px solid #40b4f0;
-  &.sidebar-nav {
+}
+
+  .sidebar-nav {
+    @extend .content_container;
     border-top-color: #8b8b8b;
   }
-}
 
 .container .jumbotron {
   border-radius: 0;
