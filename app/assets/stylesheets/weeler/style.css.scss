@@ -12,7 +12,6 @@ body {
   padding-top: 90px;
   background-color: #f5f5f5;
   font-family: 'Open Sans', sans-serif;
-  
 }
 
 footer {
@@ -88,11 +87,6 @@ footer {
   border-top: 3px solid #40b4f0;
 }
 
-  .sidebar-nav {
-    @extend .content_container;
-    border-top-color: #8b8b8b;
-  }
-
 .container .jumbotron {
   border-radius: 0;
 }
@@ -109,11 +103,44 @@ footer {
   }
 }
 
+// Navigation top bar
+
 .navbar-inverse {
   background-color: #424242;
   border-top: 10px solid #292929;
-  .navbar-nav > li > a {
-    color: #fff;
+  border-bottom: 0;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+
+  .navbar-right li + li {
+    padding-left: 5px;
+    &:before {
+      content: '';
+      display: block;
+      height: 18px;
+      border-left: 1px solid #676767;
+      position: absolute;
+      top: 0; bottom: 0;
+      margin: auto 0 auto -3px;
+    }
+  }
+
+  .navbar-nav > li {
+    & > a {
+      color: #fff;
+    }
+
+    .glyphicon {
+      margin-right: 7px;
+    }
+
+    &.active > a {
+      padding-top: 7px;
+      padding-bottom: 7px;
+      margin: 8px 12px;
+      border-radius: 17px;
+      background-color: #292929;
+    }
   }
 }
 
@@ -125,4 +152,20 @@ footer {
   @include hide-text;
   margin-right: 25px;
   background: image-url('weeler/logo.png') 15px 10px no-repeat;
+}
+
+// Sidebar navigation
+
+.sidebar-nav {
+  @extend .content_container;
+  border-top-color: #8b8b8b;
+
+  .nav > li > a {
+    color: #7e7e7e;
+    padding: 10px 10px 10px 35px;
+  }
+}
+
+.navbar-inverse {
+
 }
