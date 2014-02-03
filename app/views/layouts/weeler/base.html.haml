@@ -3,14 +3,14 @@
   %head
     %title
       = Weeler
-      %meta{charset:"utf-8"}
-      %meta{name:"viewport", content:"width=device-width, initial-scale=1, maximum-scale=1"}
-      = stylesheet_link_tag "weeler/init", :media => "all"
-      = javascript_include_tag "weeler/init"
-      = csrf_meta_tags
-      = yield :weeler_header
+    %meta{charset:"utf-8"}
+    %meta{name:"viewport", content:"width=device-width, initial-scale=1, maximum-scale=1"}
+    = stylesheet_link_tag "weeler/init", :media => "all"
+    = javascript_include_tag "weeler/init"
+    = csrf_meta_tags
+    = yield :weeler_header
 
-  %body{data: {controller: controller_name, action: action_name, name_space: 'weeler',} yield :weeler_body_tag }
+  %body{data: {controller: controller_name, action: action_name, name_space: 'weeler', tag: "#{yield :weeler_body_tag}" }}
     = render "header_navbar"
     .container
       .row.row-offcanvas.row-offcanvas-right
