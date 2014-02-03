@@ -32,9 +32,17 @@ module Weeler
                 @template.image_tag @object.instance_eval(image_url_method), style: "height: 80px;"
               end
             end
-            sub_buffer += @template.content_tag :div, class: "row" do
-              @template.content_tag :div, class: "col-lg-12 col-md-12" do
-                @template.link_to("Remove", action: "remove_image")
+            build_route = true
+            begin
+              @template.link_to("Remove", action: "remove_image")
+            rescue Exception => e
+              build_route = false
+            end
+            if build_route
+              sub_buffer += @template.content_tag :div, class: "row" do
+                @template.content_tag :div, class: "col-lg-12 col-md-12" do
+                  @template.link_to("Remove", action: "remove_image")
+                end
               end
             end
             sub_buffer
