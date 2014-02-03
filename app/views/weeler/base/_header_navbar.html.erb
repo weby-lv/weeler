@@ -7,13 +7,13 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand weeler" href="<%= weeler_root_path %>">Weeler</a>
-      <a class="navbar-text navbar-link" href="<%= weeler_root_path %>">Weeler</a>
+      <a class="navbar-text navbar-link" href="<%= weeler_root_path %>">Welcome to Weeler CMS.</a>
     </div>
     <div class="collapse navbar-collapse navbar-right">
       <ul class="nav navbar-nav">
-        <%= navbar_link_to "Home", weeler_root_path %>
-        <%= navbar_link_to "Content", weeler_content_path %>
-        <%= navbar_link_to "Configurations", weeler_configurations_path %>
+        <%= navbar_link_to "Home", weeler_root_path, icon: 'home' %>
+        <%= navbar_link_to "Content", weeler_content_path, icon: 'th' %>
+        <%= navbar_link_to "Configurations", weeler_configurations_path, icon: 'cog' %>
       </ul>
     </div><!-- /.nav-collapse -->
   </div><!-- /.container --> 
