@@ -6,8 +6,8 @@ require 'weeler/version'
 Gem::Specification.new do |spec|
   spec.name          = "weeler"
   spec.version       = Weeler::VERSION
-  spec.authors       = ["Artūrs Braučs", "Artis Raugulis"]
-  spec.email         = ["arturs@weby"]
+  spec.authors       = ["Artūrs Braučs",  "Artis Raugulis"]
+  spec.email         = ["arturs@weby.lv", "artis@devart.lv"]
   spec.description   = %q{CMS for weby.lv projects.}
   spec.summary       = %q{CMS for weby.lv projects.}
   spec.homepage      = ""
