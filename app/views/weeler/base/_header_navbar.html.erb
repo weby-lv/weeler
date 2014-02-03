@@ -11,9 +11,9 @@
     </div>
     <div class="collapse navbar-collapse navbar-right">
       <ul class="nav navbar-nav">
-        <li class="<%= 'active' if @current_menu_item == 'home' %>"><a href="<%= weeler_root_path %>">Home</a></li>
-        <li class="<%= 'active' if @current_menu_item == 'content' %>"><a href="<%= weeler_content_path %>">Content</a></li>
-        <li class="<%= 'active' if @current_menu_item == 'configurations' %>"><a href="<%= weeler_configurations_path %>">Configurations</a></li>
+        <%= navbar_link_to "Home", weeler_root_path %>
+        <%= navbar_link_to "Content", weeler_content_path %>
+        <%= navbar_link_to "Configurations", weeler_configurations_path %>
       </ul>
     </div><!-- /.nav-collapse -->
   </div><!-- /.container --> 
