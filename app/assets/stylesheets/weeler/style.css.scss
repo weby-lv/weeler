@@ -89,7 +89,7 @@ footer {
 }
 
 
-.content_container {
+#content {
   min-height: 20px;
   padding: 10px;
   background-color: #fff;
@@ -168,7 +168,7 @@ footer {
 // Sidebar navigation
 
 .sidebar-nav {
-  @extend .content_container;
+  @extend #content;
   border-top-color: #8b8b8b;
 
   .nav > li > a {
