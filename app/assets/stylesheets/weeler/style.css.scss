@@ -133,8 +133,7 @@ footer.navbar {
   background-color: #424242;
   border-top: 10px solid #292929;
   border-bottom: 0;
-  -webkit-font-smoothing: subpixel-antialiased;
-  -moz-osx-font-smoothing: auto;
+  @include smoothing(off);
 
   .navbar-right li + li {
     padding-left: 5px;
