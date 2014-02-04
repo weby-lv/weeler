@@ -189,6 +189,11 @@ footer.navbar {
     padding: 10px 10px 10px 35px;
   }
 
+  .nav > li.active > a {
+    color: #40b4f0;
+    font-weight: 600;
+  }
+
   .nav > li:first-child {
     font-size: 16px;
     color: #7e7e7e;

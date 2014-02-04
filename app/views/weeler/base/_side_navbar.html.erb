@@ -3,6 +3,7 @@
     <ul class="nav">
       <li><span class="glyphicon glyphicon-th"></span>Content</li>
       <% Weeler.menu_items.each do |item| %>
+      	<!-- TODO: the <li> below should be <li class="active"> when active -->
         <li><%= link_to item[:name].humanize, "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}/" %></li>
       <% end %>
     </ul>
