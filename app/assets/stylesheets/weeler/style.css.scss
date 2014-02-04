@@ -4,6 +4,17 @@
   color: transparent;
 }
 
+@mixin smoothing($value: on) {
+    @if $value == on {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    @else {
+        -webkit-font-smoothing: subpixel-antialiased;
+        -moz-osx-font-smoothing: auto;
+    }
+}
+
 /*
  * Style tweaks
  * --------------------------------------------------
@@ -164,8 +175,16 @@ footer {
     color: #7e7e7e;
     padding: 10px 10px 10px 35px;
   }
-}
 
-.navbar-inverse {
-
+  .nav > li:first-child {
+    font-size: 16px;
+    color: #7e7e7e;
+    font-weight: 600;
+    padding: 10px 0 10px 35px;
+    border-bottom: 1px solid #d3d3d3;
+    .glyphicon {
+      position: absolute;
+      left: 10px; top: 12px;
+    }
+  }
 }
