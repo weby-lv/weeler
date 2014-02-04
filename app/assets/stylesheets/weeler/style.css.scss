@@ -170,12 +170,13 @@ footer.navbar {
 
 .navbar-brand.weeler {
   display: inline-block;
-  width: 119px;
+  width: 104px;
   height: 50px;
-  padding-left: 15px;
+  // padding-left: 15px;
   @include hide-text;
   margin-right: 25px;
-  background: image-url('weeler/logo.png') 15px 10px no-repeat;
+  margin-left: 15px !important;
+  background: image-url('weeler/logo.png') 0 10px no-repeat;
 }
 
 // Sidebar navigation
@@ -193,11 +194,24 @@ footer.navbar {
     font-size: 16px;
     color: #7e7e7e;
     font-weight: 600;
-    padding: 10px 0 10px 35px;
+    padding: 10px 20px 10px 35px;
     border-bottom: 1px solid #d3d3d3;
     .glyphicon {
       position: absolute;
       left: 10px; top: 12px;
+    }
+    &:after {
+      position: absolute;
+      display: inline-block;
+      margin-top: 8px; right: 10px;
+      font-family: 'Glyphicons Halflings';
+      -webkit-font-smoothing: antialiased;
+      font-style: normal;
+      font-weight: normal;
+      line-height: 1;
+      font-size: 8px;
+      -moz-osx-font-smoothing: grayscale;
+      content: "\e114";
     }
   }
 }
