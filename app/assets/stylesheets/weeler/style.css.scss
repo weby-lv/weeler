@@ -200,10 +200,7 @@ footer.navbar {
     font-weight: 600;
     padding: 10px 20px 10px 35px;
     border-bottom: 1px solid #d3d3d3;
-    .glyphicon {
-      position: absolute;
-      left: 10px; top: 12px;
-    }
+    margin-bottom: 7px;
     &:after {
       position: absolute;
       display: inline-block;
@@ -216,6 +213,10 @@ footer.navbar {
       font-size: 8px;
       -moz-osx-font-smoothing: grayscale;
       content: "\e114";
+    }
+    .glyphicon {
+      position: absolute;
+      left: 10px; top: 12px;
     }
   }
 }
