@@ -3,7 +3,7 @@ require "spec_helper"
 describe I18n::Backend::Weeler::Importer do
 
   # This is file with 10 translations and 3 locales.
-  let(:file_path) {File.dirname(__FILE__) + '/../../../../fixtures/test.xlsx'}
+  let(:file_path) { Rack::Test::UploadedFile.new(File.dirname(__FILE__) + '/../../../../fixtures/test.xlsx') }
 
   describe :import do
 

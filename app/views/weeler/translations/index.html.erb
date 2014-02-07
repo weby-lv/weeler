@@ -21,10 +21,10 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= (params[:group].capitalize if params[:group]) || "All groups" %> <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="<%= weeler_translations_path(locale: params[:locale]) %>">All</a></li>
+            <li><a href="<%= weeler_translations_path(filtered_locale: params[:filtered_locale]) %>">All</a></li>
             <% @groups.each do |group| %>
             <% if group.present? %>
-              <li><a href="<%= weeler_translations_path(locale: params[:locale], group: group) %>"><%= group.capitalize %></a></li>
+              <li><a href="<%= weeler_translations_path(filtered_locale: params[:filtered_locale], group: group) %>"><%= group.capitalize %></a></li>
             <% end %>
           <% end %>
           </ul>
@@ -34,12 +34,12 @@
        <!-- Locales dropdown -->
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= (params[:locale].capitalize if params[:locale]) || "All locales" %> <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= (params[:filtered_locale].capitalize if params[:filtered_locale]) || "All locales" %> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="<%= weeler_translations_path(group: params[:group]) %>">All</a></li>
             <% I18n.available_locales.each do |locale| %>
             <% if locale.present? %>
-              <li><a href="<%= weeler_translations_path(group: params[:group], locale: locale) %>"><%= locale.capitalize %></a></li>
+              <li><a href="<%= weeler_translations_path(group: params[:group], filtered_locale: locale) %>"><%= locale.capitalize %></a></li>
             <% end %>
           <% end %>
           </ul>
@@ -53,13 +53,13 @@
           </div>
         <div class="btn-group">
           <button type="submit" class="btn btn-default">Import</button>
-          <a class="btn btn-default" href="<%= export_weeler_translations_path(locale: params[:locale], group: params[:group], format: :xlsx) %>">Export</a>
+          <a class="btn btn-default" href="<%= export_weeler_translations_path(filtered_locale: params[:filtered_locale], group: params[:group], format: :xlsx) %>">Export</a>
         </div>
       <% end %>
 
       <!-- Search -->
       <%= form_tag weeler_translations_path, method: 'get', class: "navbar-form navbar-right", role: "search" do %>
-        <%= hidden_field_tag :locale, params[:locale] if params[:locale].present? %>
+        <%= hidden_field_tag :filtered_locale, params[:filtered_locale] if params[:filtered_locale].present? %>
         <%= hidden_field_tag :group, params[:group] if params[:group].present? %>
         <div class="form-group">
           <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Search" %>
@@ -96,6 +96,6 @@
 
 <div class="container">
   <div class="row">
-    <%= paginate @translations, params: {controller: "weeler/translations", action: "index", locale: params[:locale], group: params[:group] }, previous_label: "<<", next_label: ">>", theme: "weeler" %>
+    <%= paginate @translations, params: {controller: "weeler/translations", action: "index", filtered_locale: params[:filtered_locale], group: params[:group] }, previous_label: "<<", next_label: ">>", theme: "weeler" %>
   </div>
 </div>

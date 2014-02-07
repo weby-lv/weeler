@@ -13,8 +13,8 @@ module I18n
 
         module ClassMethods
 
-          def import path
-            xls = Roo::Excelx.new(path, file_warning: :ignore)
+          def import file
+            xls = open_spreadsheet file
             xls.each_with_pagename do |name, sheet|
 
               # Lookup locales
@@ -30,6 +30,16 @@ module I18n
           end # import
 
           private
+
+            def open_spreadsheet(file)
+              case File.extname(file.original_filename)
+              when ".csv"  then Roo::Csv.new(file.path, file_warning: :ignore)
+              when ".xls"  then Roo::Excel.new(file.path, file_warning: :ignore)
+              when ".xlsx" then Roo::Excelx.new(file.path, file_warning: :ignore)
+              when ".ods"  then Roo::OpenOffice.new(file.path, file_warning: :ignore)
+              else raise "Unknown file type: #{file.original_filename}"
+              end
+            end
 
             def locales_from_xlsx_sheet_row row
               locales = []
