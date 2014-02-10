@@ -70,7 +70,7 @@ module Weeler
     def translations_by_params
       translations = I18n::Backend::Weeler::Translation.order("locale, key")
 
-      translations = translations.where("key LIKE ?", "%#{params[:query]}%") if params[:query]
+      translations = translations.where("key ILIKE ? OR value ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%") if params[:query]
       translations = translations.where(locale: params[:filtered_locale]) if params[:filtered_locale].present?
       translations = translations.lookup(params[:group]) if params[:group].present?
       translations
