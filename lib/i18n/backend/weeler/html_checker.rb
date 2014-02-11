@@ -20,7 +20,7 @@ module I18n
 
         def html?
           if html_safe_translation_key?(self.key) ||
-            (self.value.present? && HTML::FullSanitizer.new.sanitize(self.value).length != self.value.length)
+            (self.value.present? && HTML::FullSanitizer.new.sanitize(self.value.to_s).length != self.value.to_s.length)
             return true
           else
             return false

@@ -1,12 +1,12 @@
 module Weeler
   class TranslationsController < ConfigurationsController
-    
+
     def index
       @translations = translations_by_params
       @translations = @translations.page(params[:page]).per(20)
       @groups = I18n::Backend::Weeler::Translation.groups
     end
-    
+
     def new
       @translation = I18n::Backend::Weeler::Translation.new
     end
@@ -53,12 +53,16 @@ module Weeler
     end
 
     def import
-      I18n::Backend::Weeler::Translation.import params[:file].tempfile.path
-      redirect_to weeler_translations_path, flash: {success: "Translations succesfully imported."}
+      if params[:file].present?
+        I18n::Backend::Weeler::Translation.import params[:file]
+        redirect_to weeler_translations_path, flash: {success: "Translations succesfully imported."}
+      else
+        redirect_to weeler_translations_path, flash: {success: "No file choosen"}
+      end
     end
 
   private
-    
+
     def translation_params
       params.require(:i18n_backend_weeler_translation).permit([:locale, :key, :value, :is_proc, :interpolations => []])
     end
@@ -66,8 +70,8 @@ module Weeler
     def translations_by_params
       translations = I18n::Backend::Weeler::Translation.order("locale, key")
 
-      translations = translations.where("key LIKE ?", "%#{params[:query]}%") if params[:query] 
-      translations = translations.where(locale: params[:locale]) if params[:locale].present?
+      translations = translations.where("key ILIKE ? OR value ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%") if params[:query]
+      translations = translations.where(locale: params[:filtered_locale]) if params[:filtered_locale].present?
       translations = translations.lookup(params[:group]) if params[:group].present?
       translations
     end

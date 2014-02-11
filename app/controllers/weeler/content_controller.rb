@@ -19,7 +19,7 @@ module Weeler
     def create
       @item = active_record_class.new(items_params)
       if @item.save
-        redirect_to({ action: :index}, {:notice => "Successfully created item"})
+        redirect_to({ action: :edit, id: @item.id }, {:notice => "Successfully created item"})
       else
         render :action => 'new'
       end
@@ -27,7 +27,7 @@ module Weeler
 
     def update
       if @item.update_attributes(items_params)
-        redirect_to({ action: :index}, {:notice => "Successfully updated item"})
+        redirect_to({ action: :edit, id: @item.id }, {:notice => "Successfully updated item"})
       else
         render :action => 'edit'
       end
