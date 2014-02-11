@@ -22,4 +22,10 @@
           %span{class: "pull-right"}
             = link_to "Edit", edit_polymorphic_path([:weeler, item])
             - if !defined? item.fixed or !item.fixed
-              = link_to "Delete", [:weeler, item], :confirm => 'Are you sure?', :method => :delete
+              - if @items.klass.new.has_attribute?(:active)
+                - if item.active
+                  = link_to "Disable", filter_options.merge({action: :activation, active: false, id: item.id}), data: {confirm: 'Are you sure?'}
+                - else
+                  = link_to "Activate", filter_options.merge({action: :activation, active: true, id: item.id}), data: {confirm: 'Are you sure?'}
+              - else
+                = link_to "Delete", [:weeler, item], :confirm => 'Are you sure?', :method => :delete

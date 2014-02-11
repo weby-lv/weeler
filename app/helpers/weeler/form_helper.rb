@@ -26,7 +26,7 @@ module Weeler
           sub_buffer
         end
         buffer += @template.content_tag :div, class: "col-lg-5 col-md-5" do
-          if @object.image.present?
+          if @object[name].present?
             sub_buffer = @template.content_tag :div, class: "row" do
               @template.content_tag :div, class: "col-lg-12 col-md-12" do
                 @template.image_tag @object.instance_eval(image_url_method), style: "height: 80px;"
