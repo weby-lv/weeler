@@ -1,6 +1,6 @@
 module Weeler
   class ContentController < BaseController
-    before_filter :load_record, only: [:edit, :update, :destroy, :remove_image]
+    before_filter :load_record, only: [:show, :edit, :update, :destroy, :remove_image]
 
     def index
       @items = loaded_collection
@@ -9,6 +9,8 @@ module Weeler
     def new
       @item = active_record_class.new
     end
+
+    def show; end
 
     def edit; end
 
