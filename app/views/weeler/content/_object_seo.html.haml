@@ -1,0 +1,31 @@
+= form.fields_for :seo do |seo_fields|
+  %h2
+    = "SEO options"
+  %p
+    = "Here you can adjust (override) Title and meta tags for current page"
+  %br
+
+  - I18n.available_locales.each do |lang|
+    - if I18n.available_locales.size > 1
+      %h3
+        = lang.capitalize
+
+    = seo_fields.hidden_field :id, :value => seo_fields.object.id if seo_fields.object.present?
+    = seo_fields.hidden_field :section, :value => controller_name
+
+    - seo_fields.globalize_fields_for lang do |g|
+
+      .form-group
+        .input-group
+          = g.label :title, class: "input-group-addon"
+          = g.text_field :title, :class => 'form-control'
+
+      .form-group
+        .input-group
+          = g.label :description, class: "input-group-addon"
+          = g.text_field :description, :class => 'form-control'
+
+      .form-group
+        .input-group
+          = g.label :keywords, class: "input-group-addon"
+          = g.text_field :keywords, :class => 'form-control'
