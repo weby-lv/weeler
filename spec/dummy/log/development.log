@@ -17,3 +17,38 @@ Migrating to CreateWeelerTranslations (20131015144900)
   [1m[35m (0.1ms)[0m  begin transaction
   [1m[36mSQL (4.6ms)[0m  [1mINSERT INTO "weeler_translations" ("created_at", "interpolations", "key", "locale", "updated_at", "value") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Thu, 17 Oct 2013 11:11:35 UTC +00:00], ["interpolations", "--- []\n"], ["key", "hello"], ["locale", "en"], ["updated_at", Thu, 17 Oct 2013 11:11:35 UTC +00:00], ["value", nil]]
   [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateWeelerSeos (20140123083704)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "weeler_seos" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "description" text, "keywords" text, "section" varchar(255), "seoable_id" integer, "seoable_type" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  CREATE INDEX "index_weeler_seos_on_seoable_id_and_seoable_type" ON "weeler_seos" ("seoable_id", "seoable_type")
+  [1m[36m (0.1ms)[0m  [1mCREATE INDEX "index_weeler_seos_on_section" ON "weeler_seos" ("section")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20140123083704"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+Migrating to CreateWeelerSettings (20140123083705)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "settings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "var" varchar(255) NOT NULL, "value" text, "thing_id" integer, "thing_type" varchar(30), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.8ms)[0m  CREATE UNIQUE INDEX "index_settings_on_thing_type_and_thing_id_and_var" ON "settings" ("thing_type", "thing_id", "var")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20140123083705"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+Migrating to CreateWeelerTranslations (20140123083706)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "weeler_translations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "locale" varchar(255), "key" varchar(255), "value" text, "interpolations" text, "is_proc" boolean DEFAULT 'f', "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mCREATE INDEX "index_weeler_translations_on_locale" ON "weeler_translations" ("locale")[0m
+  [1m[35m (0.1ms)[0m  CREATE INDEX "index_weeler_translations_on_key" ON "weeler_translations" ("key")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20140123083706"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+Migrating to TranslateWeelerSeos (20140123083707)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "weeler_seo_translations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "weeler_seo_id" integer NOT NULL, "locale" varchar(255) NOT NULL, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "weeler_seo_translations" ADD "title" varchar(255)[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "weeler_seo_translations" ADD "description" text
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "weeler_seo_translations" ADD "keywords" text[0m
+  [1m[35mWeeler::Seo Load (0.1ms)[0m  SELECT "weeler_seos".* FROM "weeler_seos" ORDER BY "weeler_seos"."id" ASC LIMIT 1000
+  [1m[36m (0.1ms)[0m  [1mCREATE INDEX "index_weeler_seo_translations_on_weeler_seo_id" ON "weeler_seo_translations" ("weeler_seo_id")[0m
+  [1m[35m (0.1ms)[0m  CREATE INDEX "index_weeler_seo_translations_on_locale" ON "weeler_seo_translations" ("locale")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20140123083707"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m

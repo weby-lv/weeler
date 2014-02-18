@@ -54,6 +54,8 @@ module I18n
         serialize :value
         serialize :interpolations, Array
 
+        scope :except_key, -> (key) { where("key NOT LIKE ?", "%#{key}%") }
+
         class << self
 
           def locale(locale)
@@ -75,12 +77,13 @@ module I18n
 
 
           def groups
-            #
-            # This problably works only with PG
-            #
-            # Translation.select("DISTINCT split_part(key, '.', 1), split_part(key, '.', 1) AS key_group").order("key_group").map { |t| t.key_group.to_sym }
-            groups_records = Translation.select("key").order("key").map{ |t| t.key.split(".")[0] }.uniq{ |t| t}
-            groups_records.uniq{ |t| t }
+            groups_records = Translation.select("key")
+
+            ::Weeler.excluded_i18n_groups.each do |key|
+              groups_records = groups_records.except_key(key)
+            end
+            groups_records = groups_records.order("key")
+            groups_records.map{ |t| t.key.split(".")[0] }.uniq{ |t| t}
           end
         end
 

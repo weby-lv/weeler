@@ -11,7 +11,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131015144900) do
+ActiveRecord::Schema.define(version: 20140123083707) do
+
+  create_table "settings", force: true do |t|
+    t.string   "var",                   null: false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
+
+  create_table "weeler_seo_translations", force: true do |t|
+    t.integer  "weeler_seo_id", null: false
+    t.string   "locale",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+    t.text     "description"
+    t.text     "keywords"
+  end
+
+  add_index "weeler_seo_translations", ["locale"], name: "index_weeler_seo_translations_on_locale"
+  add_index "weeler_seo_translations", ["weeler_seo_id"], name: "index_weeler_seo_translations_on_weeler_seo_id"
+
+  create_table "weeler_seos", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.text     "keywords"
+    t.string   "section"
+    t.integer  "seoable_id"
+    t.string   "seoable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "weeler_seos", ["section"], name: "index_weeler_seos_on_section"
+  add_index "weeler_seos", ["seoable_id", "seoable_type"], name: "index_weeler_seos_on_seoable_id_and_seoable_type"
 
   create_table "weeler_translations", force: true do |t|
     t.string   "locale"

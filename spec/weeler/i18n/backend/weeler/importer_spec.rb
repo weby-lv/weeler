@@ -31,6 +31,7 @@ describe I18n::Backend::Weeler::Importer do
     context "full db" do
       before(:each) do
         I18n::Backend::Weeler::Translation.delete_all
+        I18n.backend.backends[0].reload_cache
         I18n.backend.store_translations(:en, welcome: {title: 'fooo'})
       end
 

@@ -19,6 +19,9 @@ module Weeler
       @translation = I18n::Backend::Weeler::Translation.new(translation_params)
 
       if @translation.save
+
+        I18n.backend.backends[0].reload_cache
+
         redirect_to edit_weeler_translation_path(@translation), flash: {success: "Translation saved."}
       else
         flash.now[:error] = "Errors in saving."
@@ -29,6 +32,9 @@ module Weeler
     def update
       @translation = I18n::Backend::Weeler::Translation.find(params[:id])
       if @translation.update_attributes(translation_params)
+
+        I18n.backend.backends[0].reload_cache
+
         redirect_to edit_weeler_translation_path(@translation), flash: {success: "Translation updated."}
       else
         flash.now[:error] = "Errors in updating."
@@ -69,6 +75,10 @@ module Weeler
 
     def translations_by_params
       translations = I18n::Backend::Weeler::Translation.order("locale, key")
+
+      ::Weeler.excluded_i18n_groups.each do |key|
+        translations = translations.except_key(key)
+      end
 
       translations = translations.where("key ILIKE ? OR value ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%") if params[:query]
       translations = translations.where(locale: params[:filtered_locale]) if params[:filtered_locale].present?

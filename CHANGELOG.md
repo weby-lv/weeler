@@ -1,3 +1,10 @@
+## 0.1.1
+
+### Features & Enhancements
+
+* Cache weeler backend translations
+* Exclude unused keys in translations
+
 ## 0.1.0
 
 ### Features & Enhancements
