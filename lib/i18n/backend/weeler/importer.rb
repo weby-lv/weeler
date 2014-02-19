@@ -27,8 +27,6 @@ module I18n
 
             end # sheets
 
-            I18n.backend.backends[0].reload_cache
-
           end # import
 
           private

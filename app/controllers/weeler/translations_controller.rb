@@ -20,7 +20,7 @@ module Weeler
 
       if @translation.save
 
-        I18n.backend.backends[0].reload_cache
+        Settings.i18n_updated_at = Time.now
 
         redirect_to edit_weeler_translation_path(@translation), flash: {success: "Translation saved."}
       else
@@ -33,7 +33,7 @@ module Weeler
       @translation = I18n::Backend::Weeler::Translation.find(params[:id])
       if @translation.update_attributes(translation_params)
 
-        I18n.backend.backends[0].reload_cache
+        Settings.i18n_updated_at = Time.now
 
         redirect_to edit_weeler_translation_path(@translation), flash: {success: "Translation updated."}
       else
@@ -45,6 +45,9 @@ module Weeler
     def destroy
       @translation = I18n::Backend::Weeler::Translation.find(params[:id])
       @translation.destroy
+
+      Settings.i18n_updated_at = Time.now
+
       redirect_to weeler_translations_path, flash: {success: "Translation succesfully removed."}
     end
 
@@ -61,6 +64,9 @@ module Weeler
     def import
       if params[:file].present?
         I18n::Backend::Weeler::Translation.import params[:file]
+
+        Settings.i18n_updated_at = Time.now
+
         redirect_to weeler_translations_path, flash: {success: "Translations succesfully imported."}
       else
         redirect_to weeler_translations_path, flash: {success: "No file choosen"}

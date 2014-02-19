@@ -38,6 +38,8 @@ describe I18n::Backend::Weeler::Importer do
       it "file import overrides value" do
         expect(I18n.t(:"welcome.title", :locale => :en)).to eq("fooo")
         I18n::Backend::Weeler::Translation.import file_path
+        Settings.i18n_updated_at = Time.now
+
         expect(I18n.t(:"welcome.title", :locale => :en)).to eq("EN welcome")
       end
 
