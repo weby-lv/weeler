@@ -9,27 +9,20 @@ module I18n
     class Weeler
 
       module Importer
-
         extend ActiveSupport::Concern
 
         module ClassMethods
 
-
-
-          def import path
-
-            xls = Roo::Excelx.new(path, file_warning: :ignore)
-
+          def import file
+            xls = open_spreadsheet file
             xls.each_with_pagename do |name, sheet|
-              
+
               # Lookup locales
               locales = locales_from_xlsx_sheet_row(sheet.row(1))
 
               # Lookup values
               (2..sheet.last_row).each do |row_no|
-                
                 store_translations_from_xlsx_row(sheet.row(row_no), locales)
-
               end # rows
 
             end # sheets
@@ -37,6 +30,16 @@ module I18n
           end # import
 
           private
+
+            def open_spreadsheet(file)
+              case File.extname(file.original_filename)
+              when ".csv"  then Roo::Csv.new(file.path, file_warning: :ignore)
+              when ".xls"  then Roo::Excel.new(file.path, file_warning: :ignore)
+              when ".xlsx" then Roo::Excelx.new(file.path, file_warning: :ignore)
+              when ".ods"  then Roo::OpenOffice.new(file.path, file_warning: :ignore)
+              else raise "Unknown file type: #{file.original_filename}"
+              end
+            end
 
             def locales_from_xlsx_sheet_row row
               locales = []
@@ -52,7 +55,7 @@ module I18n
               locale = nil
               key = nil
               value = nil
-              
+
               row.each_with_index do |cell, i|
                 if i == 0
                   key = cell
@@ -65,7 +68,6 @@ module I18n
 
             def store_translation_from_xlsx_cell locale, key, cell
               value = cell.nil? ? '' : cell
-              # value = cell
 
               if locale.present? && key.present?
                 translation = Translation.find_or_initialize_by locale: locale, key: key

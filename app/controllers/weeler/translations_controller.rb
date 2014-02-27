@@ -1,12 +1,12 @@
 module Weeler
   class TranslationsController < ConfigurationsController
-    
+
     def index
       @translations = translations_by_params
       @translations = @translations.page(params[:page]).per(20)
       @groups = I18n::Backend::Weeler::Translation.groups
     end
-    
+
     def new
       @translation = I18n::Backend::Weeler::Translation.new
     end
@@ -19,6 +19,9 @@ module Weeler
       @translation = I18n::Backend::Weeler::Translation.new(translation_params)
 
       if @translation.save
+
+        Settings.i18n_updated_at = Time.now
+
         redirect_to edit_weeler_translation_path(@translation), flash: {success: "Translation saved."}
       else
         flash.now[:error] = "Errors in saving."
@@ -29,6 +32,9 @@ module Weeler
     def update
       @translation = I18n::Backend::Weeler::Translation.find(params[:id])
       if @translation.update_attributes(translation_params)
+
+        Settings.i18n_updated_at = Time.now
+
         redirect_to edit_weeler_translation_path(@translation), flash: {success: "Translation updated."}
       else
         flash.now[:error] = "Errors in updating."
@@ -39,6 +45,9 @@ module Weeler
     def destroy
       @translation = I18n::Backend::Weeler::Translation.find(params[:id])
       @translation.destroy
+
+      Settings.i18n_updated_at = Time.now
+
       redirect_to weeler_translations_path, flash: {success: "Translation succesfully removed."}
     end
 
@@ -53,12 +62,19 @@ module Weeler
     end
 
     def import
-      I18n::Backend::Weeler::Translation.import params[:file].tempfile.path
-      redirect_to weeler_translations_path, flash: {success: "Translations succesfully imported."}
+      if params[:file].present?
+        I18n::Backend::Weeler::Translation.import params[:file]
+
+        Settings.i18n_updated_at = Time.now
+
+        redirect_to weeler_translations_path, flash: {success: "Translations succesfully imported."}
+      else
+        redirect_to weeler_translations_path, flash: {success: "No file choosen"}
+      end
     end
 
   private
-    
+
     def translation_params
       params.require(:i18n_backend_weeler_translation).permit([:locale, :key, :value, :is_proc, :interpolations => []])
     end
@@ -66,8 +82,12 @@ module Weeler
     def translations_by_params
       translations = I18n::Backend::Weeler::Translation.order("locale, key")
 
-      translations = translations.where("key LIKE ?", "%#{params[:query]}%") if params[:query] 
-      translations = translations.where(locale: params[:locale]) if params[:locale].present?
+      ::Weeler.excluded_i18n_groups.each do |key|
+        translations = translations.except_key(key)
+      end
+
+      translations = translations.where("key ILIKE ? OR value ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%") if params[:query]
+      translations = translations.where(locale: params[:filtered_locale]) if params[:filtered_locale].present?
       translations = translations.lookup(params[:group]) if params[:group].present?
       translations
     end

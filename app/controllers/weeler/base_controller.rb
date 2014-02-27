@@ -7,18 +7,25 @@ module Weeler
 
     # Use for index sorting
     #
-    def sort(items)
+    def sort(klass)
 
       # parse string to know the records order TODO: refactor!
       items_sequence = params[:orders][8..-1].split("&order[]=")
 
+      items_sequence.each_with_index do |sequence_item_id, index|
+        item = klass.find_by id: sequence_item_id
+        item.sequence = index
+        item.save!
+      end
+
+=begin
       items.each do |item|
         if item.sequence.nil? || item.sequence != items_sequence.index("#{item.id}")
           item.sequence = items_sequence.index("#{item.id}")
           item.save!
         end
       end
-
+=end
       render :text => 'all ok'
     end
 

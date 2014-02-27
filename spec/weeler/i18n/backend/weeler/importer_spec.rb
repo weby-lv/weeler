@@ -3,7 +3,7 @@ require "spec_helper"
 describe I18n::Backend::Weeler::Importer do
 
   # This is file with 10 translations and 3 locales.
-  let(:file_path) {File.dirname(__FILE__) + '/../../../../fixtures/test.xlsx'}
+  let(:file_path) { Rack::Test::UploadedFile.new(File.dirname(__FILE__) + '/../../../../fixtures/test.xlsx') }
 
   describe :import do
 
@@ -31,12 +31,15 @@ describe I18n::Backend::Weeler::Importer do
     context "full db" do
       before(:each) do
         I18n::Backend::Weeler::Translation.delete_all
+        I18n.backend.backends[0].reload_cache
         I18n.backend.store_translations(:en, welcome: {title: 'fooo'})
       end
 
       it "file import overrides value" do
         expect(I18n.t(:"welcome.title", :locale => :en)).to eq("fooo")
         I18n::Backend::Weeler::Translation.import file_path
+        Settings.i18n_updated_at = Time.now
+
         expect(I18n.t(:"welcome.title", :locale => :en)).to eq("EN welcome")
       end
 

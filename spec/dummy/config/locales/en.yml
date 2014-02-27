@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  weeler:
+    test:
+      cms_title: Weeler is cool

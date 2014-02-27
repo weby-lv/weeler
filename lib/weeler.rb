@@ -1,7 +1,9 @@
 require "weeler/version"
+require 'logger'
 require "rails"
 require "weeler/route_mapper"
 require "weeler/engine"
+require "haml"
 require "kaminari"
 require "globalize"
 require "jquery-ui-rails"
@@ -24,10 +26,16 @@ module Weeler
   mattr_accessor :mount_location_namespace
   @@mount_location_namespace = "weeler"
 
+  mattr_accessor :excluded_i18n_groups
+  @@excluded_i18n_groups = [:activerecord, :attributes, :helpers, :views, :i18n, :weeler]
+
+  mattr_accessor :i18n_cache
+  @@i18n_cache = ActiveSupport::Cache::MemoryStore.new
+
   def self.setup
-    if Weeler.use_weeler_i18n
+    yield self
+    if Weeler.use_weeler_i18n == true
       require "i18n/weeler"
     end
-    yield self
   end
 end

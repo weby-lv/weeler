@@ -2,10 +2,10 @@
   <div class="well sidebar-nav">
     <ul class="nav">
       <li><span class="glyphicon glyphicon-cog"></span>Configurations</li>
-      <li><a href="<%= weeler_translations_path %>">
-        Translations</a></li>
-      <li><a href="<%= weeler_settings_path %>">
-        Settings</a></li>
+      <% if Weeler.use_weeler_i18n %>
+      <li><a href="<%= weeler_translations_path %>">Translations</a></li>
+      <% end %>
+      <li><a href="<%= weeler_settings_path %>">Settings</a></li>
     </ul>
   </div><!--/.well -->
 </div><!--/span-->

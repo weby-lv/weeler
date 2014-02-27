@@ -13,17 +13,38 @@ describe I18n::Backend::Weeler do
 
   end
 
-  describe "#store_translations" do
+  before do
+    # isolate each test cases
+    Weeler.i18n_cache.clear
+  end
 
-    it "finds one locale" do
-      expect(I18n.backend.available_locales.count).to be(1) 
+  describe "#reload_cache" do
+    it "clears translations cache" do
+      Weeler.i18n_cache.should_receive(:clear)
+      I18n.backend.backends[0].reload_cache
     end
 
-    it "finds all existing locales if theres is translations in other locale" do
-      translation = I18n::Backend::Weeler::Translation.new(:key => 'foo', :value => 'bar', :locale => :lv)
-      translation.interpolations = %w(count name)
-      translation.save
-      expect(I18n.backend.available_locales.count).to be(2)
+    it "writes last translations update timestamp to cache" do
+      Settings.i18n_updated_at = Time.now
+      I18n.backend.backends[0].reload_cache
+      expect(Weeler.i18n_cache.read('UPDATED_AT')).to eq(Settings.i18n_updated_at)
+    end
+
+    it "loads all translated data to cache" do
+      I18n::Backend::Weeler::Translation.create(:key => 'weeler.test.value', :value => "testējam", :locale => :lv)
+      I18n::Backend::Weeler::Translation.create(:key => 'weeler.test.value', :value => "testing", :locale => :en)
+
+      I18n.backend.backends[0].reload_cache
+
+      expect(Weeler.i18n_cache.read(["lv", "weeler.test.value"]).value).to eq("testējam")
+      expect(Weeler.i18n_cache.read(["en", "weeler.test.value"]).value).to eq("testing")
+    end
+  end
+
+  describe "#available_locales" do
+
+    it "finds one locale" do
+      expect(I18n.available_locales.count).to be(2)
     end
 
   end
@@ -46,11 +67,31 @@ describe I18n::Backend::Weeler do
 
   end
 
-  describe "#lookup" do
-    it "show warning" do
-      I18n::Backend::Weeler::Translation.should_receive(:warn).with("[DEPRECATION] Giving a separator to Translation.lookup is deprecated. You can change the internal separator by overwriting FLATTEN_SEPARATOR.")
-      I18n::Backend::Weeler::Translation.lookup("foo", "|")
+  describe "#html?" do
+    before(:all) do
+      @html_key_translation = I18n::Backend::Weeler::Translation.create(:key => 'methods.body_html', :value => "Super duper", :locale => :en)
+      @html_value_translation = I18n::Backend::Weeler::Translation.create(:key => 'methods.body', :value => "Super <b>duper</b>", :locale => :en)
+      @html_fake_value_translation = I18n::Backend::Weeler::Translation.create(:key => 'methods.body_fake', :value => "Super < b", :locale => :en)
     end
+
+    it "is true if key is html" do
+      expect(@html_key_translation.html?).to be(true)
+    end
+
+    it "is true if value contains html" do
+      expect(@html_value_translation.html?).to be(true)
+    end
+
+    it "is false if value not contains html" do
+
+      expect(@html_fake_value_translation.html?).to be(false)
+    end
+
+  end
+
+  describe "#lookup" do
+
+
   end
 
   describe "groups" do
@@ -75,14 +116,17 @@ describe I18n::Backend::Weeler do
   describe "#store_translations" do
     it "store_translations does not allow ambiguous keys (1)" do
       I18n::Backend::Weeler::Translation.delete_all
-      I18n.backend.store_translations(:en, :foo => 'foo')
-      I18n.backend.store_translations(:en, :foo => { :bar => 'bar' })
-      I18n.backend.store_translations(:en, :foo => { :baz => 'baz' })
+
+      I18n.backend.store_translations(:en, foo: 'foo')
+      I18n.backend.store_translations(:en, foo: { bar: 'bar' })
+      I18n.backend.store_translations(:en, foo: { baz: 'baz' })
+
+      I18n.backend.backends[0].reload_cache
 
       translations = I18n::Backend::Weeler::Translation.locale(:en).lookup('foo')
       expect(translations.map(&:value)).to eq(%w(bar baz))
 
-      expect(I18n.t(:foo)).to eq({ :bar => 'bar', :baz => 'baz' })
+      expect(I18n.t(:foo)).to eq("Foo") # no translation
     end
 
     it "store_translations does not allow ambiguous keys (2)" do
@@ -92,9 +136,9 @@ describe I18n::Backend::Weeler do
       I18n.backend.store_translations(:en, :foo => 'foo')
 
       translations = I18n::Backend::Weeler::Translation.locale(:en).lookup('foo')
-      expect(translations.map(&:value)).to eq(%w(foo)) 
+      expect(translations.map(&:value)).to eq(%w(foo))
 
-      expect(I18n.t(:foo)).to eq('foo') 
+      expect(I18n.t(:foo)).to eq('foo')
     end
 
     it "can store translations with keys that are translations containing special chars" do
@@ -105,16 +149,68 @@ describe I18n::Backend::Weeler do
 
   describe "#lookup" do
 
+    it "show warning" do
+      I18n::Backend::Weeler::Translation.should_receive(:warn).with("[DEPRECATION] Giving a separator to Translation.lookup is deprecated. You can change the internal separator by overwriting FLATTEN_SEPARATOR.")
+      I18n::Backend::Weeler::Translation.lookup("foo", "|")
+    end
+
+    context "cache" do
+      context "differs from settings timestamp" do
+        before do
+          Settings.i18n_updated_at = Time.now
+        end
+
+        it "reloads cache" do
+          I18n.backend.backends[0].should_receive(:reload_cache)
+          I18n.t("cancel", scope: "admin.content")
+        end
+      end
+
+      context "is same as updates timestamp" do
+        before do
+          Weeler.i18n_cache.write('UPDATED_AT', Settings.i18n_updated_at)
+        end
+
+        it "does not reload cache" do
+          I18n.backend.backends[0].should_not_receive(:reload_cache)
+          I18n.t("cancel", scope: "admin.content")
+        end
+      end
+    end
+
     it "returns translation" do
       FactoryGirl.create(:translation)
+      I18n.backend.backends[0].reload_cache
       expect(I18n.t("title")).to eq("This is weeler")
     end
 
     context "missing translations" do
 
-      it "persists the key" do        
+      context "exist in yml" do
+
+        context "new translation" do
+
+          it "persist it" do
+            I18n.t('hello')
+            expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('hello').value).to eq(I18n.t('hello'))
+          end
+
+        end
+
+        context "already stored" do
+          before(:all) do
+            FactoryGirl.create(:translation, key: "weeler.test.cms_title", locale: "en", value: nil)
+          end
+
+          it "saves the fallback backend value" do
+            I18n.t('weeler.test.cms_title')
+            expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('weeler.test.cms_title').value).to eq("Weeler is cool")
+          end
+        end
+      end
+
+      it "persists the key" do
         I18n.t('hello')
-        
         expect(I18n::Backend::Weeler::Translation.count).to eq(1)
         expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('hello')).to_not be(nil)
       end
@@ -146,6 +242,7 @@ describe I18n::Backend::Weeler do
       it "creates a stub when a custom separator is used" do
         I18n.t('foo|baz', :separator => '|')
         I18n::Backend::Weeler::Translation.locale(:en).lookup("foo.baz").first.update_attributes!(:value => 'baz!')
+        I18n.backend.backends[0].reload_cache
         expect(I18n.t('foo|baz', :separator => '|')).to eq('baz!')
       end
 
@@ -159,6 +256,7 @@ describe I18n::Backend::Weeler do
         key = 'foo|baz.zab'
         I18n.t(key, :separator => '|')
         I18n::Backend::Weeler::Translation.locale(:en).lookup("foo.baz\001zab").first.update_attributes!(:value => 'baz!')
+        I18n.backend.backends[0].reload_cache
         expect(I18n.t(key, :separator => '|')).to eq('baz!')
       end
 

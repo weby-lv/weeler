@@ -11,6 +11,8 @@ app = {
   boot: () ->
     $('.weeler-file-inputs').bootstrapFileInput()
     sortable.init()
+    $('[data-provide="rowlink"],[data-provides="rowlink"]').each () ->
+      $(this).rowlink($(this).data())
 }
 
 $(document).ready () ->

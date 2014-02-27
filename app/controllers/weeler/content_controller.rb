@@ -1,5 +1,6 @@
 module Weeler
   class ContentController < BaseController
+    before_filter :load_record, only: [:show, :edit, :update, :destroy, :remove_image]
 
     def index
       @items = loaded_collection
@@ -9,40 +10,37 @@ module Weeler
       @item = active_record_class.new
     end
 
-    def edit
-      @item = active_record_class.find(params[:id])
-    end
+    def show; end
+
+    def edit; end
 
     def order
-      sort(loaded_collection)
+      sort(active_record_class)
     end
 
     def create
       @item = active_record_class.new(items_params)
       if @item.save
-        redirect_to({ action: :index}, {:notice => "Successfully created item"})
+        redirect_to({ action: :edit, id: @item.id }, {:notice => "Successfully created item"})
       else
         render :action => 'new'
       end
     end
 
     def update
-      @item = active_record_class.find(params[:id])
       if @item.update_attributes(items_params)
-        redirect_to({ action: :index}, {:notice => "Successfully updated item"})
+        redirect_to({ action: :edit, id: @item.id }, {:notice => "Successfully updated item"})
       else
         render :action => 'edit'
       end
     end
 
     def destroy
-      @item = active_record_class.find(params[:id])
       @item.destroy
       redirect_to({ action: :index}, {:notice => "Successfully destroyed item"})
     end
 
     def remove_image
-      @item = active_record_class.find(params[:id])
       if @item.image.present?
         @item.image.destroy
         @item.image_file_name = nil
@@ -52,7 +50,7 @@ module Weeler
     end
 
   protected
-      
+
     def items_params; end
 
     def collection; end
@@ -82,6 +80,10 @@ module Weeler
           end
         end
       end
+    end
+
+    def load_record
+      @item = active_record_class.find(params[:id])
     end
 
   end

@@ -11,8 +11,6 @@
 
 begin
   require 'ruby2ruby'
-  require 'parse_tree'
-  require 'parse_tree_extensions'
 rescue LoadError => e
   puts "can't use StoreProcs because: #{e.message}"
 end

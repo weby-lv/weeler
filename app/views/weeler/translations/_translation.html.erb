@@ -5,7 +5,11 @@
     </a>
   </td>
   <td><%= translation.key %></a></td>
-  <td><%= translation.value %></a></td>
+  <% if translation.value.present? && translation.value.is_a?(String) %>
+    <td><%= strip_tags(truncate(translation.value, lenght: 50)) %></a></td>
+  <% else %>
+    <td><%= translation.value %></a></td>
+  <% end %>
   <td><%= translation.interpolations %></a></td>
   <td class="text-center"><%= translation.created_at.strftime("%d/%m/%Y") %></td>
 </tr>

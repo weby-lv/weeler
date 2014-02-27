@@ -4,7 +4,16 @@
       <li><span class="glyphicon glyphicon-th"></span>Content</li>
       <% Weeler.menu_items.each do |item| %>
       	<!-- TODO: the <li> below should be <li class="active"> when active -->
-        <li><%= link_to item[:name].humanize, "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}/" %></li>
+        <li>
+        <% if item[:seen].present? && item[:seen] == true %>
+          <%= link_to "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}/" do %>
+            <span class="badge pull-right"><%= item[:class].where(seen: false).size %></span>
+            <%= item[:name].humanize %>
+          <% end %>
+        <% else %>
+          <%= link_to item[:name].humanize, "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}/" %>
+        <% end %>
+        </li>
       <% end %>
     </ul>
   </div><!--/.well -->
