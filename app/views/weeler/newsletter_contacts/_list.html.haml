@@ -1,0 +1,31 @@
+#content
+  .row
+  %nav.navbar.navbar-default{role:"navigation"}
+    .collapse.navbar-collapse.navbar-ex1-collapse
+
+      = form_tag filter_options.merge({action: :index}), method: :get, class: "navbar-form navbar-right", role: "search" do
+        .form-group
+          = text_field_tag :query, params[:query], class: "form-control", placeholder: "Search"
+        %button{type: "submit", class: "btn btn-default"}
+          Submit
+        = link_to "Export", export_weeler_newsletter_contacts_path(query: params[:query], format: 'csv'), class: "btn btn-default"
+
+  .row
+    %table.table
+      %thead
+        %tr
+          %th= '#'
+          %th= "Full name"
+          %th= "Email" 
+          %th 
+      %tbody
+        - collection.each do |item|
+          %tr
+            %td= item.id
+            %td= item.full_name
+            %td= item.email
+            %td
+              = link_to "Delete", [item], :confirm => 'Are you sure?', :method => :delete
+
+  .row
+    = paginate collection, params: filter_options.merge({ action: "index" }), theme: "weeler"

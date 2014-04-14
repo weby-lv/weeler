@@ -15,7 +15,11 @@ module Weeler::RouteMapper
         mount_translations_controller
 
         weeler_resources :seos, :only => [:update]
-
+        weeler_resources :newsletter_contacts do
+          collection do
+            get :export
+          end
+        end
         weeler_resources :settings, :only => [:index, :edit, :update]
 
         root :to => "home#index"
