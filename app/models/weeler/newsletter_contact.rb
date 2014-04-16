@@ -2,6 +2,8 @@ module Weeler
   class NewsletterContact < ActiveRecord::Base
     self.table_name = "weeler_newsletter_contacts"
 
+    attr_accessor :agree
+
     validates :full_name, :email, presence: true
     validates :agree, acceptance: true
     
