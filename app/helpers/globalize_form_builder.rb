@@ -3,7 +3,7 @@ class GlobalizeFormBuilder < ActionView::Helpers::FormBuilder
     raise ArgumentError, "Missing block" unless block_given?
     @index = @index ? @index + 1 : 1
     object_name = "#{@object_name}[translations_attributes][#{@index}]"
-    object = @object.translations.find_by_locale locale.to_s
+    object = @object.translations.find_or_initialize_by_locale locale.to_s
 
     if params && params[@object_name] && params[@object_name]["translations_attributes"].present? && params[@object_name]["translations_attributes"]["#{@index}"].present?
       params[@object_name]["translations_attributes"]["#{@index}"].each do |attribute|
