@@ -3,6 +3,7 @@ module Weeler
     self.table_name = "weeler_newsletter_contacts"
 
     validates :full_name, :email, presence: true
+    validates :agree, acceptance: true
     
     def to_s
       "#{self.full_name} <#{self.email}>"

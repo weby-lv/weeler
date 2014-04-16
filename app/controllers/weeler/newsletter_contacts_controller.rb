@@ -21,7 +21,7 @@ protected
   end
 
   def newsletter_contact_params
-    params.require(:weeler_newsletter_contact).permit(:full_name, :email)
+    params.require(:weeler_newsletter_contact).permit(:full_name, :email, :agree)
   end
 
   def filter_options
