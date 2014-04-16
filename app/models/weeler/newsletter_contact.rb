@@ -2,6 +2,8 @@ module Weeler
   class NewsletterContact < ActiveRecord::Base
     self.table_name = "weeler_newsletter_contacts"
 
+    validates :full_name, :email, presence: true
+    
     def to_s
       "#{self.full_name} <#{self.email}>"
     end
