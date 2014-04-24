@@ -20,6 +20,9 @@ module Weeler
   mattr_accessor :required_user_method
   @@required_user_method = nil
 
+  mattr_accessor :logout_path
+  @@logout_path = nil
+
   mattr_accessor :menu_items
   @@menu_items = []
 
