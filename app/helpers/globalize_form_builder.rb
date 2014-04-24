@@ -1,5 +1,5 @@
 class GlobalizeFormBuilder < ActionView::Helpers::FormBuilder
-  def globalize_fields_for(locale, params, *args, &proc)
+  def globalize_fields_for(locale, params = nil, *args, &proc)
     raise ArgumentError, "Missing block" unless block_given?
     @index = @index ? @index + 1 : 1
     object_name = "#{@object_name}[translations_attributes][#{@index}]"
