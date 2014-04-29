@@ -142,8 +142,8 @@ describe I18n::Backend::Weeler do
     end
 
     it "can store translations with keys that are translations containing special chars" do
-      I18n.backend.store_translations(:es, :"Pagina's" => "Pagina's" )
-      expect(I18n.t(:"Pagina's", :locale => :es)).to eq("Pagina's")
+      I18n.backend.store_translations(:en, :"Pagina's" => "Pagina's" )
+      expect(I18n.t(:"Pagina's", :locale => :en)).to eq("Pagina's")
     end
   end
 
