@@ -4,6 +4,8 @@
 
 * Cache weeler backend translations
 * Exclude unused keys in translations
+* Static sections
+* SEO in seperate sections
 
 ## 0.1.0
 

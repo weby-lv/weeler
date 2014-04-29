@@ -1,6 +1,7 @@
 require "weeler/version"
 require 'logger'
 require "rails"
+require "weeler/content_menu_methods"
 require "weeler/route_mapper"
 require "weeler/engine"
 require "haml"
@@ -10,6 +11,12 @@ require "jquery-ui-rails"
 require "rails-settings-cached"
 
 module Weeler
+  #
+  # => Static sections in content menu bottom
+  # => [{about: [{title: :text_field, content: :text_area}]}]
+  #
+  mattr_accessor :static_sections
+  @@static_sections = {}
 
   mattr_accessor :create_missing_translations
   @@create_missing_translations = true
@@ -26,6 +33,9 @@ module Weeler
   mattr_accessor :menu_items
   @@menu_items = []
 
+  mattr_accessor :static_menu_items
+  @@static_menu_items = []
+
   mattr_accessor :mount_location_namespace
   @@mount_location_namespace = "weeler"
 
@@ -39,6 +49,9 @@ module Weeler
     yield self
     if Weeler.use_weeler_i18n == true
       require "i18n/weeler"
+      Weeler.static_sections.each do |key, section|
+        Weeler.static_menu_items << {name: key.to_s.capitalize, weeler_path: "static_sections/#{key}"}
+      end
     end
   end
 end

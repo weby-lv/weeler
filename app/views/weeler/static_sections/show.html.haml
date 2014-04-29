@@ -1,0 +1,26 @@
+.header.container
+  .row
+    .col-lg-12.col-md-12
+      .page-header
+        %h3
+          = @section.humanize
+          section
+.row
+  %div{class: "col-lg-8 col-md-8"}
+    = form_tag weeler_static_section_path(id: @section), {method: "put", class: "form-horizontal", role: "form"} do
+      - @items.each do |key|
+        - I18n.available_locales.each do |lang|
+          - if I18n.available_locales.size > 1
+            %h3
+              = lang.capitalize
+          - translation = I18n::Backend::Weeler::Translation.locale(lang).lookup(key).first
+          .form-group
+            = label_tag key, key.to_s.split('.').last.humanize, class: "col-lg-2 col-md-2 control-label"
+            %div{class: "col-lg-10 col-md-10"}
+              - if translation.html?
+                = text_area_tag "translations[#{translation.id}]", translation.value, class: 'form-control redactor'
+              - else
+                = text_area_tag "translations[#{translation.id}]", translation.value, class: 'form-control'
+
+      .form-group
+        = submit_tag "Save", class: "btn btn-primary"

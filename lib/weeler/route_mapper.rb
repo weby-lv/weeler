@@ -1,4 +1,5 @@
 module Weeler::RouteMapper
+  include ::Weeler::ContentMenuMethods
   # Pass given resource to "resources" mount method and
   # add extra routes for members and collections needed by weeler
   def weeler_resources(*args, &block)
@@ -8,11 +9,13 @@ module Weeler::RouteMapper
     end
   end
 
-  def mount_weeler_at mount_location, options={}, &block    
+  def mount_weeler_at mount_location, options={}, &block
     Weeler.mount_location_namespace = mount_location.gsub("/", "").to_sym
     scope mount_location do
       namespace :weeler, :path => nil do
-        mount_translations_controller
+        mount_configurations_controllers
+
+        weeler_resources :static_sections
 
         weeler_resources :seos, :only => [:update]
         weeler_resources :newsletter_contacts do
@@ -36,20 +39,15 @@ module Weeler::RouteMapper
 
 private
 
-  # Add menu item for resource
-  def add_menu_item resource
-    # Weeler.menu_items << {name: resource.to_s.capitalize, controller: resource} unless Weeler.menu_items.select{ |item| item == resource.to_s.capitalize }.size > 0
-    Weeler.menu_items << {name: resource.to_s.capitalize, weeler_path: resource} unless Weeler.menu_items.select{ |item| item[:name] == resource.to_s.capitalize }.size > 0
-  end
-
   # Mount translations controller
-  def mount_translations_controller
+  def mount_configurations_controllers
     resources :translations, :except => [:show] do
       collection do
         get :export
         post :import
       end
     end
+    resources :seo_items
   end
 
   # Ordable route concern for dynamic sorting and removing image

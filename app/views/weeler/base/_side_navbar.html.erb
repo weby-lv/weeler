@@ -15,6 +15,15 @@
         <% end %>
         </li>
       <% end %>
+
+      <% if Weeler.static_menu_items.size > 0 %>
+      <li>Static content</li>
+        <% Weeler.static_menu_items.each do |item| %>
+          <li>
+          <%= link_to item[:name].humanize, "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}/" %>
+          </li>
+        <% end %>
+      <% end %>
     </ul>
   </div><!--/.well -->
 </div><!--/span-->

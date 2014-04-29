@@ -1,0 +1,15 @@
+.row
+  %div{class: "col-lg-12 col-md-12"}
+    #content
+      %h2 All seo items
+      - if @groups.count < 1
+        .no_news
+          = "Sorry, It seams there are no seo items at this moment."
+      - else
+        - @groups.each do |item|
+          .list-group-item
+            %span
+              %b
+                = item.humanize
+            %span{class: "pull-right"}
+              = link_to "Open", action: :edit, id: item

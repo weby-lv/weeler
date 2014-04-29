@@ -1,0 +1,26 @@
+.header.container
+  .row
+    .col-lg-12.col-md-12
+      .page-header
+        %h3
+          = "\"#{@section.humanize}\""
+          SEO data
+.row
+  %div{class: "col-lg-8 col-md-8"}
+    = form_tag weeler_seo_item_path(id: @section), {method: "put", class: "form-horizontal", role: "form"} do
+      - I18n.available_locales.each do |lang|
+        - if I18n.available_locales.size > 1
+          %h3
+            = lang.capitalize
+        - ["title", "description", "keywords"].each do |subsection|
+          - translation = I18n::Backend::Weeler::Translation.locale(lang).lookup("seo.#{@section}.#{subsection}").first
+          .form-group
+            = label_tag subsection, subsection.humanize, class: "col-lg-2 col-md-2 control-label"
+            %div{class: "col-lg-10 col-md-10"}
+              = text_area_tag "translations[#{translation.id}]", translation.value, class: 'form-control'
+              - if translation.interpolations.size > 0
+                %b Variables
+                = translation.interpolations.map{ |t| "%{#{t}}" }.join(", ")
+
+      .form-group
+        = submit_tag "Save", class: "btn btn-primary"
