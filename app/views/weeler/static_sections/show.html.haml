@@ -6,7 +6,7 @@
           = @section.humanize
           section
 .row
-  %div{class: "col-lg-8 col-md-8"}
+  %div{class: "col-lg-12 col-md-12"}
     = form_tag weeler_static_section_path(id: @section), {method: "put", class: "form-horizontal", role: "form"} do
       - @items.each do |key|
         - I18n.available_locales.each do |lang|

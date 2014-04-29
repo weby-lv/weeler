@@ -1,5 +1,6 @@
 .row
-  %div{class: "col-lg-8 col-md-8"}
+  - col_class = @seo.present? ? "col-lg-8 col-md-8" : "col-lg-12 col-md-12"
+  %div{class: col_class}
     - if @items.klass.new.has_attribute?(:sequence)
       = render "sortable_list", { collection: @items }
     - else
