@@ -8,11 +8,11 @@
       %a.navbar-brand{href: weeler_root_path} Weeler
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li{class: 'active' if @current_menu_item == 'home'}
+        %li{class: "#{'active' if @current_menu_item == 'home'}"}
           %a{href: weeler_root_path} Home
-        %li{class: 'active' if @current_menu_item == 'content'}
+        %li{class: "#{'active' if @current_menu_item == 'content'}"}
           %a{href: weeler_content_path} Content
-        %li{class: 'active' if @current_menu_item == 'configurations'}
+        %li{class: "#{'active' if @current_menu_item == 'configurations'}"}
           %a{href: weeler_configurations_path} Configurations
       - if Weeler.logout_path
         %ul.nav.navbar-nav.navbar-right
