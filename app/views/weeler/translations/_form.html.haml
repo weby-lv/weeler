@@ -1,0 +1,27 @@
+%h4 Basic (required)
+.form-group
+  %label.col-lg-2.col-md-2.control-label Locale
+  .col-lg-10.col-md-10
+    = f.select :locale, I18n.available_locales, {}, {class: "form-control", placeholder: "en"}
+.form-group
+  %label.col-lg-2.col-md-2.control-label Key
+  .col-lg-10.col-md-10
+    = f.text_field :key, {class: "form-control", placeholder: "footer.middle"}
+.form-group
+  %label.col-lg-2.col-md-2.control-label Value
+  .col-lg-10.col-md-10
+    - if translation.html?
+      = f.text_area :value, {class: "form-control redactor"}
+    - else
+      = f.text_area :value, {class: "form-control" }
+%h4 Info
+.form-group
+  %label.col-lg-2.col-md-2.control-label Variables
+  .col-lg-10.col-md-10
+    %p.form-control-static
+      %label= translation.interpolations.join(", ")
+.form-group{style: "display: none;"}
+  %label.col-lg-2.col-md-2.control-label Is a ruby procedure?
+  .col-lg-10.col-md-10
+    %p.form-control-static
+      %label= translation.is_proc

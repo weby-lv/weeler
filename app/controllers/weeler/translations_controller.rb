@@ -82,6 +82,8 @@ module Weeler
     def translations_by_params
       translations = I18n::Backend::Weeler::Translation.order("locale, key")
 
+      translations = translations.where(locale: I18n.available_locales)
+
       ::Weeler.excluded_i18n_groups.each do |key|
         translations = translations.except_key(key)
       end

@@ -1,0 +1,68 @@
+.header.container
+  .row
+    .col-lg-12
+      .page-header
+        %h1 Translations
+        %p.lead.text-muted Statis translation data over all your app. You can safely edit translation values. Also you can export excel document, translate in all locales you need and import it back.
+.row
+  %nav.navbar.navbar-default{role: "navigation"}
+    / Collect the nav links, forms, and other content for toggling
+    .collapse.navbar-collapse.navbar-ex1-collapse
+      / Groups dropdown
+      %ul.nav.navbar-nav.navbar-left
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+            = (params[:group].capitalize if params[:group]) || "All groups"
+            %b.caret
+          %ul.dropdown-menu
+            %li
+              %a{href: weeler_translations_path(filtered_locale: params[:filtered_locale])} All
+            - @groups.each do |group|
+              - if group.present?
+                %li
+                  %a{href: weeler_translations_path(filtered_locale: params[:filtered_locale], group: group)}= group.capitalize
+      / Locales dropdown
+      %ul.nav.navbar-nav
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+            = (params[:filtered_locale].capitalize if params[:filtered_locale]) || "All locales"
+            %b.caret
+          %ul.dropdown-menu
+            %li
+              %a{href: weeler_translations_path(group: params[:group])} All
+            - I18n.available_locales.each do |locale|
+              - if locale.present?
+                %li
+                  %a{href: weeler_translations_path(group: params[:group], filtered_locale: locale)}= locale.capitalize
+      / Import and export data
+      = form_tag import_weeler_translations_path, {:multipart => true, class: "navbar-form navbar-left"} do
+        .form-group
+          %input.weeler-file-inputs{name: "file", type: "file"}/
+        .btn-group
+          %button.btn.btn-default{type: "submit"} Import
+          %a.btn.btn-default{href: export_weeler_translations_path(filtered_locale: params[:filtered_locale], group: params[:group], query: params[:query], format: :xlsx)} Export
+      / Search
+      = form_tag weeler_translations_path, method: 'get', class: "navbar-form navbar-right", role: "search" do
+        = hidden_field_tag :filtered_locale, params[:filtered_locale] if params[:filtered_locale].present?
+        = hidden_field_tag :group, params[:group] if params[:group].present?
+        .form-group
+          = text_field_tag :query, params[:query], class: "form-control", placeholder: "Search"
+        %button.btn.btn-default{type: "submit"} Submit
+    / /.navbar-collapse
+.container
+  .row
+    .col-lg-12
+      %table.table.table-hover{"data-provides" => "rowlink"}
+        %thead
+          %tr
+            %th Locale
+            %th Key
+            %th.text-center Value
+            %th.text-center Interpolations
+            %th.text-center Created
+        %tbody#translations
+          - @translations.each do |translation|
+            = render :partial => "weeler/translations/translation", locals: {translation: translation}
+.container
+  .row
+    = paginate @translations, params: {controller: "weeler/translations", action: "index", filtered_locale: params[:filtered_locale], group: params[:group], query: params[:query] }, previous_label: "<<", next_label: ">>", theme: "weeler"

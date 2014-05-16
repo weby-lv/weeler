@@ -1,0 +1,13 @@
+.header.container
+  .row
+    .col-lg-12.col-md-12
+      .page-header
+        %h1 New translation
+.edit_user.container
+  .row
+    .col-lg-12.col-md-12
+      = form_for @translation, {url: weeler_translations_path, html: {class: "form-horizontal", role: "form"}} do |f|
+        = render partial: "form", locals: {translation: @translation, f: f}
+        %p.text-center
+          %button.btn.btn-primary{type: "submit"} Save
+          %a.btn.btn-link{href: weeler_translations_path} Cancel

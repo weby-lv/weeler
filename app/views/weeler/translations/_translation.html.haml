@@ -1,0 +1,11 @@
+%tr
+  %td
+    %a{href: edit_weeler_translation_path(translation.id)}
+      \   #{translation.locale}
+  %td= translation.key
+  - if translation.value.present? && translation.value.is_a?(String)
+    %td= strip_tags(truncate(translation.value, lenght: 50))
+  - else
+    %td= translation.value
+  %td= translation.interpolations
+  %td.text-center= translation.created_at.strftime("%d/%m/%Y")
