@@ -35,6 +35,13 @@ module Weeler
       end
     end
 
+    def activation
+      @item = active_record_class.find(params[:id])
+      @item.active = params[:active]
+      @item.save
+      redirect_to({ action: :index}, {:notice => "Successfully changed status"})
+    end
+
     def destroy
       @item.destroy
       redirect_to({ action: :index}, {:notice => "Successfully destroyed item"})
@@ -59,6 +66,11 @@ module Weeler
       "#{active_record_class.to_s.underscore.humanize.downcase}"
     end
     helper_method :item_humanized_name
+
+    def filter_options
+      {}
+    end
+    helper_method :filter_options
 
   private
 
