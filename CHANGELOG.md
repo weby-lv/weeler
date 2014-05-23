@@ -1,3 +1,9 @@
+## 0.1.2
+
+### Bug Fixes
+
+* Fixed routing error for Rails 4.1
+
 ## 0.1.1
 
 ### Features & Enhancements
