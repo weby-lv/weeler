@@ -21,11 +21,14 @@ module I18n
             locales = I18n.available_locales
             sheet.add_row(Translation.title_row(locales))
 
+            types = []
+            (locales.size + 1).times { types << :string }
+
             included_keys = []
 
             self.current_scope.each do |translation|
               unless included_keys.include? translation.key
-                sheet.add_row(Translation.translation_row_by_key_and_locales(translation.key, locales))
+                sheet.add_row(Translation.translation_row_by_key_and_locales(translation.key, locales), types: types)
                 included_keys << translation.key
               end
             end
