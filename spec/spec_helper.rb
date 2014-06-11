@@ -24,7 +24,7 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"
 
-  config.color_enabled = true
+  # config.color_enabled = true
 
   config.add_formatter(:progress)
   config.add_formatter(:html, 'rspec.html')
