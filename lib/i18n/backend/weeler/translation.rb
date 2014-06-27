@@ -54,7 +54,7 @@ module I18n
         serialize :value
         serialize :interpolations, Array
 
-        scope :except_key, -> (key) { where("key NOT LIKE ?", "%#{key}%") }
+        scope :except_key, -> (key) { where("key NOT LIKE ?", "#{key}%") }
 
         class << self
 
