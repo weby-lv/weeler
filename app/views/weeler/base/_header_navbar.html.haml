@@ -8,12 +8,9 @@
       %a.navbar-brand{href: weeler_root_path} Weeler
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li{class: "#{'active' if @current_menu_item == 'home'}"}
-          %a{href: weeler_root_path} Home
-        %li{class: "#{'active' if @current_menu_item == 'content'}"}
-          %a{href: weeler_content_path} Content
-        %li{class: "#{'active' if @current_menu_item == 'configurations'}"}
-          %a{href: weeler_configurations_path} Configurations
+        - Weeler.main_menu_items.each do |item|
+          %li{class: "#{'active' if @current_menu_item.downcase == item[:name].downcase}"}
+            = link_to item[:name].humanize, "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}"
       - if Weeler.logout_path
         %ul.nav.navbar-nav.navbar-right
           %li

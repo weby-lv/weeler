@@ -1,3 +1,15 @@
+## 0.2.0
+
+### Features & Enhancements
+
+* Add administration section
+* Refactured app section
+* Create acts_as_restful
+* Improve test covarage
+* Refactured lib section
+* Remove Newsletter section
+* Weeler.menu_items -> Weeler.content_menu_items
+
 ## 0.1.2
 
 ### Bug Fixes

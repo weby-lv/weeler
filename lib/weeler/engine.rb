@@ -1,3 +1,6 @@
+require "weeler/action_controller/acts/restful"
+require "weeler/action_dispatch/routing/mapper"
+
 module Weeler
 
   class Engine < ::Rails::Engine
@@ -8,7 +11,9 @@ module Weeler
 
     config.assets.precompile += ["weeler/init.js", "weeler/init.css"]
 
-    ActionDispatch::Routing::Mapper.send(:include, Weeler::RouteMapper)
+    # Load extend Rails classes
+    ::ActionDispatch::Routing::Mapper.send(:include, Weeler::ActionDispatch::Routing::Mapper)
+    ::ActionController::Base.send(:include, Weeler::ActionController::Acts::Restful)
   end
 
 end

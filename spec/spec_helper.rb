@@ -29,7 +29,7 @@ RSpec.configure do |config|
   config.add_formatter(:progress)
   config.add_formatter(:html, 'rspec.html')
 
-  # config.include Rails.application.routes.url_helpers
+  config.include Rails.application.routes.url_helpers
 
   # FactoryGirl
   config.include FactoryGirl::Syntax::Methods

@@ -1,5 +1,5 @@
 module Weeler
-  class SeoItemsController < ConfigurationsController
+  class SeoItemsController < ConfigurationController
 
     def index
       @translations_in_seo = I18n::Backend::Weeler::Translation.select("key").where("key LIKE ?", "seo.%").order("key")

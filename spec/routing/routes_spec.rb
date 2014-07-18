@@ -28,14 +28,14 @@ describe Weeler::Engine.routes do
     before do
       routes.draw do
         mount_weeler_at '/admin' do
-          weeler_resources :mini_posts, include_in_weeler_menu: true 
+          weeler_resources :mini_posts, include_in_weeler_menu: true
         end
       end
     end
 
     it "adds resource to weeler menu item" do
-      expect(Weeler.menu_items.size).to eq(1)
-      expect(Weeler.menu_items[0][:name]).to eq("Mini_posts")
+      expect(Weeler.content_menu_items.size).to eq(1)
+      expect(Weeler.content_menu_items[0][:name]).to eq("Mini_posts")
     end
   end
 

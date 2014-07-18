@@ -1,4 +1,4 @@
-class Weeler::SettingsController < Weeler::ConfigurationsController
+class Weeler::SettingsController < Weeler::ConfigurationController
   def index
     # to get all items for render list
     @settings = Settings.unscoped

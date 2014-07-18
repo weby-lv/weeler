@@ -1,5 +1,5 @@
 module Weeler
-  class TranslationsController < ConfigurationsController
+  class TranslationsController < ConfigurationController
 
     def index
       @translations = translations_by_params

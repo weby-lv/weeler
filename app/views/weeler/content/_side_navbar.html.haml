@@ -1,0 +1,17 @@
+#sidebar.col-xs-6.col-sm-3.sidebar-offcanvas{role: "navigation"}
+  .well.sidebar-nav
+    %ul.nav
+      %li Content
+      - Weeler.content_menu_items.each do |item|
+        %li
+          - if item[:seen].present? && item[:seen] == true
+            = link_to "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}/" do
+              %span.badge.pull-right= item[:class].where(seen: false).size
+              = item[:name].humanize
+          - else
+            = link_to item[:name].humanize, "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}/"
+      - if Weeler.static_menu_items.size > 0
+        %li Static content
+        - Weeler.static_menu_items.each do |item|
+          %li
+            = link_to item[:name].humanize, "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}/"

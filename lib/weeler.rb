@@ -1,9 +1,11 @@
 require "weeler/version"
+
 require 'logger'
 require "rails"
-require "weeler/content_menu_methods"
-require "weeler/route_mapper"
-require "weeler/engine"
+
+require "weeler/engine" # Brrrr! Work! Work Weeler!
+
+# 3rd party
 require "haml"
 require "kaminari"
 require "globalize"
@@ -30,20 +32,34 @@ module Weeler
   mattr_accessor :logout_path
   @@logout_path = nil
 
-  mattr_accessor :menu_items
-  @@menu_items = []
+  # Rafacture this to one menu module
+  mattr_accessor :content_menu_items
+  @@content_menu_items = []
 
+  # Rafacture this to one menu module
   mattr_accessor :static_menu_items
   @@static_menu_items = []
 
-  mattr_accessor :mount_location_namespace
-  @@mount_location_namespace = "weeler"
+  # Rafacture this to one menu module
+  mattr_accessor :administration_menu_items
+  @@administration_menu_items = []
+
+  # Rafacture this to one menu module
+  mattr_accessor :configuration_menu_items
+  @@configuration_menu_items = []
+
+  # Rafacture this to one menu module
+  mattr_accessor :main_menu_items
+  @@main_menu_items = []
 
   mattr_accessor :excluded_i18n_groups
   @@excluded_i18n_groups = [:activerecord, :attributes, :helpers, :views, :i18n, :weeler]
 
   mattr_accessor :i18n_cache
   @@i18n_cache = ActiveSupport::Cache::MemoryStore.new
+
+  mattr_accessor :mount_location_namespace
+  @@mount_location_namespace = "weeler"
 
   def self.setup
     yield self
@@ -53,5 +69,13 @@ module Weeler
         Weeler.static_menu_items << {name: key.to_s.capitalize, weeler_path: "static_sections/#{key}"}
       end
     end
+    build_main_menu
+  end
+
+  def self.build_main_menu
+    Weeler.main_menu_items =  [{name: "Home", weeler_path: ""}]
+    Weeler.main_menu_items << {name: "Content", weeler_path: "content"} if Weeler.content_menu_items.size > 0 || Weeler.static_menu_items.size > 0
+    Weeler.main_menu_items << {name: "Administration", weeler_path: "administration"} if Weeler.administration_menu_items.size > 0
+    Weeler.main_menu_items << {name: "Configuration", weeler_path: "configuration"} # Add as last one
   end
 end

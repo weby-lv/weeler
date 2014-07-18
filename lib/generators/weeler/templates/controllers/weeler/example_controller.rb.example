@@ -1,5 +1,5 @@
-# class Weeler::ExampleController < Weeler::BaseController
-  
+# class Weeler::ExampleController < Weeler::ContentController
+
   # def index
   # # index action is required for menu items
   # end
