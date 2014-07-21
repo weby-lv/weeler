@@ -63,7 +63,7 @@ module Weeler
 
   def self.setup
     yield self
-    if Weeler.use_weeler_i18n == true
+    if Weeler.use_weeler_i18n == true && ActiveRecord::Base.connection.table_exists?('weeler_translations')
       require "i18n/weeler"
       Weeler.static_sections.each do |key, section|
         Weeler.static_menu_items << {name: key.to_s.capitalize, weeler_path: "static_sections/#{key}"}
@@ -73,9 +73,25 @@ module Weeler
   end
 
   def self.build_main_menu
-    Weeler.main_menu_items =  [{name: "Home", weeler_path: ""}]
-    Weeler.main_menu_items << {name: "Content", weeler_path: "content"} if Weeler.content_menu_items.size > 0 || Weeler.static_menu_items.size > 0
-    Weeler.main_menu_items << {name: "Administration", weeler_path: "administration"} if Weeler.administration_menu_items.size > 0
-    Weeler.main_menu_items << {name: "Configuration", weeler_path: "configuration"} # Add as last one
+    home_menu_item = {name: "Home", weeler_path: ""}
+    content_menu_item = {name: "Content", weeler_path: "content"}
+    administration_menu_item = {name: "Administration", weeler_path: "administration"}
+    configuration_menu_item = {name: "Configuration", weeler_path: "configuration"}
+
+    Weeler.main_menu_items.delete(home_menu_item)
+    Weeler.main_menu_items.delete(content_menu_item)
+    Weeler.main_menu_items.delete(administration_menu_item)
+    Weeler.main_menu_items.delete(configuration_menu_item)
+
+
+    Weeler.main_menu_items.insert(0, {name: "Home", weeler_path: ""}) unless Weeler.main_menu_items.include?(home_menu_item)
+
+    if (Weeler.content_menu_items.size > 0 || Weeler.static_menu_items.size > 0) && !Weeler.main_menu_items.include?(content_menu_item)
+      Weeler.main_menu_items.insert(1, {name: "Content", weeler_path: "content"})
+    end
+
+    Weeler.main_menu_items.insert(2, administration_menu_item) if Weeler.administration_menu_items.size > 0 && !Weeler.main_menu_items.include?(administration_menu_item)
+    Weeler.main_menu_items.push(configuration_menu_item) unless Weeler.main_menu_items.include?(configuration_menu_item)
+    Weeler.main_menu_items = Weeler.main_menu_items.compact
   end
 end
