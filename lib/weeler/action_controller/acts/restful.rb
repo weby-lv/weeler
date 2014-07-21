@@ -9,7 +9,7 @@ module Weeler
           # e.g.
           #
           #   class Weeler::PostController < Weeler::ContentController
-          #     acts_as_restful Post, permit_attributes: [:title, :body]
+          #     acts_as_restful Post, permit_attributes: [:title, :body], paginate: 50
           #   end
           #
           # It will create :index, :new, :edit, :update, :destroy, :order, :activation and :remove_image actions
@@ -26,6 +26,10 @@ module Weeler
             cattr_accessor :permited_attributes do
               options[:permit_attributes] if options.include? :permit_attributes
             end
+
+            cattr_accessor :paginate do
+              options[:paginate] if options.include? :paginate
+            end
           end
         end
 
@@ -34,7 +38,9 @@ module Weeler
         module InstanceMethodsOnActivation
 
           def index
+            @paginate = paginate
             @items = load_collection
+            @items = @items.page(params[:page]).per(@paginate) if @paginate.present? && @paginate > 0
           end
 
           def new

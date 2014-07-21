@@ -9,3 +9,7 @@
   - if @seo.present?
     %div{class: "col-lg-4 col-md-4"}
       = render 'section_seo'
+
+- if @paginate.present? && @paginate > 0
+  .row
+    = paginate @items, params: { action: "index" }, theme: "weeler"

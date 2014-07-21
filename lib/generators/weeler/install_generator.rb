@@ -30,7 +30,7 @@ module Weeler
       end
 
       def install_views
-        copy_files 'views', 'app/views'
+        c=opy_files 'views', 'app/views'
       end
 
       def install_javascripts_assets

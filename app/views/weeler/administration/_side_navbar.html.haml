@@ -2,4 +2,7 @@
   .well.sidebar-nav
     %ul.nav
       %li Administration
+      - Weeler.administration_menu_items.each do |item|
+        %li
+          = link_to item[:name].humanize, "/#{Weeler.mount_location_namespace}/#{item[:weeler_path]}/"
 

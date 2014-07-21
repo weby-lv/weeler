@@ -1,5 +1,5 @@
-%tr{class: "#{"inactive" unless item.status == 'active'}"}
+%tr
   %td
-    = link_to item.to_s, action: :edit, id: item.id
+    = link_to item.to_s, action: :show, id: item.id
   %td
     = item.created_at.strftime("%d.%m.%Y. %H:%M")

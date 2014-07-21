@@ -1,0 +1,17 @@
+%h1
+  All #{@items.klass.to_s.underscore.humanize.downcase} items
+
+= link_to "Add new #{@items.klass.to_s.underscore.humanize.downcase}", {action: :new}
+
+= render 'filter', items: @items
+.row
+  %table.table{data: {provides: "rowlink"}}
+    %thead
+      = render "header_row", items: @items
+    %tbody
+      - @items.each do |item|
+        = render "row", item: item
+
+- if @paginate.present? && @paginate > 0
+  .row
+    = paginate @items, params: { action: "index" }, theme: "weeler"

@@ -1,11 +1,6 @@
 = form_for [:weeler, @item], html: {class: "form-horizontal", role: "form"} do |f|
 
   = render 'error_messages', :object => @item
-      
-  .form-group
-    = f.label :title, class: "col-lg-2 col-md-2 control-label"
-    %div{class: "col-lg-10 col-md-10"}
-      = f.text_field :title, :class => 'form-control'
 
   %p{class: "pull-right"}
     = f.submit "Save", class: "btn btn-primary"
