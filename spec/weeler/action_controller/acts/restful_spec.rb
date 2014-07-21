@@ -50,8 +50,15 @@ describe Weeler::ActionController::Acts::Restful, :type => :controller do
       end
 
       describe "GET #edit" do
-        it "retursn success status" do
+        it "returns success status" do
           get "edit", id: Post.last.id
+          response.should be_success
+        end
+      end
+
+      describe "GET #new" do
+        it "returns success status" do
+          get "new"
           response.should be_success
         end
       end

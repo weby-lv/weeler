@@ -45,13 +45,16 @@ module Weeler
 
           def new
             @item = model.new
+            load_translations
           end
 
           def show
             render :edit
           end
 
-          def edit; end
+          def edit
+            load_translations
+          end
 
           def order
             sort
@@ -102,6 +105,12 @@ module Weeler
 
           def item_humanized_name
             "#{model.to_s.underscore.humanize.downcase}"
+          end
+
+          def load_translations
+            if @item.respond_to? :translations
+              I18n.available_locales.each { |locale| @item.translations.find_or_initialize_by(locale: locale) }
+            end
           end
 
         private
