@@ -20,4 +20,4 @@
             = truncate(item.to_s, length: 40)
         %span{class: "pull-right"}
           = link_to "Edit", action: :edit, id: item.id
-          = link_to "Delete", [:weeler, item], :confirm => 'Are you sure?', :method => :delete
+          = link_to "Delete", [:weeler, item], data: {confirm: 'Are you sure?'}, :method => :delete

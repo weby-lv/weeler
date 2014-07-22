@@ -28,4 +28,4 @@
                 - else
                   = link_to "Activate", filter_options.merge({action: :activation, active: true, id: item.id}), data: {confirm: 'Are you sure?'}
               - else
-                = link_to "Delete", [:weeler, item], :confirm => 'Are you sure?', :method => :delete
+                = link_to "Delete", [:weeler, item], data: {confirm: 'Are you sure?'}, :method => :delete
