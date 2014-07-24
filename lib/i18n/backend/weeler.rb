@@ -103,6 +103,7 @@ module I18n
 
         # For a key :'foo.bar.baz' return ['foo', 'foo.bar', 'foo.bar.baz']
         def expand_keys(key)
+          # TODO: fixme. warning: shadowing outer local variable - key
           key.to_s.split(FLATTEN_SEPARATOR).inject([]) do |keys, key|
             keys << [keys.last, key].compact.join(FLATTEN_SEPARATOR)
           end
@@ -112,7 +113,11 @@ module I18n
         def store_empty_translation locale, key, options
           return_value = nil
           interpolations = options.keys - I18n::RESERVED_KEYS
+
+          # TODO: fixme. warning: shadowing outer local variable - key
           keys = options[:count] ? PLURAL_KEYS.map { |k| [key, k].join(FLATTEN_SEPARATOR) } : [key]
+
+
           keys.each do |key|
             translation = Weeler::Translation.find_or_initialize_by locale: locale.to_s, key: key
             translation.interpolations = interpolations
