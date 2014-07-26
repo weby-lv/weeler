@@ -13,6 +13,8 @@ module Weeler
           #   end
           #
           # It will create :index, :new, :edit, :update, :destroy, :order, :activation and :remove_image actions
+          #
+          # For permiting custom by role or permiting all params (permit!), you must add block permit_params: -> (params) { params.require(:post).permit! }
           def acts_as_restful(active_record_model, options = {})
             before_filter(:load_record, only: [:show, :edit, :update, :destroy, :remove_image])
 
@@ -94,10 +96,13 @@ module Weeler
         protected
 
           def items_params
-            if permited_params.present?
-              params.require(item_humanized_name.to_sym).permit(permited_params)
+            if permited_params.is_a? Proc
+              permited_params.call(params)
+            elsif permited_params.blank?
+              warning_suggestion = params[item_humanized_name.to_sym].is_a?(Hash) ? params[item_humanized_name.to_sym].keys.map{ |k| k.to_sym } : "permit_params:"
+              warn "[UNPERMITED PARAMS] To permiting #{params[item_humanized_name.to_sym].inspect} params, add 'permit_params: #{warning_suggestion}' option to 'acts_as_restful'"
             else
-              params.require(item_humanized_name.to_sym).permit!
+              params.require(item_humanized_name.to_sym).permit(permited_params)
             end
           end
 

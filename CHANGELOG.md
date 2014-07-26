@@ -1,3 +1,13 @@
+## 0.2.2
+
+### Features & Enhancements
+
+* 'acts_as_restful' - no more unpirmetted by default
+
+### Contributors
+
+* Arturs Braucs
+
 ## 0.2.1
 
 ### Features & Enhancements
