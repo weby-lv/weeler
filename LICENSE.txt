@@ -1,4 +1,4 @@
-Copyright (c) 2013 Artūrs Braučs, Artis Raugulis
+Copyright (c) 2014 Artūrs Braučs, Artis Raugulis
 
 MIT License
 
