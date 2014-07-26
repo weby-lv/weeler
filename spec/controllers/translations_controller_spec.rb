@@ -31,10 +31,23 @@ describe Weeler::TranslationsController do
     end
   end
 
-  describe "#update" do
+  describe "PUT #update" do
+    it "update translation in DB" do
+      I18n::Backend::Weeler::Translation.delete_all
+      translation = FactoryGirl.create(:translation, key: 'foo.updated', value: nil)
+
+      put "update", id: translation.id, i18n_backend_weeler_translation: {value: "Updated weeler!"}
+      expect(I18n.t("foo.updated", locale: :en)).to eq("Updated weeler!")
+    end
   end
 
   describe "#destroy" do
+    it "destroys translation" do
+      translation = FactoryGirl.create(:translation, key: 'foo.removing', value: "Bla bla")
+      delete "destroy", id: translation.id
+
+      expect(I18n.t("foo.removing", locale: :en)).to eq("Removing") # Returns empty key
+    end
   end
 
   describe "#import" do

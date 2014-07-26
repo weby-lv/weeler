@@ -30,9 +30,11 @@ module Weeler
     end
 
     def update
-      @translation = I18n::Backend::Weeler::Translation.find(params[:id])
-      if @translation.update_attributes(translation_params)
 
+
+      @translation = I18n::Backend::Weeler::Translation.find(params[:id])
+
+      if @translation.update_attributes(translation_params)
         Settings.i18n_updated_at = Time.now
 
         redirect_to edit_weeler_translation_path(@translation), flash: {success: "Translation updated."}
