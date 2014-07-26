@@ -8,7 +8,7 @@ describe Weeler::ActionController::Acts::Restful, :type => :controller do
 
   describe "acts_as_restful", :type => :controller do
     controller(Weeler::ContentController) do
-      acts_as_restful Post, permit_attributes: [:title]
+      acts_as_restful Post, permit_params: [:title]
     end
 
     before(:all) do

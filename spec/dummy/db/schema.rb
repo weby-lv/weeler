@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140718103237) do
+ActiveRecord::Schema.define(version: 20140726151210) do
 
   create_table "posts", force: true do |t|
     t.string   "title"
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 20140718103237) do
   end
 
   add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
+
+  create_table "translations", force: true do |t|
+    t.integer  "post_id"
+    t.string   "locale"
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "translations", ["post_id"], name: "index_translations_on_post_id"
 
   create_table "weeler_seo_translations", force: true do |t|
     t.integer  "weeler_seo_id", null: false

@@ -1,9 +1,10 @@
 require "weeler/version"
+require "weeler/deprecator"
 
 require 'logger'
 require "rails"
 
-require "weeler/engine" # Brrrr! Work! Work Weeler!
+require "weeler/engine"
 
 # 3rd party
 require "haml"

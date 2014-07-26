@@ -1,3 +1,14 @@
+## 0.2.1
+
+### Features & Enhancements
+
+* Remove GlobilzeFormBuilder and add globalize_fields_for in ActionView FormBuilder. Also method is depricated and will be removed in 1.0.0 version.
+* Refacture Weeler image_upload_field and add some tests.
+
+### Contributors
+
+* Arturs Braucs
+
 ## 0.2.0
 
 ### Features & Enhancements
@@ -10,11 +21,19 @@
 * Remove Newsletter section
 * Weeler.menu_items -> Weeler.content_menu_items
 
+### Contributors
+
+* Arturs Braucs
+
 ## 0.1.2
 
 ### Bug Fixes
 
 * Fixed routing error for Rails 4.1
+
+### Contributors
+
+* Arturs Braucs
 
 ## 0.1.1
 
@@ -24,6 +43,10 @@
 * Exclude unused keys in translations
 * Static sections
 * SEO in seperate sections
+
+### Contributors
+
+* Arturs Braucs
 
 ## 0.1.0
 

@@ -1,5 +1,5 @@
 module Weeler
-  class StaticSectionsController < BaseController
+  class StaticSectionsController < ContentController
     def show
       @section = params[:id]
       @items = Weeler.static_sections[@section.to_sym]
@@ -14,10 +14,6 @@ module Weeler
       end
       Settings.i18n_updated_at = Time.now
       redirect_to({action: :show, id: params[:id]}, {flash: {success: "Section updated."}})
-    end
-  protected
-    def set_current_menu_item
-      @current_menu_item = "content"
     end
   end
 end

@@ -1,5 +1,6 @@
 require "weeler/action_controller/acts/restful"
 require "weeler/action_dispatch/routing/mapper"
+require "weeler/action_view/helpers/form_helper"
 
 module Weeler
 
@@ -14,6 +15,7 @@ module Weeler
     # Load extend Rails classes
     ::ActionDispatch::Routing::Mapper.send(:include, Weeler::ActionDispatch::Routing::Mapper)
     ::ActionController::Base.send(:include, Weeler::ActionController::Acts::Restful)
+    ::ActionView::Helpers::FormBuilder.send(:include, Weeler::ActionView::Helpers::FormHelper)
   end
 
 end
