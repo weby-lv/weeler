@@ -41,6 +41,21 @@ describe Weeler::TranslationsController do
     end
   end
 
+  describe "GET #new" do
+    it "retern new translation form" do
+      get "new"
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe "GET #edit" do
+    it "retern edit translation form" do
+      translation = FactoryGirl.create(:translation, key: 'foo.updated', value: nil)
+      get "edit", id: translation.id
+      expect(response).to render_template(:edit)
+    end
+  end
+
   describe "#destroy" do
     it "destroys translation" do
       translation = FactoryGirl.create(:translation, key: 'foo.removing', value: "Bla bla")
@@ -51,9 +66,11 @@ describe Weeler::TranslationsController do
   end
 
   describe "#import" do
+
   end
 
   describe "#export" do
+
   end
 
 end

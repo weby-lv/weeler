@@ -30,8 +30,6 @@ module Weeler
     end
 
     def update
-
-
       @translation = I18n::Backend::Weeler::Translation.find(params[:id])
 
       if @translation.update_attributes(translation_params)
