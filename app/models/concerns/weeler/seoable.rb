@@ -1,7 +1,7 @@
 module Weeler
   module Seoable
     extend ActiveSupport::Concern
-    include ActionView::Helpers::TextHelper
+    include ::ActionView::Helpers::TextHelper
 
     included do
       # Set relations
