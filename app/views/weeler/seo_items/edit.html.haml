@@ -7,7 +7,7 @@
           SEO data
 .row
   %div{class: "col-lg-12 col-md-12"}
-    = form_tag weeler_seo_item_path(id: @section), {method: "put", class: "form-horizontal", role: "form"} do
+    = form_tag weeler_seo_item_path(id: @section.gsub('.', '_')), {method: "put", class: "form-horizontal", role: "form"} do
       - I18n.available_locales.each do |lang|
         - if I18n.available_locales.size > 1
           %h3
