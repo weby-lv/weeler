@@ -32,6 +32,10 @@ module Weeler
             cattr_accessor :paginate do
               options[:paginate] if options.include? :paginate
             end
+
+            cattr_accessor :order_by do
+              options[:order_by] if options.include? :order_by
+            end
           end
         end
 
@@ -131,7 +135,9 @@ module Weeler
                 @load_collection = collection
               else
                 @load_collection = model.all
-                if model.new.has_attribute?(:sequence)
+                if order_by.present?
+                  @load_collection.order(order_by)
+                elsif model.new.has_attribute?(:sequence)
                   @load_collection.order(:sequence)
                 else
                   @load_collection.order(created_at: :desc)
