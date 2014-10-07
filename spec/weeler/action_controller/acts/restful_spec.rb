@@ -136,6 +136,20 @@ describe Weeler::ActionController::Acts::Restful, :type => :controller do
 
     end
 
+    context "permited all with block" do
+      controller(Weeler::ContentController) do
+        acts_as_restful Post, order_by: {id: :desc}, permit_params: [:title]
+      end
+
+      describe "GET #index" do
+        it "users order by for ordering" do
+          get "index"
+          expect(assigns(:items).first.id).to eq(2)
+          expect(assigns(:items).last.id).to eq(1)
+        end
+      end
+    end
+
 
   end
 end
