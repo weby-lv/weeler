@@ -14,6 +14,7 @@
             = lang.capitalize
         - ["title", "description", "keywords"].each do |subsection|
           - translation = I18n::Backend::Weeler::Translation.locale(lang).lookup("seo.#{@section}.#{subsection}").first
+          - translation = I18n::Backend::Weeler::Translation.create(key: "seo.#{@section}.#{subsection}", locale: locale) if translation.nil?
           .form-group
             = label_tag subsection, subsection.humanize, class: "col-lg-2 col-md-2 control-label"
             %div{class: "col-lg-10 col-md-10"}
