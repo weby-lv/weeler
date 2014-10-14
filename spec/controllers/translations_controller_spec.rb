@@ -29,6 +29,16 @@ describe Weeler::TranslationsController do
 
       expect(I18n.t("title", locale: :en)).to eq("This is weeler")
     end
+
+    it "doesnt create a duplicate key" do
+      I18n::Backend::Weeler::Translation.delete_all
+
+      post :create, i18n_backend_weeler_translation: {locale: "en", key: "no.dup.title", value: "This is weeler"}
+      expect(I18n.t("no.dup.title", locale: :en)).to eq("This is weeler")
+      
+      post :create, i18n_backend_weeler_translation: {locale: "en", key: "no.dup.title", value: "This is weeler"}
+      expect(response).to render_template(:edit)
+    end
   end
 
   describe "PUT #update" do

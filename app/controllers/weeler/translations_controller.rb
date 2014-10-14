@@ -19,9 +19,7 @@ module Weeler
       @translation = I18n::Backend::Weeler::Translation.new(translation_params)
 
       if @translation.save
-
         Settings.i18n_updated_at = Time.now
-
         redirect_to edit_weeler_translation_path(@translation), flash: {success: "Translation saved."}
       else
         flash.now[:error] = "Errors in saving."

@@ -56,6 +56,8 @@ module I18n
 
         scope :except_key, -> (key) { where("key NOT LIKE ?", "#{key}%") }
 
+        validates :key, :uniqueness => { :scope => :locale }
+
         class << self
 
           def locale(locale)
