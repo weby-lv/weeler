@@ -5,7 +5,9 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.navbar-brand{href: weeler_root_path} Weeler
+      %a.navbar-brand.weeler{href: weeler_root_path}
+        = Weeler
+        %span.weeler_version= Gem.loaded_specs["weeler"].version
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
         - Weeler.main_menu_items.each do |item|

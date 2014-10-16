@@ -1,3 +1,14 @@
+## 0.2.3
+
+* Support for multileve seo keys
+* Order by in acts as restful
+* Removed unused code
+* Version indicator
+
+### Contributors
+
+* Artis Raugulis
+
 ## 0.2.2
 
 ### Features & Enhancements
