@@ -1,3 +1,11 @@
+## 0.2.4
+
+* Fixed a bug when using two words in a model name caused a missing required param
+
+### Contributors
+
+* Artis Raugulis
+
 ## 0.2.3
 
 * Support for multileve seo keys
