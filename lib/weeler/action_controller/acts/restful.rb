@@ -112,8 +112,12 @@ module Weeler
 
           def collection; end
 
+          def parameterized_name
+            "#{model.to_s.underscore.downcase}"
+          end
+
           def item_humanized_name
-            "#{model.to_s.underscore.humanize.downcase}"
+            "#{parameterized_name.humanize}"
           end
 
           def load_translations
