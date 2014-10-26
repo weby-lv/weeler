@@ -103,10 +103,10 @@ module Weeler
             if permited_params.is_a? Proc
               permited_params.call(params)
             elsif permited_params.blank?
-              warning_suggestion = params[item_humanized_name.to_sym].is_a?(Hash) ? params[item_humanized_name.to_sym].keys.map{ |k| k.to_sym } : "permit_params:"
-              warn "[UNPERMITED PARAMS] To permiting #{params[item_humanized_name.to_sym].inspect} params, add 'permit_params: #{warning_suggestion}' option to 'acts_as_restful'"
+              warning_suggestion = params[parameterized_name.to_sym].is_a?(Hash) ? params[parameterized_name.to_sym].keys.map{ |k| k.to_sym } : "permit_params:"
+              warn "[UNPERMITED PARAMS] To permiting #{params[parameterized_name.to_sym].inspect} params, add 'permit_params: #{warning_suggestion}' option to 'acts_as_restful'"
             else
-              params.require(item_humanized_name.to_sym).permit(permited_params)
+              params.require(parameterized_name.to_sym).permit(permited_params)
             end
           end
 
