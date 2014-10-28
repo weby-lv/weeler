@@ -3,7 +3,15 @@
     .col-lg-12
       .page-header
         %h1 Translations
-        %p.lead.text-muted Statis translation data over all your app. You can safely edit translation values. Also you can export excel document, translate in all locales you need and import it back.
+        %p.lead.text-muted Static translation data over all your app. You can safely edit translation values. Also you can export excel document, translate in all locales you need and import it back.
+        %p.lead.text-muted 
+          = "You can switch between showing keys and translations:"
+          %br/
+          - if session[:show_translation_keys] == 'true'
+            = link_to 'Show translations', weeler_translations_path(show_keys: false)
+          - else
+            = link_to 'Show translation keys', weeler_translations_path(show_keys: true)
+            
 .row
   %nav.navbar.navbar-default{role: "navigation"}
     / Collect the nav links, forms, and other content for toggling
