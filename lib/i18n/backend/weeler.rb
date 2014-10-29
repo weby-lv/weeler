@@ -7,6 +7,17 @@ require 'i18n/backend/weeler/importer'
 
 module I18n
   module Backend
+    # I18n backend by weeler for storing translations in database and caching.
+    #
+    # It implements storing all translation in <tt>Translation</tt> active record moduel table.
+    # When application is running, it stores translation in cache for better performance.
+    #
+    # Also this backend provides extra moduls:
+    # * HTML checher, for storing html translations.
+    # * exporter - for export all translations in xlsx
+    # * importer - for importing all translations
+    # * Dedupe - you should use if you find duplicated keys
+    #
     class Weeler
       attr_accessor :i18n_cache
 
@@ -100,20 +111,18 @@ module I18n
         end
 
         # For a key :'foo.bar.baz' return ['foo', 'foo.bar', 'foo.bar.baz']
-        def expand_keys(key)
-          # TODO: fixme. warning: shadowing outer local variable - key
-          key.to_s.split(FLATTEN_SEPARATOR).inject([]) do |keys, key|
+        def expand_keys(not_expanded_key)
+          not_expanded_key.to_s.split(FLATTEN_SEPARATOR).inject([]) do |keys, key|
             keys << [keys.last, key].compact.join(FLATTEN_SEPARATOR)
           end
         end
 
         # Store single empty translation
-        def store_empty_translation locale, key, options
+        def store_empty_translation locale, singular_key, options
           return_value = nil
           interpolations = options.keys - I18n::RESERVED_KEYS
 
-          # TODO: fixme. warning: shadowing outer local variable - key
-          keys = options[:count] ? PLURAL_KEYS.map { |k| [key, k].join(FLATTEN_SEPARATOR) } : [key]
+          keys = options[:count] ? PLURAL_KEYS.map { |k| [singular_key, k].join(FLATTEN_SEPARATOR) } : [singular_key]
 
 
           keys.each do |key|

@@ -1,9 +1,9 @@
 module Weeler
   module VERSION
-    MAJOR = 0
-    MINOR = 2
-    TINY  = 5
-    PRE   = nil
+    MAJOR = 1
+    MINOR = 0
+    TINY  = 0
+    PRE   = "alpha1"
     STRING = [MAJOR, MINOR, TINY, PRE].compact.join(".")
   end
 end

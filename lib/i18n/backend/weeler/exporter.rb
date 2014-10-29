@@ -1,3 +1,17 @@
+# Weeler I18n backend export helper module.
+#
+# Export all translations in excel (xlsx)
+#
+#   def export
+#     respond_to do |format|
+#       format.xlsx do
+#         outstrio = StringIO.new
+#         outstrio.write(I18n::Backend::Weeler::Translation.all.as_xlsx_package.to_stream.read)
+#         send_data(outstrio.string, filename: "translations" + '.xlsx')
+#       end
+#     end
+#   end
+
 begin
   require 'axlsx'
 rescue LoadError => e
@@ -12,6 +26,8 @@ module I18n
 
         module ClassMethods
 
+          # Prepare xlsx package from current scope
+          # Stores all translations in translations worksheet.
           def as_xlsx_package
             package = Axlsx::Package.new
             package.use_shared_strings = true

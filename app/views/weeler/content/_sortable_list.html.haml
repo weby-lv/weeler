@@ -21,12 +21,4 @@
               = raw item.to_s
           %span{class: "pull-right"}
             = link_to "Edit", edit_polymorphic_path([:weeler, item])
-            - if !defined? item.fixed or !item.fixed
-              //TODO::REFACTOR to helper?
-              - if @items.klass.new.has_attribute?(:active) && defined? filter_options
-                - if item.active
-                  = link_to "Disable", filter_options.merge({action: :activation, active: false, id: item.id}), data: {confirm: 'Are you sure?'}
-                - else
-                  = link_to "Activate", filter_options.merge({action: :activation, active: true, id: item.id}), data: {confirm: 'Are you sure?'}
-              - else
-                = link_to "Delete", [:weeler, item], data: {confirm: 'Are you sure?'}, :method => :delete
+            = link_to "Delete", [:weeler, item], data: {confirm: 'Are you sure?'}, :method => :delete

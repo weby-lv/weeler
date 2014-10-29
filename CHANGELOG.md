@@ -1,3 +1,15 @@
+## 1.0.0.alpha1
+
+Starting prepering for 1.0.0 version
+### Features & Enhancements
+* Removed <tt>globalize_fields_for</tt> implementation
+* Write tests for showint translaiton keys
+* Improving documentation coverage.
+
+### Contributors
+
+* Arturs Braucs
+
 ## 0.2.5
 
 * Option for showing translation keys, for easier translation key lookup

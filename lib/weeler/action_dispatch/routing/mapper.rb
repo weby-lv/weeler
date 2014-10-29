@@ -5,6 +5,10 @@ module Weeler
 
         # Pass given resource to "resources" mount method and
         # add extra routes for members and collections needed by weeler
+        #
+        # Options:
+        # * <tt>include_in_weeler_menu: true</tt> to include this resource in content section.
+        #
         def weeler_resources(*args, &block)
           add_menu_item args[0] if args[0].present? && args[1].present? && args[1][:include_in_weeler_menu] == true
           resources *args do
@@ -12,6 +16,12 @@ module Weeler
           end
         end
 
+        # Mounts weeler at <tt>mount_location</tt> location.
+        # E.g.
+        #   mount_weeler_at "root" do
+        #     weeler_resources :posts, include_in_weeler_menu: true
+        #   end
+        #
         def mount_weeler_at mount_location, options={}, &block
           Weeler.mount_location_namespace = mount_location.gsub("/", "").to_sym
           scope mount_location do

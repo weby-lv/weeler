@@ -5,16 +5,30 @@ module Weeler
         extend ActiveSupport::Concern
 
         module ClassMethods
-          # Weeler action controller method. It creates all restful actions for action controller.
+          # Weeler action controller method.
+          # It creates all restful actions for action controller. Create a controller for your
+          # model (e.g. Post) what you want to administrate in weeler. Add method <tt>acts_as_restful Post</tt>
+          # and permit params for your resource - option <tt>permit_params</tt>. Also you can paginate - add
+          # option <tt>paginate</tt>
           # e.g.
           #
           #   class Weeler::PostController < Weeler::ContentController
           #     acts_as_restful Post, permit_params: [:title, :body], paginate: 50
           #   end
           #
-          # It will create :index, :new, :edit, :update, :destroy, :order, :activation and :remove_image actions
+          # It will handle <tt>:index</tt>, <tt>:new</tt>, <tt>:edit</tt>, <tt>:update</tt>,
+          # <tt>:destroy</tt>, <tt>:order</tt>, <tt>:activation</tt> and <tt>:remove_image</tt> actions
           #
-          # For permiting custom by role or permiting all params (permit!), you must add block permit_params: -> (params) { params.require(:post).permit! }
+          # For permiting custom by role or permiting all params (permit!),
+          # you must add block <tt>permit_params: -> (params) { params.require(:post).permit! }</tt>
+          #
+          # You should implement form file with your own active record attributes.
+          # To do that, create <tt>_form.html.haml</tt> in <tt>views/weeler/_YOUR_RESOURCE_/_form.html.haml</tt>
+          # where <tt>_YOUR_RESOURCE_</tt> is name of your resource.
+          #
+          # Also you can override all standart restful action view and implement, if you need,
+          # <tt>_filter.html.haml</tt>
+          #
           def acts_as_restful(active_record_model, options = {})
             before_filter(:load_record, only: [:show, :edit, :update, :destroy, :remove_image])
 

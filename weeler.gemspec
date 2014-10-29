@@ -27,11 +27,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "haml"
   spec.add_dependency "sass-twitter-bootstrap-rails"
   spec.add_dependency "jquery-ui-rails"
-  # spec.add_dependency "redactor-rails", "~> 0.4.1"
-  spec.add_dependency "carrierwave"
-  spec.add_dependency "mini_magick"
 
-  spec.add_dependency "ruby2ruby"
+  # spec.add_dependency "ruby2ruby"
 
   spec.add_dependency "axlsx"
   spec.add_dependency "roo"

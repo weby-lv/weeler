@@ -23,25 +23,4 @@ describe Weeler::ActionView::Helpers::FormHelper, :type => :helper do
     end
   end
 
-  describe :globalize_fields_for do
-    let(:output)    {
-      params = {"post" => {"translations_attributes" => {"1" => {"locale" => "lv", "title" => "foo" }}}}
-      helper.globalize_fields_for :lv, params do |f|
-        f.text_field :title
-      end
-    }
-
-    it 'create translation id field' do
-      expect(output).to include 'name="post[translations_attributes][1][id]"'
-    end
-
-    it "create translation locale field" do
-      expect(output).to include 'name="post[translations_attributes][1][locale]" type="hidden" value="lv"'
-    end
-
-    it "create translation title text field" do
-      expect(output).to include '<input id="post_translations_attributes_1_title" name="post[translations_attributes][1][title]" type="text" />'
-    end
-  end
-
 end
