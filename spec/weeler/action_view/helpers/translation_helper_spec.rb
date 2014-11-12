@@ -8,9 +8,8 @@ describe Weeler::ActionView::Helpers::TranslationHelper, :type => :helper do
       helper.translate "not.existing.key"
     }
 
-    it 'renders key' do
-      controller.params[:show_translation_keys] = "true"
-      expect(output).to eq('not.existing.key')
+    it 'dont renders key' do
+      expect(output).to eq('<span class="translation_missing" title="translation missing: en.not.existing.key">Key</span>')
     end
   end
 
