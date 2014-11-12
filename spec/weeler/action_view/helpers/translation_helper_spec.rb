@@ -8,7 +8,7 @@ describe Weeler::ActionView::Helpers::TranslationHelper, :type => :helper do
     }
 
     it 'renders key' do
-      Settings.show_translation_keys = "on"
+      session[:show_translation_keys] = 'true'
       expect(output).to eq('not.existing.key')
     end
   end

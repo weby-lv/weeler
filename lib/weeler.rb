@@ -71,9 +71,6 @@ module Weeler
       end
     end
     build_main_menu
-
-    # Setup translation setting
-     Settings.save_default(:show_translation_keys, "off") if defined?(Settings) && Settings.show_translation_keys.blank?
   end
 
   def self.build_main_menu
