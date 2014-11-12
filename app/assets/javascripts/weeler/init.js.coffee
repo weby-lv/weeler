@@ -17,6 +17,3 @@ app = {
 
 $(document).ready () ->
   app.boot()
-
-$(document).on 'page:load', () ->
-  app.boot()

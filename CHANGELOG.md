@@ -1,3 +1,11 @@
+## 1.0.0.alpha2
+
+* Fixed a turbolinks bug
+
+### Contributors
+
+* Artis Raugulis
+
 ## 1.0.0.alpha1
 
 Starting prepering for 1.0.0 version
