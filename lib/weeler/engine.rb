@@ -1,7 +1,6 @@
 require "weeler/action_controller/acts/restful"
 require "weeler/action_dispatch/routing/mapper"
 require "weeler/action_view/helpers/form_helper"
-require "weeler/action_controller/show_translation_keys"
 require "weeler/action_view/helpers/translation_helper"
 
 module Weeler
@@ -19,8 +18,7 @@ module Weeler
     ::ActionController::Base.send(:include, Weeler::ActionController::Acts::Restful)
     ::ActionView::Helpers::FormBuilder.send(:include, Weeler::ActionView::Helpers::FormHelper)
 
-    ::ActionController::Base.send(:include, Weeler::ActionController::ShowTranslationKeys)
-    ::ActionView::Helpers.send(:include, Weeler::ActionView::Helpers::TranslationHelper)
+    ::ActionView::Base.send(:include, Weeler::ActionView::Helpers::TranslationHelper)
   end
 
 end

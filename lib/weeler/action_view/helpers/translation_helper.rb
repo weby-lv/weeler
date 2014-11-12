@@ -5,7 +5,7 @@ module Weeler
         extend ActiveSupport::Concern
 
         def translate(key, options = {})
-          session && session[:show_translation_keys] == 'true' ? key : super(key, options)
+          controller.present? && controller.params[:show_translation_keys] == "true" ? key : super(key, options)
         end
         alias :t :translate
 
