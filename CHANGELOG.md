@@ -1,3 +1,19 @@
+## 1.0.0.alpha3
+
+TranslationHelper - need more improvment and try to catch exception when missing translation.
+
+### Features & Enhancements
+
+* Remote session logic about translation helper and move it to the settings. It is better place.
+
+### Bug Fixes
+
+* Fixed translation helper bug. No instance session (only fake one) in mailer templates.
+
+### Contributors
+
+* Arturs Braucs
+
 ## 1.0.0.alpha2
 
 * Fixed a turbolinks bug
