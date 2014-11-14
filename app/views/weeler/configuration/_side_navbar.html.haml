@@ -5,7 +5,8 @@
       - if Weeler.use_weeler_i18n
         %li
           %a{href: weeler_translations_path} Translations
-      %li
-        %a{href: weeler_seo_items_path} SEO
+      - if I18n::Backend::Weeler::Translation.select("key").where("key LIKE ?", "seo.%").order("key").size > 0
+        %li
+          %a{href: weeler_seo_items_path} SEO
       %li
         %a{href: weeler_settings_path} Settings
