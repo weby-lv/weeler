@@ -86,6 +86,8 @@ describe Weeler::TranslationsController do
   describe "POST #import" do
     context "submiting a file" do
       it "adds translation from files" do
+        I18n::Backend::Weeler::Translation.delete_all
+
         expect(I18n.t("welcome.title", locale: :en)).to eq("Title") # Missing translation
         post "import", file: fixture_file_upload(File.dirname(__FILE__) + '/../fixtures/test.xlsx', 'application/xlsx')
         expect(I18n.t("welcome.title", locale: :en)).to eq("EN welcome")
