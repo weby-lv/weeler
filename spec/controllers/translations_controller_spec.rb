@@ -35,7 +35,7 @@ describe Weeler::TranslationsController do
 
       post :create, i18n_backend_weeler_translation: {locale: "en", key: "no.dup.title", value: "This is weeler"}
       expect(I18n.t("no.dup.title", locale: :en)).to eq("This is weeler")
-      
+
       post :create, i18n_backend_weeler_translation: {locale: "en", key: "no.dup.title", value: "This is weeler"}
       expect(response).to render_template(:edit)
     end
@@ -66,7 +66,7 @@ describe Weeler::TranslationsController do
     end
   end
 
-  describe "#destroy" do
+  describe "DELETE #destroy" do
     it "destroys translation" do
       translation = FactoryGirl.create(:translation, key: 'foo.removing', value: "Bla bla")
       delete "destroy", id: translation.id
@@ -75,12 +75,32 @@ describe Weeler::TranslationsController do
     end
   end
 
-  describe "#import" do
+  describe "POST #import" do
+    context "submiting a file" do
+      it "adds translation from files" do
+        expect(I18n.t("welcome.title", locale: :en)).to eq("Title") # Missing translation
+        post "import", file: fixture_file_upload(File.dirname(__FILE__) + '/../fixtures/test.xlsx', 'application/xlsx')
+        expect(I18n.t("welcome.title", locale: :en)).to eq("EN welcome")
+      end
+    end
+
+    context "no file" do
+      it "redirects back" do
+        post "import"
+        response.should redirect_to :weeler_translations
+      end
+
+    end
+
 
   end
 
-  describe "#export" do
-
+  describe "GET #export" do
+    it "retursns translation file" do
+      get "export", format: :xlsx
+      expect(response.headers["Content-Type"]).to eq("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+      expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"translations.xlsx\"")
+    end
   end
 
 end
