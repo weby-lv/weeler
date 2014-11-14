@@ -49,6 +49,14 @@ describe Weeler::TranslationsController do
       put "update", id: translation.id, i18n_backend_weeler_translation: {value: "Updated weeler!"}
       expect(I18n.t("foo.updated", locale: :en)).to eq("Updated weeler!")
     end
+
+    it "dont updates if key is empty" do
+      I18n::Backend::Weeler::Translation.delete_all
+      translation = FactoryGirl.create(:translation, key: 'foo.updated', value: nil)
+
+      put "update", id: translation.id, i18n_backend_weeler_translation: {value: "Updated weeler!", key: nil}
+      expect(response).to render_template(:edit)
+    end
   end
 
   describe "GET #new" do
