@@ -95,4 +95,8 @@ module Weeler
     Weeler.main_menu_items.push(configuration_menu_item) unless Weeler.main_menu_items.include?(configuration_menu_item)
     Weeler.main_menu_items = Weeler.main_menu_items.compact
   end
+
+  def self.translations
+    I18n::Backend::Weeler::Translation if Weeler.use_weeler_i18n == true
+  end
 end
