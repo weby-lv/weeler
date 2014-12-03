@@ -1,3 +1,15 @@
+## 1.0.0
+
+### Features & Enhancements
+
+* Refactored <tt>image_upload_field</tt>
+* Tested on production apps.
+* Add <tt>Weeler.translations</tt> method for accessing I18n translation model.
+
+### Contributors
+
+* Arturs Braucs
+
 ## 1.0.0.alpha3
 
 ### Bug Fixes
@@ -19,6 +31,7 @@
 ## 1.0.0.alpha1
 
 Starting prepering for 1.0.0 version
+
 ### Features & Enhancements
 * Removed <tt>globalize_fields_for</tt> implementation
 * Write tests for showint translaiton keys
