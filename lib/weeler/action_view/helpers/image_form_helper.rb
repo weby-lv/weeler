@@ -27,7 +27,7 @@ module Weeler
           buffer = @template.label(@object_name, name, :class => "col-lg-2 col-md-2 control-label")
 
           buffer += image_upload_field_file_block name, size_info
-          buffer += image_upload_field_preview_block name, image_url_method
+          buffer += image_upload_field_preview_block name, image_url_method if File.exist?(image_url_method)
 
           buffer
         end
