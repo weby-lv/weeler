@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Weeler::ActionView::Helpers::FormHelper, :type => :helper do
 
-  let(:resource)  { FactoryGirl.build :dummy_post }
+  let(:resource)  { FactoryGirl.create :dummy_post }
   let(:helper)    { ActionView::Helpers::FormBuilder.new(:post, resource, self, {})}
 
   describe :image_upload_field do
@@ -19,7 +19,7 @@ describe Weeler::ActionView::Helpers::FormHelper, :type => :helper do
     end
 
     it "creates img preview tag" do
-      expect(output).to include '<img alt="Original" src="/images/original.jpg" style="height: 80px;" />'
+      expect(output).to include '<img alt="Original" src="'+ Rails.root.join('sample/original.png').to_s+'" style="height: 80px;" />'
     end
   end
 

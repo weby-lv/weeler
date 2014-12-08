@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
   Image = Struct.new(:url) do
       def url(type = nil)
         type = "original" if type.blank?
-        "/images/#{type.to_s}.jpg"
+        Rails.root.join("sample/#{type.to_s}.png")
       end
     end
 
