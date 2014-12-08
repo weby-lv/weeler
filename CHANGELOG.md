@@ -1,3 +1,15 @@
+## 1.0.1
+
+### Bug Fixes
+
+* Fixed turbo links not workin
+* Fixed seo translation wrong locale
+* Fixed empty image with image_upload_field 
+
+### Contributors
+
+* Artis Raugulis
+
 ## 1.0.0
 
 ### Features & Enhancements
