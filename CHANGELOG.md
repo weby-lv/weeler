@@ -1,10 +1,21 @@
+## 1.0.2
+
+### Bug Fixes
+
+* Require jquery turbolinks
+* Update dependencies
+
+### Contributors
+
+* Arturs Braucs
+
 ## 1.0.1
 
 ### Bug Fixes
 
 * Fixed turbo links not workin
 * Fixed seo translation wrong locale
-* Fixed empty image with image_upload_field 
+* Fixed empty image with image_upload_field
 
 ### Contributors
 

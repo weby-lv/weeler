@@ -18,18 +18,16 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rails", "~> 4"
-  spec.add_dependency "i18n", '>= 0.5.0'
-  spec.add_dependency "rails-settings-cached", "~> 0.3"
-  spec.add_dependency "globalize", "~> 4.0.0.alpha.3"
+  spec.add_dependency "rails", ">= 4"
+  spec.add_dependency "i18n"
+  spec.add_dependency "rails-settings-cached"
+  spec.add_dependency "globalize"
 
   spec.add_dependency "kaminari"
   spec.add_dependency "haml"
   spec.add_dependency "sass-twitter-bootstrap-rails"
   spec.add_dependency "jquery-turbolinks"
   spec.add_dependency "jquery-ui-rails"
-
-  # spec.add_dependency "ruby2ruby"
 
   spec.add_dependency "axlsx"
   spec.add_dependency "roo"
