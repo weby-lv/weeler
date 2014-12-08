@@ -3,11 +3,11 @@ module Weeler
 
     def index
       @translations_in_seo = I18n::Backend::Weeler::Translation.select("key").where("key LIKE ?", "seo.%").order("key")
-      @groups = @translations_in_seo.map{ |t| t.key.split(".")[1...-1].join('_') }.uniq{ |t| t}
+      @groups = @translations_in_seo.map{ |t| t.key.split(".")[1] }.uniq{ |t| t}
     end
 
     def edit
-      @section = params[:id].gsub('_', '.')
+      @section = params[:id]
     end
 
     def update
