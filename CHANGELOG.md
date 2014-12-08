@@ -4,6 +4,7 @@
 
 * Require jquery turbolinks
 * Update dependencies
+* Using boostrap flash instead jquery notify
 
 ### Contributors
 
