@@ -35,7 +35,7 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
             routes.draw { get "index" => "weeler/foos#index" }
 
             get "index"
-            response.should be_success
+            expect(response).to be_success
           end
 
           specify "assigns posts" do
@@ -70,14 +70,14 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
         describe "GET #edit" do
           it "returns success status" do
             get "edit", id: Post.last.id
-            response.should be_success
+            expect(response).to be_success
           end
         end
 
         describe "GET #new" do
           it "returns success status" do
             get "new"
-            response.should be_success
+            expect(response).to be_success
           end
         end
 
@@ -127,8 +127,8 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
           end
 
           it "warns developer" do
-            controller.should_receive(:warn).with("[UNPERMITED PARAMS] To permiting {\"title\"=>\"Foo lala\", \"body\"=>\"Heila\"} params, add 'permit_params: [:title, :body]' option to 'acts_as_restful'")
-            post "create", post: attributes_for(:dummy_post, title: "Foo lala", body: "Heila")
+            warning_message = "[UNPERMITED PARAMS] To permiting {\"title\"=>\"Foo lala\", \"body\"=>\"Heila\"} params, add 'permit_params: [:title, :body]' option to 'acts_as_restful'\n"
+            expect { post("create", post: attributes_for(:dummy_post, title: "Foo lala", body: "Heila")) }.to output(warning_message).to_stderr
           end
         end
       end

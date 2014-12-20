@@ -12,14 +12,10 @@ ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'factory_girl'
 require 'capybara/rspec'
 require 'database_cleaner'
-# require 'capybara-webkit'
 require 'shoulda-matchers'
-# require 'support/helpers'
-# require 'timecop'
 
 Rails.backtrace_cleaner.remove_silencers!
 # Load support files

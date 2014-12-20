@@ -20,7 +20,7 @@ describe I18n::Backend::Weeler do
 
   describe "#reload_cache" do
     it "clears translations cache" do
-      Weeler.i18n_cache.should_receive(:clear)
+      expect(Weeler.i18n_cache).to receive(:clear)
       I18n.backend.backends[0].reload_cache
     end
 
@@ -61,8 +61,7 @@ describe I18n::Backend::Weeler do
 
     it "runs kernel if translation is_proc" do
       proc = I18n::Backend::Weeler::Translation.create(:key => 'valid', :value => "p 'This ir proc!'", :locale => :en, :is_proc => true)
-      Kernel.should_receive(:p).with("This ir proc!")
-      proc.value
+      expect { proc.value }.to output("\"This ir proc!\"\n").to_stdout
     end
 
   end
@@ -150,8 +149,8 @@ describe I18n::Backend::Weeler do
   describe "#lookup" do
 
     it "show warning" do
-      I18n::Backend::Weeler::Translation.should_receive(:warn).with("[DEPRECATION] Giving a separator to Translation.lookup is deprecated. You can change the internal separator by overwriting FLATTEN_SEPARATOR.")
-      I18n::Backend::Weeler::Translation.lookup("foo", "|")
+      warning_message = "[DEPRECATION] Giving a separator to Translation.lookup is deprecated. You can change the internal separator by overwriting FLATTEN_SEPARATOR.\n"
+      expect { I18n::Backend::Weeler::Translation.lookup("foo", "|") }.to output(warning_message).to_stderr
     end
 
     context "cache" do
@@ -161,7 +160,7 @@ describe I18n::Backend::Weeler do
         end
 
         it "reloads cache" do
-          I18n.backend.backends[0].should_receive(:reload_cache)
+          expect(I18n.backend.backends[0]).to receive(:reload_cache)
           I18n.t("cancel", scope: "admin.content")
         end
       end
@@ -172,7 +171,7 @@ describe I18n::Backend::Weeler do
         end
 
         it "does not reload cache" do
-          I18n.backend.backends[0].should_not_receive(:reload_cache)
+          expect(I18n.backend.backends[0]).not_to receive(:reload_cache)
           I18n.t("cancel", scope: "admin.content")
         end
       end

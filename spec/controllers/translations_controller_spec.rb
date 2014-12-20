@@ -98,7 +98,7 @@ describe Weeler::TranslationsController, type: :controller do
     context "no file" do
       it "redirects back" do
         post "import"
-        response.should redirect_to :weeler_translations
+        expect(response).to redirect_to :weeler_translations
       end
 
     end
