@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Weeler::TranslationsController do
+describe Weeler::TranslationsController, type: :controller do
 
   before do
     routes.draw do

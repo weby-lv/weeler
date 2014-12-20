@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Weeler::Engine.routes do
+describe Weeler::Engine.routes, type: :routing do
 
 
   after(:all) do

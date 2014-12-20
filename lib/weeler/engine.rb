@@ -16,8 +16,8 @@ module Weeler
     # Load extend Rails classes
     ::ActionDispatch::Routing::Mapper.send(:include, Weeler::ActionDispatch::Routing::Mapper)
     ::ActionController::Base.send(:include, Weeler::ActionController::Acts::Restful)
-    ::ActionView::Helpers::FormBuilder.send(:include, Weeler::ActionView::Helpers::FormHelper)
 
+    ::ActionView::Helpers::FormBuilder.send(:include, Weeler::ActionView::Helpers::FormHelper)
     ::ActionView::Base.send(:include, Weeler::ActionView::Helpers::TranslationHelper)
   end
 

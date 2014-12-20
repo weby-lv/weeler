@@ -11,7 +11,8 @@ describe Weeler::ActionView::Helpers::FormHelper, :type => :helper do
     }
 
     it 'create file field' do
-      expect(output).to include '<input class="form-control" id="post_image" name="post[image]" type="file" />'
+      expect(output).to include 'type="file"'
+      expect(output).to include 'name="post[image]"'
     end
 
     it 'creates a label' do
@@ -19,7 +20,9 @@ describe Weeler::ActionView::Helpers::FormHelper, :type => :helper do
     end
 
     it "creates img preview tag" do
-      expect(output).to include '<img alt="Original" src="'+ Rails.root.join('sample/original.png').to_s+'" style="height: 80px;" />'
+      expect(output).to include '<img'
+      expect(output).to include 'src="'+ Rails.root.join('sample/original.png').to_s+'"'
+      expect(output).to include 'style="height: 80px;"'
     end
   end
 

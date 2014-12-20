@@ -1,19 +1,25 @@
 require 'spec_helper'
 
-describe Weeler::ActionController::Acts::Restful, :type => :controller do
+class Weeler::FoosController < Weeler::ContentController; end
+
+describe Weeler::ActionController::Acts::Restful, type: :controller do
 
   before(:each) do
     FactoryGirl.create_list(:dummy_post, 2)
   end
 
-  before(:all) do
-    Dummy::Application.reload_routes!
+  before do
+    routes.draw do
+      mount_weeler_at "/weeler-admin" do
+        weeler_resources :foos
+      end
+    end
   end
 
-  describe "acts_as_restful", :type => :controller do
+  describe "acts_as_restful" do
 
     context "permited title with array" do
-      controller(Weeler::ContentController) do
+      controller Weeler::FoosController do
         acts_as_restful Post, permit_params: [:title]
       end
 
@@ -25,12 +31,16 @@ describe Weeler::ActionController::Acts::Restful, :type => :controller do
 
       describe "actions" do
         describe "GET #index" do
-          it "returns success" do
+          specify "index returns success" do
+            routes.draw { get "index" => "weeler/foos#index" }
+
             get "index"
             response.should be_success
           end
 
-          it "assigns posts" do
+          specify "assigns posts" do
+            routes.draw { get "index" => "weeler/foos#index" }
+
             get "index"
             expect(assigns(:items).size).to eq(2)
           end
@@ -38,9 +48,15 @@ describe Weeler::ActionController::Acts::Restful, :type => :controller do
 
         describe "POST #create" do
           it "redirects to edit path" do
+            # routes.draw do
+            #   mount_weeler_at "/weeler-admin" do
+            #     weeler_resources :foos
+            #   end
+            # end
+
             post "create", post: attributes_for(:dummy_post)
             post = Post.last
-            expect(response).to redirect_to("http://test.host/anonymous/#{post.id}/edit")
+            expect(response).to redirect_to("http://test.host/weeler-admin/foos/#{post.id}/edit")
           end
 
           it "sets only permited params" do
@@ -84,7 +100,7 @@ describe Weeler::ActionController::Acts::Restful, :type => :controller do
         end
 
         specify "POST #order" do
-          routes.draw { post "order" => "anonymous#order" }
+          routes.draw { post "order" => "weeler/foos#order" }
 
           post "order", orders: "order[]=2&order[]=1"
           post1 = Post.order(sequence: :asc).first
@@ -97,7 +113,7 @@ describe Weeler::ActionController::Acts::Restful, :type => :controller do
     end
 
     context "no permited params" do
-      controller(Weeler::ContentController) do
+      controller Weeler::FoosController do
         acts_as_restful Post
       end
 
@@ -119,7 +135,7 @@ describe Weeler::ActionController::Acts::Restful, :type => :controller do
     end
 
     context "permited all with block" do
-      controller(Weeler::ContentController) do
+      controller Weeler::FoosController do
         acts_as_restful Post, permit_params: -> (params) { params.require(:post).permit! }
       end
 
@@ -137,7 +153,7 @@ describe Weeler::ActionController::Acts::Restful, :type => :controller do
     end
 
     context "permited all with block" do
-      controller(Weeler::ContentController) do
+      controller Weeler::FoosController do
         acts_as_restful Post, order_by: {id: :desc}, permit_params: [:title]
       end
 
