@@ -1,3 +1,13 @@
+## 1.0.3
+
+### Features & Enhancements
+
+* Updated bootstrap to v3.3.1
+
+### Contributors
+
+* Artis Raugulis
+
 ## 1.0.2
 
 ### Bug Fixes
