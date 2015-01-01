@@ -136,7 +136,7 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
 
     context "permited all with block" do
       controller Weeler::FoosController do
-        acts_as_restful Post, permit_params: -> (params) { params.require(:post).permit! }
+        acts_as_restful Post, permit_params: lambda { |params| params.require(:post).permit! }
       end
 
       describe "actions" do

@@ -19,7 +19,7 @@ module Weeler
         #
         # Also with remove_image action in controller and route for that,
         # it removes only image from object.
-        def image_upload_field(name, size_info: "200x80", image_url_method: nil)
+        def image_upload_field(name, size_info = "200x80", image_url_method = nil)
           self.multipart = true
 
           image_url_method = "#{name.to_s}.url(\"original\")" unless image_url_method.present?

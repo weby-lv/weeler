@@ -39,7 +39,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webrat'
   spec.add_development_dependency 'capybara'
   spec.add_development_dependency 'factory_girl_rails'
-  spec.add_development_dependency 'sqlite3'
+  if RUBY_PLATFORM == 'java'
+    spec.add_development_dependency 'activerecord-jdbcsqlite3-adapter'
+  else
+    spec.add_development_dependency 'sqlite3'
+  end
   spec.add_development_dependency 'database_cleaner'
   spec.add_development_dependency 'shoulda-matchers'
   spec.add_development_dependency 'coveralls'
