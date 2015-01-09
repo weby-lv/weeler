@@ -29,25 +29,53 @@ Run weeler generator:
     $ rails g weeler:install
 
 This will generate follwing files:
-* <tt>config/initializers/weeler.rb</tt> - a file where you can set various weeler settings
-* <tt>db/migrate/xxxxxxxxxxxxxx_create_weeler_seos.rb</tt> - a migration for weeler seo model;
-* <tt>db/migrate/xxxxxxxxxxxxxx_create_weeler_settings.rb</tt> - a migration for weeler settigns
-* <tt>db/migrate/xxxxxxxxxxxxxx_create_weeler_translations.rb</tt> - a migration for weeler translations
-* <tt>db/migrate/xxxxxxxxxxxxxx_translate_weeler_seos.rb</tt> - a migration for weeler seo translations
-* <tt>app/controllers/weeler/application_controller.rb</tt> - an application controller in weeler scope. All weeler controllers should extend this controller.
-* <tt>lib/assets/javascripts/weeler/app/index.js</tt> - a js file where you can put or load any additional js you may need. It will run in weeler backend.
-* <tt>lib/assets/stylesheets/weeler/app/index.css</tt> - assets in lib/assets for modify, append new javascript or style for weeler backend.
-* running rails g weeler:install will also append your route file.
+* <tt>config/initializers/weeler.rb</tt>
+* <tt>db/migrate/xxxxxxxxxxxxxx_create_weeler_seos.rb</tt>
+* <tt>db/migrate/xxxxxxxxxxxxxx_create_weeler_settings.rb</tt>
+* <tt>db/migrate/xxxxxxxxxxxxxx_create_weeler_translations.rb</tt>
+* <tt>db/migrate/xxxxxxxxxxxxxx_translate_weeler_seos.rb</tt>
+* <tt>app/controllers/weeler/application_controller.rb</tt>
+* <tt>lib/assets/javascripts/weeler/app/index.js</tt>
+* <tt>lib/assets/stylesheets/weeler/app/index.css</tt>
+* your route file will be appended
+
+Following will be appended to your route file:
+
+    mount_weeler_at "weeler" do 
+      # weeler_resources :example, include_in_weeler_menu: true 
+      # Also you orderable and imageable concerns 
+    end
 
 And then migrate database:
 
     $ rake db:migrate
 
+## Weeler Structure
+
+    - app
+    -- controllers
+    --- weeler
+    ---- application_controller.rb
+    -- views
+    --- weeler
+    - lib
+    -- assets
+    --- javascripts
+    ---- weeler
+    ----- app
+    ------ index.js
+    --- stylesheets
+    ---- weeler
+    ----- app
+    ------ index.css
+
+
 ## Usage
 
-### Adding controllers and views
+### Controllers, Views, Routes
 
-Create controllers and views in <tt>app/controller/weeler</tt> and <tt>app/view/weeler</tt> and then add routes in <tt>mount_weeler_at</tt> block in <tt>config/routes.rb</tt> file. There is no limitation or DCL for that. Also you need to extend at least <tt>Weeler::BaseController</tt> if you expect that weeler work as expected.
+Place weeler backend controllers in <tt>app/controllers/weeler/</tt> directory and view files in  <tt>app/views/weeler</tt> directory. Then add a route, a resource <tt>weeler_resources</tt> to this controller inside <tt>mount_weeler_at</tt> in <tt>config/routes.rb</tt>
+All weeler contollers have to extend <tt>Weeler::BaseController</tt>.
 
 ### Menu
 
