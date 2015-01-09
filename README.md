@@ -28,11 +28,16 @@ Run weeler generator:
 
     $ rails g weeler:install
 
-It will generate:
-* weeler.rb setting file in config/initializers folder;
-* migrations for translation, settings and object seos;
-* application_controller.rb in weeler controller scope. It is the parent controller of all weeler controllers;
-* assets in lib/assets for modify, append new javascript or style for weeler backend.
+This will generate follwing files:
+* <tt>config/initializers/weeler.rb</tt> - a file where you can set various weeler settings
+* <tt>db/migrate/xxxxxxxxxxxxxx_create_weeler_seos.rb</tt> - a migration for weeler seo model;
+* <tt>db/migrate/xxxxxxxxxxxxxx_create_weeler_settings.rb</tt> - a migration for weeler settigns
+* <tt>db/migrate/xxxxxxxxxxxxxx_create_weeler_translations.rb</tt> - a migration for weeler translations
+* <tt>db/migrate/xxxxxxxxxxxxxx_translate_weeler_seos.rb</tt> - a migration for weeler seo translations
+* <tt>app/controllers/weeler/application_controller.rb</tt> - an application controller in weeler scope. All weeler controllers should extend this controller.
+* <tt>lib/assets/javascripts/weeler/app/index.js</tt> - a js file where you can put or load any additional js you may need. It will run in weeler backend.
+* <tt>lib/assets/stylesheets/weeler/app/index.css</tt> - assets in lib/assets for modify, append new javascript or style for weeler backend.
+* running rails g weeler:install will also append your route file.
 
 And then migrate database:
 
