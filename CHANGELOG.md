@@ -1,3 +1,13 @@
+## 1.0.4
+
+### Bug Fixes 
+
+* Fixed seoable bug that called not weeler function. 
+
+### Contributors
+
+* Arturs Braucs
+
 ## 1.0.3
 
 ### Features & Enhancements
