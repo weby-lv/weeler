@@ -54,7 +54,7 @@ module Weeler
     # Strip, sanitize and truncate text in Rails way
     #
     def prepare_seoabled_text text, length: 80
-      truncate(ActionView::Base.full_sanitizer.sanitize(text).strip, omission: '', length: length)
+      truncate(::ActionView::Base.full_sanitizer.sanitize(text).strip, omission: '', length: length)
     end
 
   end
