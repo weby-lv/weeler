@@ -13,7 +13,9 @@
     = seo_fields.hidden_field :id, :value => seo_fields.object.id if seo_fields.object.present?
     = seo_fields.hidden_field :section, :value => controller_name
 
-    - seo_fields.globalize_fields_for lang do |g|
+    - seo_fields.fields_for :translations do |g|
+      = g.hidden_field :locale
+      = g.hidden_field :id
 
       .form-group
         .input-group
