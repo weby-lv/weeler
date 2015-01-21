@@ -1,3 +1,17 @@
+## 1.0.5
+
+### Features & Enhancements
+
+* TODO
+
+### Bug Fixes
+
+* Translation html safe output bug fixed.
+
+### Contributors
+
+* Arturs Braucs
+
 ## 1.0.4
 
 ### Bug Fixes 
