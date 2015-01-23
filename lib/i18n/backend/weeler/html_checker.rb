@@ -9,7 +9,7 @@
 
 begin
   # require 'sanitize'
-  # require 'actionview/lib/action_view/helpers/sanitize_helper'
+  require 'action_controller/base'
 rescue LoadError => e
   puts "can't use Html because: #{e.message}"
 end
@@ -17,13 +17,14 @@ end
 module I18n
   module Backend
     class Weeler
+      
       module HtmlChecker
         
-        extend ActionView::Helpers::SanitizeHelper
+        # include ActionView::Helpers::SanitizeHelper
 
         def html?
           if html_safe_translation_key?(self.key) ||
-              (self.value.present? && Sanitize.fragment(self.value.to_s).length != self.value.to_s.length)
+              (self.value.present? && ActionController::Base.helpers.sanitize(self.value.to_s, {tags: []}).length != self.value.to_s.length)
             return true
           else
             return false
