@@ -20,20 +20,33 @@ module Weeler
         # Also with remove_image action in controller and route for that,
         # it removes only image from object.
         
-        if RUBY_PLATFORM == 'java'
-          p "Ruby platfor is #{RUBY_PLATFORM}" 
-          def image_upload_field(name, size_info = "200x80", image_url_method = nil)
-          
-          end
-        
-        else
+        # if RUBY_PLATFORM == 'java'
+        #   p "Ruby platfor is #{RUBY_PLATFORM}" 
+        #   def image_upload_field(name, size_info = "200x80", image_url_method = nil)
+        #   
+        #   end
+        #
+        # else
+        #
+        #   p "Ruby platfor is #{RUBY_PLATFORM}" 
+        #   def image_upload_field(name, size_info: "200x80", image_url_method: nil)
+        #     
+        #   end
+        # end
 
-          p "Ruby platfor is #{RUBY_PLATFORM}" 
-          def image_upload_field(name, size_info: "200x80", image_url_method: nil)
-            
+        self.send :define_method, :image_upload_field do |*args|
+          raise ArgumentError.new("wrong number of arguments (#{args.size} for 1..3)") if args.size < 1 || args.size > 3
+          p "#{args.inspect}"
+
+          case args.size
+          when 1
+            call_image_upload_field args[0]
+          when 2
+            call_image_upload_field args[0], args[1]
+          when 3
+            call_image_upload_field args[0], args[1], args[2]
           end
         end
-
 
 
         def call_image_upload_field(name, size_info = "200x80", image_url_method = nil)
@@ -79,7 +92,7 @@ module Weeler
                 build_route = true
                 begin
                   @template.link_to("Remove", action: "remove_image")
-                rescue Exception => e
+                rescue Exception 
                   build_route = false
                 end
 

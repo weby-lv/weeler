@@ -23,5 +23,14 @@ describe Weeler::ActionView::Helpers::FormHelper, :type => :helper do
     expect(output).to include 'src="'+ Rails.root.join('sample/original.png').to_s+'"'
     expect(output).to include 'style="height: 80px;"'
   end
+  
+  describe 'call method with parametirze attributes' do
+    
+    it 'works on none java platforms' do
+      expect(helper.image_upload_field(:image, image_url_method: "image.url('small')", size: "200x100")).to include("200x100")
+
+    end
+
+  end
 
 end
