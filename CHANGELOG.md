@@ -1,13 +1,15 @@
-## 1.0.5
+## 1.1.0
 
 ### Features & Enhancements
 
+* Add JRuby and Rubinius support.
+* 'image_upload_field' accept only hash options (for JRuby support).
 * Add 'empty_translation_acts_like_missing' config. Empty translations by
   default is treat like missing translation.
 
 ### Bug Fixes
 
-* Translation html safe output bug fixed.
+* Translation html safe output bug fixed (Rails 4.2 bug)
 
 ### Contributors
 
