@@ -8,7 +8,8 @@
 # was extracted from the original backend.
 
 begin
-  require 'sanitize'
+  # require 'sanitize'
+  # require 'actionview/lib/action_view/helpers/sanitize_helper'
 rescue LoadError => e
   puts "can't use Html because: #{e.message}"
 end
@@ -17,6 +18,8 @@ module I18n
   module Backend
     class Weeler
       module HtmlChecker
+        
+        extend ActionView::Helpers::SanitizeHelper
 
         def html?
           if html_safe_translation_key?(self.key) ||
