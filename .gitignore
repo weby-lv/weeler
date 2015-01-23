@@ -18,3 +18,5 @@ tmp
 .coveralls.yml
 .DS_Store
 spec/dummy/log/test.log
+rspec.html
+spec/dummy/db/test.sqlite3
