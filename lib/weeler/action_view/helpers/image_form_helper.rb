@@ -19,45 +19,14 @@ module Weeler
         #
         # Also with remove_image action in controller and route for that,
         # it removes only image from object.
-        
-        # if RUBY_PLATFORM == 'java'
-        #   p "Ruby platfor is #{RUBY_PLATFORM}" 
-        #   def image_upload_field(name, size_info = "200x80", image_url_method = nil)
-        #   
-        #   end
-        #
-        # else
-        #
-        #   p "Ruby platfor is #{RUBY_PLATFORM}" 
-        #   def image_upload_field(name, size_info: "200x80", image_url_method: nil)
-        #     
-        #   end
-        # end
-
-        self.send :define_method, :image_upload_field do |*args|
-          raise ArgumentError.new("wrong number of arguments (#{args.size} for 1..3)") if args.size < 1 || args.size > 3
-          p "#{args.inspect}"
-
-          case args.size
-          when 1
-            call_image_upload_field args[0]
-          when 2
-            call_image_upload_field args[0], args[1]
-          when 3
-            call_image_upload_field args[0], args[1], args[2]
-          end
-        end
-
-
-        def call_image_upload_field(name, size_info = "200x80", image_url_method = nil)
+        def image_upload_field(name, options = {})
+          options = options.reverse_merge({size_info: "200x80", image_url_method: "#{name.to_s}.url(\"original\")"})
           self.multipart = true
-
-          image_url_method = "#{name.to_s}.url(\"original\")" unless image_url_method.present?
 
           buffer = @template.label(@object_name, name, :class => "col-lg-2 col-md-2 control-label")
 
-          buffer += image_upload_field_file_block name, size_info
-          buffer += image_upload_field_preview_block name, image_url_method if File.exist?(@object.instance_eval(image_url_method))
+          buffer += image_upload_field_file_block name, options[:size_info]
+          buffer += image_upload_field_preview_block name, options[:image_url_method] if File.exist?(@object.instance_eval(options[:image_url_method]))
 
           buffer
         end
