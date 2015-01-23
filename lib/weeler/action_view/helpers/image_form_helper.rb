@@ -19,15 +19,14 @@ module Weeler
         #
         # Also with remove_image action in controller and route for that,
         # it removes only image from object.
-        def image_upload_field(name, size_info: "200x80", image_url_method: nil)
+        def image_upload_field(name, options = {})
+          options = options.reverse_merge({size_info: "200x80", image_url_method: "#{name.to_s}.url(\"original\")"})
           self.multipart = true
-
-          image_url_method = "#{name.to_s}.url(\"original\")" unless image_url_method.present?
 
           buffer = @template.label(@object_name, name, :class => "col-lg-2 col-md-2 control-label")
 
-          buffer += image_upload_field_file_block name, size_info
-          buffer += image_upload_field_preview_block name, image_url_method if File.exist?(@object.instance_eval(image_url_method))
+          buffer += image_upload_field_file_block name, options[:size_info]
+          buffer += image_upload_field_preview_block name, options[:image_url_method] if File.exist?(@object.instance_eval(options[:image_url_method]))
 
           buffer
         end
@@ -62,7 +61,7 @@ module Weeler
                 build_route = true
                 begin
                   @template.link_to("Remove", action: "remove_image")
-                rescue Exception => e
+                rescue Exception 
                   build_route = false
                 end
 
