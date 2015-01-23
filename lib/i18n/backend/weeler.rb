@@ -44,20 +44,24 @@ module I18n
           i18n_cache.clear
 
           Translation.all.each do |translation|
-            i18n_cache.write [translation.locale, translation.key], translation if translation.value.present?
+            # Load in cache unless value is nil or it is blank and empty
+            # translation acts like missing
+            if !(translation.value.nil? || (::Weeler.empty_translation_acts_like_missing && translation.value.blank?))
+              i18n_cache.write [translation.locale, translation.key], translation
+            end
           end
 
           i18n_cache.write('UPDATED_AT', Settings.i18n_updated_at) if ActiveRecord::Base.connection.table_exists?('settings')
         end
 
-      protected
+        protected
 
         def lookup(locale, key, scope = [], options = {})
           key = normalize_flat_keys(locale, key, scope, options[:separator])
           return lookup_in_cache(locale, key, scope, options)
         end
 
-      private
+        private
 
         def lookup_in_cache locale, key, scope = [], options = {}
           # reload cache if cache timestamp differs from last translations update
@@ -71,7 +75,7 @@ module I18n
 
             result = i18n_cache.read([locale, check_key])
 
-            return result.value unless result.blank?
+            return result.value unless result.blank? 
           end
 
           # mark translation as missing
@@ -87,7 +91,7 @@ module I18n
         def lookup_in_database locale, key, scope = [], options = {}
           result = Translation.locale(locale).lookup(key).load
 
-          if result.empty?
+          if result.nil? || (::Weeler.empty_translation_acts_like_missing && result.blank?)
             if ::Weeler.create_missing_translations
               return store_empty_translation locale, key, options
             else

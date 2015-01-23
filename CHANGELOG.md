@@ -1,3 +1,38 @@
+## 1.0.5
+
+### Features & Enhancements
+
+* Add 'empty_translation_acts_like_missing' config. Empty translations by
+  default is treat like missing translation.
+
+### Bug Fixes
+
+* Translation html safe output bug fixed.
+
+### Contributors
+
+* Arturs Braucs
+
+## 1.0.4
+
+### Bug Fixes 
+
+* Fixed seoable bug that called not weeler function. 
+
+### Contributors
+
+* Arturs Braucs
+
+## 1.0.3
+
+### Features & Enhancements
+
+* Updated bootstrap to v3.3.1
+
+### Contributors
+
+* Artis Raugulis
+
 ## 1.0.2
 
 ### Bug Fixes
