@@ -2,7 +2,8 @@
 
 ### Features & Enhancements
 
-* TODO
+* Add 'empty_translation_acts_like_missing' config. Empty translations by
+  default is treat like missing translation.
 
 ### Bug Fixes
 

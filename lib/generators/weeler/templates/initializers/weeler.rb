@@ -4,6 +4,7 @@ Weeler.setup do |config|
   #
   # config.use_weeler_i18n = true
   # config.create_missing_translations = true # Create translation in database if it missing
+  # config.empty_translation_acts_like_missing = true # Empty translations by default is treat like missing translation.
 
   # Require user method weeler use in before filter. (e.g. require_user)
   #

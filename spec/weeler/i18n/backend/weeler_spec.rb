@@ -88,11 +88,6 @@ describe I18n::Backend::Weeler do
 
   end
 
-  describe "#lookup" do
-
-
-  end
-
   describe "groups" do
 
     before(:all) do
@@ -197,13 +192,43 @@ describe I18n::Backend::Weeler do
         end
 
         context "already stored" do
-          before(:all) do
-            FactoryGirl.create(:translation, key: "weeler.test.cms_title", locale: "en", value: nil)
-          end
 
-          it "saves the fallback backend value" do
-            I18n.t('weeler.test.cms_title')
-            expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('weeler.test.cms_title').value).to eq("Weeler is cool")
+          context "value is empty" do
+            context "empty as existing" do
+              before(:all) do
+                Weeler.empty_translation_acts_like_missing = false
+                FactoryGirl.create(:translation, key: "weeler.test.cms_title", locale: "en", value: "")
+              end
+
+              it "saves the fallback backend value" do
+                I18n.t('weeler.test.cms_title')
+                expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('weeler.test.cms_title').value).to eq("")
+              end
+
+              after(:all) do
+                Weeler.empty_translation_acts_like_missing = true
+              end
+            end
+            context "empty as missing" do
+              before(:all) do
+                FactoryGirl.create(:translation, key: "weeler.test.cms_title", locale: "en", value: "")
+              end
+
+              it "saves the fallback backend value" do
+                I18n.t('weeler.test.cms_title')
+                expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('weeler.test.cms_title').value).to eq("Weeler is cool")
+              end
+            end
+          end
+          context "value is nil" do
+            before(:all) do
+              FactoryGirl.create(:translation, key: "weeler.test.cms_title", locale: "en", value: nil)
+            end
+
+            it "saves the fallback backend value" do
+              I18n.t('weeler.test.cms_title')
+              expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('weeler.test.cms_title').value).to eq("Weeler is cool")
+            end
           end
         end
       end

@@ -71,7 +71,7 @@ module I18n
 
             unless separator.empty?
               warn "[DEPRECATION] Giving a separator to Translation.lookup is deprecated. " <<
-                "You can change the internal separator by overwriting FLATTEN_SEPARATOR."
+              "You can change the internal separator by overwriting FLATTEN_SEPARATOR."
             end
 
             namespace = "#{keys.last}#{I18n::Backend::Flatten::FLATTEN_SEPARATOR}%"

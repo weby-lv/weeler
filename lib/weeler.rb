@@ -27,6 +27,9 @@ module Weeler
 
   mattr_accessor :use_weeler_i18n
   @@use_weeler_i18n = true
+  
+  mattr_accessor :empty_translation_acts_like_missing
+  @@empty_translation_acts_like_missing = true
 
   mattr_accessor :required_user_method
   @@required_user_method = nil
