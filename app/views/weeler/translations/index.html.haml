@@ -60,7 +60,7 @@
 .container
   .row
     .col-lg-12
-      %table.table.table-hover{"data-provides" => "rowlink"}
+      %table.table.table-hover
         %thead
           %tr
             %th Locale
@@ -68,6 +68,7 @@
             %th.text-center Value
             %th.text-center Interpolations
             %th.text-center Created
+            %th
         %tbody#translations
           - @translations.each do |translation|
             = render :partial => "weeler/translations/translation", locals: {translation: translation}

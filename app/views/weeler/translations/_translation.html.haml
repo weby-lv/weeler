@@ -1,7 +1,5 @@
 %tr
-  %td
-    %a{href: edit_weeler_translation_path(translation.id)}
-      \   #{translation.locale}
+  %td= translation.locale
   %td= translation.key
   - if translation.value.present? && translation.value.is_a?(String)
     %td= strip_tags(truncate(translation.value, lenght: 50))
@@ -9,3 +7,6 @@
     %td= translation.value
   %td= translation.interpolations
   %td.text-center= translation.created_at.strftime("%d/%m/%Y")
+  %td
+    = link_to 'Edit', edit_weeler_translation_path(translation.id), class: 'btn btn-default'
+    = link_to 'Remove', weeler_translation_path(translation), data: { confirm: 'Are you sure you want to remove?' }, method: :delete, class: 'btn btn-danger'

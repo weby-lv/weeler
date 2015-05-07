@@ -1,3 +1,13 @@
+## 1.1.1
+
+### Features & Enhancements
+
+* Improved working with translations by removing rowlink.
+
+### Contributors
+
+* Artis Raugulis
+
 ## 1.1.0
 
 ### Features & Enhancements
