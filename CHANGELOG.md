@@ -1,3 +1,14 @@
+## 1.2.0
+
+### Features & Enhancements
+
+* Added option to override acts as restful create, update, destroy redirect path
+
+### Contributors
+
+* Artis Raugulis
+
+
 ## 1.1.1
 
 ### Features & Enhancements

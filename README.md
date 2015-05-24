@@ -109,6 +109,21 @@ It will handle <tt>:index</tt>, <tt>:new</tt>, <tt>:edit</tt>, <tt>:update</tt>,
 For permiting custom by role or permiting all params (permit!),
 you must add block <tt>permit_params: -> (params) { params.require(:post).permit! }</tt>
 
+You can override redirect path after <tt>:create</tt>, <tt>:update</tt>, <tt>:destroy</tt> actions.
+You can do this by overriding private methods in your controller.
+        
+    def after_create_path
+      { action: :edit, id: @item.id }
+    end
+
+    def after_update_path
+      { action: :edit, id: @item.id }
+    end
+
+    def after_destroy_path
+      { action: :index }
+    end
+
 You should implement form file with your own active record attributes.
 To do that, create <tt>_form.html.haml</tt> in <tt>views/weeler/_YOUR_RESOURCE_/_form.html.haml</tt>
 where <tt>_YOUR_RESOURCE_</tt> is name of your resource.

@@ -83,7 +83,7 @@ module Weeler
           def create
             @item = model.new(items_params)
             if @item.save
-              redirect_to({ action: :edit, id: @item.id }, {:notice => "Successfully created item"})
+              redirect_to( after_create_path, {:notice => "Successfully created item"} )
             else
               render :action => 'new'
             end
@@ -91,7 +91,7 @@ module Weeler
 
           def update
             if @item.update_attributes(items_params)
-              redirect_to({ action: :edit, id: @item.id }, {:notice => "Successfully updated item"})
+              redirect_to( after_update_path, {:notice => "Successfully updated item"} )
             else
               render :action => 'edit'
             end
@@ -99,7 +99,7 @@ module Weeler
 
           def destroy
             @item.destroy
-            redirect_to({ action: :index}, {:notice => "Successfully destroyed item"})
+            redirect_to( after_destroy_path, {:notice => "Successfully destroyed item"})
           end
 
           def remove_image
@@ -141,6 +141,18 @@ module Weeler
           end
 
         private
+
+          def after_create_path
+            { action: :edit, id: @item.id }
+          end
+
+          def after_update_path
+            { action: :edit, id: @item.id }
+          end
+
+          def after_destroy_path
+            { action: :index }
+          end
 
           def model
             model
