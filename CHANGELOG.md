@@ -1,3 +1,13 @@
+## 1.3.0
+
+### Features & Enhancements
+
+* Added option to customize what happens after successful create, update, destroy
+
+### Contributors
+
+* Artis Raugulis
+
 ## 1.2.0
 
 ### Features & Enhancements

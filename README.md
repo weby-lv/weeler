@@ -124,6 +124,21 @@ You can do this by overriding private methods in your controller.
       { action: :index }
     end
 
+Or you can override what happens after successful <tt>:create</tt>, <tt>:update</tt>, <tt>:destroy</tt> actions.
+You can do this by overriding private methods in your controller.
+        
+    def after_create_action
+      redirect_to( after_create_path, {:notice => "Successfully created item"} )
+    end
+
+    def after_update_action
+      redirect_to( after_update_path, {:notice => "Successfully updated item"} )
+    end
+
+    def after_destroy_action
+      redirect_to( after_destroy_path, {:notice => "Successfully destroyed item"})
+    end
+
 You should implement form file with your own active record attributes.
 To do that, create <tt>_form.html.haml</tt> in <tt>views/weeler/_YOUR_RESOURCE_/_form.html.haml</tt>
 where <tt>_YOUR_RESOURCE_</tt> is name of your resource.
