@@ -57,6 +57,7 @@ module I18n
         protected
 
         def lookup(locale, key, scope = [], options = {})
+          return fallback_backend_translation locale, key if key.to_s.start_with?('i18n')
           key = normalize_flat_keys(locale, key, scope, options[:separator])
           return lookup_in_cache(locale, key, scope, options)
         end
@@ -75,7 +76,7 @@ module I18n
 
             result = i18n_cache.read([locale, check_key])
 
-            return result.value unless result.blank? 
+            return result.value unless result.blank?
           end
 
           # mark translation as missing
@@ -161,4 +162,3 @@ module I18n
     end
   end
 end
-
