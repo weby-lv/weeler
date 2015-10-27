@@ -12,7 +12,7 @@
 
   %body{data: {controller: controller_name, action: action_name, name_space: 'weeler', tag: "#{yield :weeler_body_tag}" }}
     = render "header_navbar"
-    .container
+    .container-fluid
       = render "flash"
       .row.row-offcanvas.row-offcanvas-right
         = render "side_navbar"
