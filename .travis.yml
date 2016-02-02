@@ -1,7 +1,6 @@
 language: ruby
 before_install:
   - rvm get head
-  - rvm use jruby-9.0.0.0 --install
   - gem update --system
   - gem update bundler
 rvm:
