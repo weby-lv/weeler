@@ -49,6 +49,13 @@ module Weeler
       redirect_to weeler_translations_path, flash: {success: "Translation succesfully removed."}
     end
 
+    def usage_stats
+      @used_keys = []
+      Weeler.i18n_cache.instance_variable_get(:@data).keys.each do |key|
+        @used_keys << [key, Weeler.i18n_cache.read(key)] if key.start_with?('usage_stats')
+      end
+    end
+
     def export
       respond_to do |format|
         format.xlsx do

@@ -54,6 +54,7 @@ module Weeler
             collection do
               get :export
               post :import
+              get :usage_stats
             end
           end
           resources :seo_items

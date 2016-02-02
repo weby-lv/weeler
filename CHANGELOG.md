@@ -1,3 +1,12 @@
+## 1.4.0
+
+* Added translation usage stats
+* Fixed a transliteration bug
+
+### Contributors
+
+* Artis Raugulis
+
 ## 1.3.0
 
 ### Features & Enhancements
@@ -48,9 +57,9 @@
 
 ## 1.0.4
 
-### Bug Fixes 
+### Bug Fixes
 
-* Fixed seoable bug that called not weeler function. 
+* Fixed seoable bug that called not weeler function.
 
 ### Contributors
 

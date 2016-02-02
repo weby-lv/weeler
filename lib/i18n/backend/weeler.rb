@@ -4,6 +4,7 @@ require 'i18n/backend/weeler/dedupe'
 require 'i18n/backend/weeler/html_checker'
 require 'i18n/backend/weeler/exporter'
 require 'i18n/backend/weeler/importer'
+require 'i18n/backend/weeler/usage_logger'
 
 module I18n
   module Backend
@@ -28,6 +29,7 @@ module I18n
       autoload :Translation, 'i18n/backend/weeler/translation'
       autoload :Exporter,    'i18n/backend/weeler/exporter'
       autoload :Importer,    'i18n/backend/weeler/importer'
+      autoload :UsageLogger, 'i18n/backend/weeler/usage_logger'
 
       module Implementation
         include Base, Flatten
@@ -67,6 +69,11 @@ module I18n
         def lookup_in_cache locale, key, scope = [], options = {}
           # reload cache if cache timestamp differs from last translations update
           reload_cache if ((!ActiveRecord::Base.connection.table_exists?('settings')) || i18n_cache.read('UPDATED_AT') != Settings.i18n_updated_at)
+
+          # log locale/key usage for statistics
+          if Settings.log_key_usage == 'true'
+            log_key_usage(locale, key)
+          end
 
           return nil if i18n_cache.read([:missing, [locale, key]])
 

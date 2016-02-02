@@ -11,7 +11,14 @@
             = link_to 'Show translations', weeler_translations_path(show_translation_keys: false)
           - else
             = link_to 'Show translation keys', weeler_translations_path(show_translation_keys: true)
-
+        %h1 Stats
+        %p.lead.text-muted
+          - if Settings.log_key_usage == 'true'
+            = 'Translation usage stat gathering is ON'
+          - else
+            = 'Translation usage stat gathering is OFF'
+        %p.lead.text-muted
+          = link_to 'Go to Stats', {action: :usage_stats}
 .row
   %nav.navbar.navbar-default{role: "navigation"}
     / Collect the nav links, forms, and other content for toggling
