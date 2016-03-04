@@ -20,7 +20,7 @@ module Weeler
 
       if @translation.save
         Settings.i18n_updated_at = Time.now
-        redirect_to edit_weeler_translation_path(@translation), flash: {success: "Translation saved."}
+        redirect_to ({ action: :edit, id: @translation }), flash: { success: "Translation saved." }
       else
         flash.now[:error] = "Errors in saving."
         render :edit
@@ -33,7 +33,7 @@ module Weeler
       if @translation.update_attributes(translation_params)
         Settings.i18n_updated_at = Time.now
 
-        redirect_to edit_weeler_translation_path(@translation), flash: {success: "Translation updated."}
+        redirect_to ({ action: :edit, id: @translation }), flash: { success: "Translation updated." }
       else
         flash.now[:error] = "Errors in updating."
         render :edit
@@ -46,7 +46,7 @@ module Weeler
 
       Settings.i18n_updated_at = Time.now
 
-      redirect_to weeler_translations_path, flash: {success: "Translation succesfully removed."}
+      redirect_to ({ action: :index }), flash: {success: "Translation succesfully removed."}
     end
 
     def usage_stats
@@ -72,9 +72,9 @@ module Weeler
 
         Settings.i18n_updated_at = Time.now
 
-        redirect_to weeler_translations_path, flash: {success: "Translations succesfully imported."}
+        redirect_to ({ action: :index }), flash: {success: "Translations succesfully imported."}
       else
-        redirect_to weeler_translations_path, flash: {success: "No file choosen"}
+        redirect_to ({ action: :index }), flash: {success: "No file choosen"}
       end
     end
 
