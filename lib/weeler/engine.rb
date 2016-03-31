@@ -10,7 +10,7 @@ module Weeler
     config.weeler = Weeler
 
     config.i18n.available_locales = [:en] unless config.i18n.available_locales.present?
-
+    config.active_record.raise_in_transactional_callbacks = true
     config.assets.precompile += ["weeler/init.js", "weeler/init.css"]
 
     # Load extend Rails classes

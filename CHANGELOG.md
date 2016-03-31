@@ -1,3 +1,10 @@
+## 1.5.0
+
+* Added Lock
+* Added translation usage stats export
+* Dropped jruby support
+* Dropped rbx suport
+
 ## 1.4.0
 
 * Added translation usage stats

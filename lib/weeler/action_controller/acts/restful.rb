@@ -118,7 +118,7 @@ module Weeler
               permited_params.call(params)
             elsif permited_params.blank?
               warning_suggestion = params[parameterized_name.to_sym].is_a?(Hash) ? params[parameterized_name.to_sym].keys.map{ |k| k.to_sym } : "permit_params:"
-              warn "[UNPERMITED PARAMS] To permiting #{params[parameterized_name.to_sym].inspect} params, add 'permit_params: #{warning_suggestion}' option to 'acts_as_restful'"
+              warn "[UNPERMITED PARAMS] To permit #{params[parameterized_name.to_sym].inspect} params, add 'permit_params: #{warning_suggestion}' option to 'acts_as_restful'"
             else
               params.require(parameterized_name.to_sym).permit(permited_params)
             end

@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140726151210) do
+ActiveRecord::Schema.define(version: 20160330192005) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -31,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140726151210) do
     t.datetime "updated_at"
   end
 
-  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
   create_table "translations", force: :cascade do |t|
     t.integer  "post_id"
@@ -42,20 +45,28 @@ ActiveRecord::Schema.define(version: 20140726151210) do
     t.datetime "updated_at"
   end
 
-  add_index "translations", ["post_id"], name: "index_translations_on_post_id"
+  add_index "translations", ["post_id"], name: "index_translations_on_post_id", using: :btree
+
+  create_table "weeler_locks", force: :cascade do |t|
+    t.string   "name",       limit: 40
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "weeler_locks", ["name"], name: "index_weeler_locks_on_name", unique: true, using: :btree
 
   create_table "weeler_seo_translations", force: :cascade do |t|
     t.integer  "weeler_seo_id", null: false
     t.string   "locale",        null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "title"
     t.text     "description"
     t.text     "keywords"
   end
 
-  add_index "weeler_seo_translations", ["locale"], name: "index_weeler_seo_translations_on_locale"
-  add_index "weeler_seo_translations", ["weeler_seo_id"], name: "index_weeler_seo_translations_on_weeler_seo_id"
+  add_index "weeler_seo_translations", ["locale"], name: "index_weeler_seo_translations_on_locale", using: :btree
+  add_index "weeler_seo_translations", ["weeler_seo_id"], name: "index_weeler_seo_translations_on_weeler_seo_id", using: :btree
 
   create_table "weeler_seos", force: :cascade do |t|
     t.string   "title"
@@ -68,8 +79,17 @@ ActiveRecord::Schema.define(version: 20140726151210) do
     t.datetime "updated_at"
   end
 
-  add_index "weeler_seos", ["section"], name: "index_weeler_seos_on_section"
-  add_index "weeler_seos", ["seoable_type", "seoable_id"], name: "index_weeler_seos_on_seoable_type_and_seoable_id"
+  add_index "weeler_seos", ["section"], name: "index_weeler_seos_on_section", using: :btree
+  add_index "weeler_seos", ["seoable_type", "seoable_id"], name: "index_weeler_seos_on_seoable_type_and_seoable_id", using: :btree
+
+  create_table "weeler_translation_stats", force: :cascade do |t|
+    t.string   "key"
+    t.integer  "usage_count", default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "weeler_translation_stats", ["key"], name: "index_weeler_translation_stats_on_key", using: :btree
 
   create_table "weeler_translations", force: :cascade do |t|
     t.string   "locale"
@@ -81,7 +101,7 @@ ActiveRecord::Schema.define(version: 20140726151210) do
     t.datetime "updated_at"
   end
 
-  add_index "weeler_translations", ["key"], name: "index_weeler_translations_on_key"
-  add_index "weeler_translations", ["locale"], name: "index_weeler_translations_on_locale"
+  add_index "weeler_translations", ["key"], name: "index_weeler_translations_on_key", using: :btree
+  add_index "weeler_translations", ["locale"], name: "index_weeler_translations_on_locale", using: :btree
 
 end

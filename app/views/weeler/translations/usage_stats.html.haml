@@ -22,7 +22,13 @@
             %th text
         %tbody
           - @used_keys.each do |key, usage|
-            %tr
-              %td= usage
-              %td= key.to_s.gsub('usage_stats/en/', '')
-              %td= t(key.to_s.gsub('usage_stats/en/', ''))
+            - begin
+              %tr
+                %td= usage
+                %td= key.to_s.gsub('usage_stats/en/', '')
+                %td= CGI::unescapeHTML(CGI::escapeHTML(t(key.to_s.gsub('usage_stats/en/', ''))))
+            - rescue => e
+              %tr
+                %td= "err #{usage}"
+                %td= key
+                %td= e.message

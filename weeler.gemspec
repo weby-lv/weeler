@@ -40,9 +40,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'capybara'
   spec.add_development_dependency 'factory_girl_rails'
   if RUBY_PLATFORM == 'java'
-    spec.add_development_dependency 'activerecord-jdbcsqlite3-adapter'
+    spec.add_development_dependency 'activerecord-jdbcpostgresql-adapter'
   else
-    spec.add_development_dependency 'sqlite3'
+    spec.add_development_dependency 'pg'
   end
   spec.add_development_dependency 'database_cleaner'
   spec.add_development_dependency 'shoulda-matchers'

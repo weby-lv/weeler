@@ -5,6 +5,8 @@ require 'i18n/backend/weeler/html_checker'
 require 'i18n/backend/weeler/exporter'
 require 'i18n/backend/weeler/importer'
 require 'i18n/backend/weeler/usage_logger'
+require 'i18n/backend/weeler/translation_stat'
+require 'i18n/backend/weeler/lock'
 
 module I18n
   module Backend
@@ -24,12 +26,14 @@ module I18n
 
       PLURAL_KEYS = ["zero", "one", "other"]
 
-      autoload :HtmlChecker, 'i18n/backend/weeler/html_checker'
-      autoload :Translation, 'i18n/backend/weeler/dedupe'
-      autoload :Translation, 'i18n/backend/weeler/translation'
-      autoload :Exporter,    'i18n/backend/weeler/exporter'
-      autoload :Importer,    'i18n/backend/weeler/importer'
-      autoload :UsageLogger, 'i18n/backend/weeler/usage_logger'
+      autoload :HtmlChecker,     'i18n/backend/weeler/html_checker'
+      autoload :Translation,     'i18n/backend/weeler/dedupe'
+      autoload :Translation,     'i18n/backend/weeler/translation'
+      autoload :Exporter,        'i18n/backend/weeler/exporter'
+      autoload :Importer,        'i18n/backend/weeler/importer'
+      autoload :UsageLogger,     'i18n/backend/weeler/usage_logger'
+      autoload :TranslationStat, 'i18n/backend/weeler/translation_stat'
+      autoload :Lock,            'i18n/backend/weeler/lock'
 
       module Implementation
         include Base, Flatten
@@ -72,7 +76,12 @@ module I18n
 
           # log locale/key usage for statistics
           if Settings.log_key_usage == 'true'
+            i18n_cache.delete([:dump_usage_stats, Process.pid])
             log_key_usage(locale, key)
+          end
+
+          if Settings.log_key_usage == 'dump'
+            dump_key_usage
           end
 
           return nil if i18n_cache.read([:missing, [locale, key]])

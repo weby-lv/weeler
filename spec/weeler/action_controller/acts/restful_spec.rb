@@ -127,7 +127,7 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
           end
 
           it "warns developer" do
-            warning_message = "[UNPERMITED PARAMS] To permiting {\"title\"=>\"Foo lala\", \"body\"=>\"Heila\"} params, add 'permit_params: [:title, :body]' option to 'acts_as_restful'\n"
+            warning_message = "[UNPERMITED PARAMS] To permit {\"title\"=>\"Foo lala\", \"body\"=>\"Heila\"} params, add 'permit_params: [:title, :body]' option to 'acts_as_restful'\n"
             expect { post("create", post: attributes_for(:dummy_post, title: "Foo lala", body: "Heila")) }.to output(warning_message).to_stderr
           end
         end
