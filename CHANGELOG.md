@@ -1,3 +1,20 @@
+## 1.5.1
+
+* Fixed version number
+
+### Contributors
+
+* Artis Raugulis
+
+## 1.4.0
+
+* Added translation usage stats
+* Fixed a transliteration bug
+
+### Contributors
+
+* Artis Raugulis
+
 ## 1.5.0
 
 * Added Lock
