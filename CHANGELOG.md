@@ -1,3 +1,11 @@
+## 1.5.2
+
+* Added translation filter by created at
+* Updated bootstrap to v3.3.6
+* Fixed issue when bootstrap fonts (glyphicons) where not loaded
+* Removed sass-twitter-bootstrap-rails dependency
+* Added bootstrap date / time picker
+
 ## 1.5.1
 
 * Fixed version number

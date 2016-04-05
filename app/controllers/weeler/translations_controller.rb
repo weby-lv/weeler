@@ -95,12 +95,16 @@ module Weeler
 
       translations = translations.where(locale: I18n.available_locales)
 
+      translations = translations.where("created_at >= ?", Time.zone.parse(params[:date_from]).beginning_of_day) if params[:date_from].present?
+      translations = translations.where("created_at <= ?", Time.zone.parse(params[:date_till]).end_of_day) if params[:date_till].present?
+
       ::Weeler.excluded_i18n_groups.each do |key|
         translations = translations.except_key(key)
       end
 
       translations = translations.where("key ILIKE ? OR value ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%") if params[:query]
       translations = translations.where(locale: params[:filtered_locale]) if params[:filtered_locale].present?
+
       translations = translations.lookup(params[:group]) if params[:group].present?
       translations
     end
