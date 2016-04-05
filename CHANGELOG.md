@@ -6,6 +6,10 @@
 * Removed sass-twitter-bootstrap-rails dependency
 * Added bootstrap date / time picker
 
+### Contributors
+
+* Artis Raugulis
+
 ## 1.5.1
 
 * Fixed version number
