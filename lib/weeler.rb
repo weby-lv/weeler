@@ -27,7 +27,7 @@ module Weeler
 
   mattr_accessor :use_weeler_i18n
   @@use_weeler_i18n = true
-  
+
   mattr_accessor :empty_translation_acts_like_missing
   @@empty_translation_acts_like_missing = true
 
@@ -68,7 +68,7 @@ module Weeler
 
   def self.setup
     yield self
-    if Weeler.use_weeler_i18n == true && ActiveRecord::Base.connection.table_exists?('weeler_translations')
+    if Weeler.use_weeler_i18n == true && ActiveRecord::Base.connection.data_source_exists?('weeler_translations')
       require "i18n/weeler"
       Weeler.static_sections.each do |key, section|
         Weeler.static_menu_items << {name: key.to_s.capitalize, weeler_path: "static_sections/#{key}"}
