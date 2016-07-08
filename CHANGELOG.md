@@ -1,3 +1,7 @@
+## 1.5.3
+
+* Rails depricated table exists, using data source exists instead
+
 ## 1.5.2
 
 * Added translation filter by created at
