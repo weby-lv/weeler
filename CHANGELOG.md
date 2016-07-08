@@ -1,6 +1,7 @@
 ## 1.5.3
 
 * Rails depricated table exists, using data source exists instead
+* Using RailsSettings::Base instead of RailsSettings::CachedSettings
 
 ## 1.5.2
 
