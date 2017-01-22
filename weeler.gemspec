@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'rails', '>= 4'
   spec.add_dependency 'i18n'
-  spec.add_dependency 'rails-settings-cached'
+  spec.add_dependency 'rails-settings-cached', '~> 0.6.5'
   spec.add_dependency 'globalize'
 
   spec.add_dependency 'kaminari'

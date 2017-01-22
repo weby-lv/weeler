@@ -1,2 +1,2 @@
-class Settings < RailsSettings::Base
+class Settings < RailsSettings::CachedSettings
 end
