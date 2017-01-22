@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/weeler.svg)](https://badge.fury.io/rb/weeler)
 [![Build Status](https://travis-ci.org/weby-lv/weeler.svg?branch=master)](https://travis-ci.org/weby-lv/weeler)
-[![Coverage Status](https://coveralls.io/repos/weby-lv/weeler/badge.png)](https://coveralls.io/r/weby-lv/weeler)
+[![Coverage Status](https://coveralls.io/repos/weby-lv/weeler/badge.svg)](https://coveralls.io/r/weby-lv/weeler)
 [![Code Climate](https://codeclimate.com/github/weby-lv/weeler/badges/gpa.svg)](https://codeclimate.com/github/weby-lv/weeler)
 
 ## Installation
