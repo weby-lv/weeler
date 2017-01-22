@@ -1,11 +1,9 @@
 # Weeler
 
-[![Gem Version](https://badge.fury.io/rb/weeler.png)](http://badge.fury.io/rb/weeler)
-[![Build Status](https://travis-ci.org/weby-lv/weeler.png?branch=master)](https://travis-ci.org/weby-lv/weeler)
+[![Gem Version](https://badge.fury.io/rb/weeler.svg)](https://badge.fury.io/rb/weeler)
+[![Build Status](https://travis-ci.org/weby-lv/weeler.svg?branch=master)](https://travis-ci.org/weby-lv/weeler)
 [![Coverage Status](https://coveralls.io/repos/weby-lv/weeler/badge.png)](https://coveralls.io/r/weby-lv/weeler)
 [![Code Climate](https://codeclimate.com/github/weby-lv/weeler.png)](https://codeclimate.com/github/weby-lv/weeler)
-
-CMS for weby.lv projects.
 
 ## Installation
 
@@ -41,9 +39,9 @@ This will generate follwing files:
 
 Following will be appended to your route file:
 
-    mount_weeler_at "weeler" do 
-      # weeler_resources :example, include_in_weeler_menu: true 
-      # Also you orderable and imageable concerns 
+    mount_weeler_at "weeler" do
+      # weeler_resources :example, include_in_weeler_menu: true
+      # Also you orderable and imageable concerns
     end
 
 And then migrate database:
@@ -111,7 +109,7 @@ you must add block <tt>permit_params: -> (params) { params.require(:post).permit
 
 You can override redirect path after <tt>:create</tt>, <tt>:update</tt>, <tt>:destroy</tt> actions.
 You can do this by overriding private methods in your controller.
-        
+
     def after_create_path
       { action: :edit, id: @item.id }
     end
@@ -126,7 +124,7 @@ You can do this by overriding private methods in your controller.
 
 Or you can override what happens after successful <tt>:create</tt>, <tt>:update</tt>, <tt>:destroy</tt> actions.
 You can do this by overriding private methods in your controller.
-        
+
     def after_create_action
       redirect_to( after_create_path, {:notice => "Successfully created item"} )
     end
