@@ -7,18 +7,25 @@
 
 ## Installation
 
-Add this line to your application's Gemfile:
+### Rails 5.0
 
-    gem 'weeler'
+1.6.0 version only supports Rails 5.0 and ruby 2.2.2 and higher version. In Gemfile include:
 
-And then execute:
+```ruby
+gem 'weeler'
+```
 
-    $ bundle
+### Rails 4.2
 
-Or install it yourself as:
+```ruby
+gem 'weeler', '~> 1.5'
+```
 
-    $ gem install weeler
+After specifying necessary gems in Gemfile run
 
+```bash
+bundle install
+```
 
 ## Setup
 
