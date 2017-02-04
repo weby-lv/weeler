@@ -25,7 +25,7 @@ describe Weeler::TranslationsController, type: :controller do
       expect(I18n.t("title", locale: :en)).to eq("Title")
       I18n::Backend::Weeler::Translation.delete_all
 
-      post :create, i18n_backend_weeler_translation: FactoryGirl.attributes_for(:translation)
+      post :create, params: { i18n_backend_weeler_translation: FactoryGirl.attributes_for(:translation) }
 
       expect(I18n.t("title", locale: :en)).to eq("This is weeler")
     end
@@ -33,10 +33,10 @@ describe Weeler::TranslationsController, type: :controller do
     it "doesnt create a duplicate key" do
       I18n::Backend::Weeler::Translation.delete_all
 
-      post :create, i18n_backend_weeler_translation: {locale: "en", key: "no.dup.title", value: "This is weeler"}
+      post :create, params: { i18n_backend_weeler_translation: {locale: "en", key: "no.dup.title", value: "This is weeler"} }
       expect(I18n.t("no.dup.title", locale: :en)).to eq("This is weeler")
 
-      post :create, i18n_backend_weeler_translation: {locale: "en", key: "no.dup.title", value: "This is weeler"}
+      post :create, params: { i18n_backend_weeler_translation: {locale: "en", key: "no.dup.title", value: "This is weeler"} }
       expect(response).to render_template(:edit)
     end
   end
@@ -46,7 +46,7 @@ describe Weeler::TranslationsController, type: :controller do
       I18n::Backend::Weeler::Translation.delete_all
       translation = FactoryGirl.create(:translation, key: 'foo.updated', value: nil)
 
-      put "update", id: translation.id, i18n_backend_weeler_translation: {value: "Updated weeler!"}
+      put "update", params: { id: translation.id, i18n_backend_weeler_translation: {value: "Updated weeler!"} }
       expect(I18n.t("foo.updated", locale: :en)).to eq("Updated weeler!")
     end
 
@@ -54,7 +54,7 @@ describe Weeler::TranslationsController, type: :controller do
       I18n::Backend::Weeler::Translation.delete_all
       translation = FactoryGirl.create(:translation, key: 'foo.updated', value: nil)
 
-      put "update", id: translation.id, i18n_backend_weeler_translation: {value: "Updated weeler!", key: nil}
+      put "update", params: { id: translation.id, i18n_backend_weeler_translation: {value: "Updated weeler!", key: nil} }
       expect(response).to render_template(:edit)
     end
   end
@@ -69,7 +69,7 @@ describe Weeler::TranslationsController, type: :controller do
   describe "GET #edit" do
     it "retern edit translation form" do
       translation = FactoryGirl.create(:translation, key: 'foo.updated', value: nil)
-      get "edit", id: translation.id
+      get "edit", params: { id: translation.id }
       expect(response).to render_template(:edit)
     end
   end
@@ -77,7 +77,7 @@ describe Weeler::TranslationsController, type: :controller do
   describe "DELETE #destroy" do
     it "destroys translation" do
       translation = FactoryGirl.create(:translation, key: 'foo.removing', value: "Bla bla")
-      delete "destroy", id: translation.id
+      delete "destroy", params: { id: translation.id }
 
       expect(I18n.t("foo.removing", locale: :en)).to eq("Removing") # Returns empty key
     end
@@ -90,7 +90,7 @@ describe Weeler::TranslationsController, type: :controller do
         Settings.i18n_updated_at = Time.now
 
         expect(I18n.t("welcome.title", locale: :en)).to eq("Title") # Missing translation
-        post "import", file: fixture_file_upload(File.dirname(__FILE__) + '/../fixtures/test.xlsx', 'application/xlsx')
+        post "import", params: { file: fixture_file_upload(File.dirname(__FILE__) + '/../fixtures/test.xlsx', 'application/xlsx') }
         expect(I18n.t("welcome.title", locale: :en)).to eq("EN welcome")
       end
     end

@@ -3,7 +3,7 @@ module Weeler
     extend ActiveSupport::Concern
 
     included do
-      before_filter :initialize_seo_for_section
+      before_action :initialize_seo_for_section
     end
 
   private

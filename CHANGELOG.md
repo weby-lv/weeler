@@ -1,3 +1,19 @@
+## 1.6.0
+
+### Features & Enhancements
+
+* Add Rails 5.0 support
+* Add Ruby 2.4.0 support
+* Drop ruby's < 2.2.2 support
+
+### Bug Fixes
+
+* Fixed RailsSettings::CachedSettings deprication warning
+
+### Contributors
+
+* Arturs Braucs
+
 ## 1.5.4
 
 * Using RailsSettings::CachedSettings instead of RailsSettings::Base

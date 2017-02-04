@@ -30,7 +30,7 @@ module Weeler
           # <tt>_filter.html.haml</tt>
           #
           def acts_as_restful(active_record_model, options = {})
-            before_filter(:load_record, only: [:show, :edit, :update, :destroy, :remove_image])
+            before_action(:load_record, only: [:show, :edit, :update, :destroy, :remove_image])
 
             include InstanceMethodsOnActivation
             helper_method :item_humanized_name
@@ -118,7 +118,7 @@ module Weeler
               permited_params.call(params)
             elsif permited_params.blank?
               warning_suggestion = params[parameterized_name.to_sym].is_a?(Hash) ? params[parameterized_name.to_sym].keys.map{ |k| k.to_sym } : "permit_params:"
-              warn "[UNPERMITED PARAMS] To permit #{params[parameterized_name.to_sym].inspect} params, add 'permit_params: #{warning_suggestion}' option to 'acts_as_restful'"
+              warn "[UNPERMITED PARAMS] To permit #{params[parameterized_name.to_sym].to_unsafe_h.inspect} params, add 'permit_params: #{warning_suggestion}' option to 'acts_as_restful'"
             else
               params.require(parameterized_name.to_sym).permit(permited_params)
             end
@@ -199,7 +199,7 @@ module Weeler
               item.sequence = index
               item.save!
             end
-            render :text => 'all ok'
+            render plain: 'all ok'
           end
 
         end # Instance methods

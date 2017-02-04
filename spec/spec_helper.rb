@@ -36,7 +36,7 @@ RSpec.configure do |config|
 
   # FactoryGirl
   config.include FactoryGirl::Syntax::Methods
-  
+
   Capybara.javascript_driver = :webkit
 
   # disable empty translation creation

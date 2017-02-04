@@ -18,9 +18,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'rails', '>= 4'
+  spec.add_dependency 'rails', '~> 5.0'
   spec.add_dependency 'i18n'
-  spec.add_dependency 'rails-settings-cached', '~> 0.6.5'
+  spec.add_dependency 'rails-settings-cached'
   spec.add_dependency 'globalize'
 
   spec.add_dependency 'kaminari'
@@ -45,6 +45,7 @@ Gem::Specification.new do |spec|
   end
   spec.add_development_dependency 'database_cleaner'
   spec.add_development_dependency 'shoulda-matchers'
+  spec.add_development_dependency 'rails-controller-testing'
   spec.add_development_dependency 'coveralls'
 
 end

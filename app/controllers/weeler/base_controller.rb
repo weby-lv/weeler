@@ -1,6 +1,6 @@
 class Weeler::BaseController < Weeler::ApplicationController
-  before_filter :set_current_menu_item
-  before_filter :run_weeler_required_user_method
+  before_action :set_current_menu_item
+  before_action :run_weeler_required_user_method
 
 protected
 

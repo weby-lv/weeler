@@ -54,13 +54,13 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
             #   end
             # end
 
-            post "create", post: attributes_for(:dummy_post)
+            post "create", params: { post: attributes_for(:dummy_post) }
             post = Post.last
             expect(response).to redirect_to("http://test.host/weeler-admin/foos/#{post.id}/edit")
           end
 
           it "sets only permited params" do
-            post "create", post: attributes_for(:dummy_post, body: "Heila")
+            post "create", params: { post: attributes_for(:dummy_post, body: "Heila") }
             post = Post.last
             expect(post.title).to eq("Foo bar")
             expect(post.body).to eq(nil)
@@ -69,7 +69,7 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
 
         describe "GET #edit" do
           it "returns success status" do
-            get "edit", id: Post.last.id
+            get "edit", params: { id: Post.last.id }
             expect(response).to be_success
           end
         end
@@ -84,7 +84,7 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
         describe "PUT #update" do
           it "sets only permited params" do
             post = Post.last
-            put "update", id: post.id, post: {title: "Shivauva", body: "Another world!"}
+            put "update", params: { id: post.id, post: {title: "Shivauva", body: "Another world!"} }
             post.reload
             expect(post.title).to eq("Shivauva")
             expect(post.body).to eq("Foo baar bazaar")
@@ -94,7 +94,7 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
         describe "DELETE #destroy" do
           it "destroys item" do
             post = Post.last
-            delete "destroy", id: post.id
+            delete "destroy", params: { id: post.id }
             expect { post.reload }.to raise_error(ActiveRecord::RecordNotFound)
           end
         end
@@ -102,7 +102,7 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
         specify "POST #order" do
           routes.draw { post "order" => "weeler/foos#order" }
 
-          post "order", orders: "order[]=2&order[]=1"
+          post "order", params: { orders: "order[]=2&order[]=1" }
           post1 = Post.order(sequence: :asc).first
           post2 = Post.order(sequence: :asc).last
           expect(post1.sequence).to eq(0)
@@ -120,15 +120,15 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
       describe "actions" do
         describe "POST #create" do
           it "sets only permited params" do
-            post "create", post: attributes_for(:dummy_post, title: "Foo lala", body: "Heila")
+            post "create", params: { post: attributes_for(:dummy_post, title: "Foo lala", body: "Heila") }
             post = Post.last
             expect(post.title).to eq(nil)
             expect(post.body).to eq(nil)
           end
 
           it "warns developer" do
-            warning_message = "[UNPERMITED PARAMS] To permit {\"title\"=>\"Foo lala\", \"body\"=>\"Heila\"} params, add 'permit_params: [:title, :body]' option to 'acts_as_restful'\n"
-            expect { post("create", post: attributes_for(:dummy_post, title: "Foo lala", body: "Heila")) }.to output(warning_message).to_stderr
+            warning_message = "[UNPERMITED PARAMS] To permit {\"body\"=>\"Heila\", \"title\"=>\"Foo lala\"} params, add 'permit_params: permit_params:' option to 'acts_as_restful'\n"
+            expect { post("create", params: { post: attributes_for(:dummy_post, title: "Foo lala", body: "Heila") }) }.to output(warning_message).to_stderr
           end
         end
       end
@@ -142,7 +142,7 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
       describe "actions" do
         describe "POST #create" do
           it "sets only permited params" do
-            post "create", post: attributes_for(:dummy_post, title: "Foo lala", body: "Heila")
+            post "create", params: { post: attributes_for(:dummy_post, title: "Foo lala", body: "Heila") }
             post = Post.last
             expect(post.title).to eq("Foo lala")
             expect(post.body).to eq("Heila")
@@ -165,7 +165,5 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
         end
       end
     end
-
-
   end
 end
