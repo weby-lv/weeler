@@ -5,7 +5,7 @@ class Weeler::FoosController < Weeler::ContentController; end
 describe Weeler::ActionController::Acts::Restful, type: :controller do
 
   before(:each) do
-    FactoryGirl.create_list(:dummy_post, 2)
+    FactoryBot.create_list(:dummy_post, 2)
   end
 
   before do
@@ -35,7 +35,7 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
             routes.draw { get "index" => "weeler/foos#index" }
 
             get "index"
-            expect(response).to be_success
+            expect(response).to have_http_status(200)
           end
 
           specify "assigns posts" do
@@ -70,14 +70,15 @@ describe Weeler::ActionController::Acts::Restful, type: :controller do
         describe "GET #edit" do
           it "returns success status" do
             get "edit", params: { id: Post.last.id }
-            expect(response).to be_success
+            expect(response).to have_http_status(200)
           end
         end
 
         describe "GET #new" do
           it "returns success status" do
             get "new"
-            expect(response).to be_success
+
+            expect(response).to have_http_status(200)
           end
         end
 

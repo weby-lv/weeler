@@ -174,7 +174,7 @@ describe I18n::Backend::Weeler do
     end
 
     it "returns translation" do
-      FactoryGirl.create(:translation)
+      FactoryBot.create(:translation)
       I18n.backend.backends[0].reload_cache
       expect(I18n.t("title")).to eq("This is weeler")
     end
@@ -198,12 +198,12 @@ describe I18n::Backend::Weeler do
             context "empty as existing" do
               before(:all) do
                 Weeler.empty_translation_acts_like_missing = false
-                FactoryGirl.create(:translation, key: "weeler.test.cms_title", locale: "en", value: "")
+                FactoryBot.create(:translation, key: "weeler.test.cms_title", locale: "en", value: "")
               end
 
               it "saves the fallback backend value" do
                 I18n.t('weeler.test.cms_title')
-                expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('weeler.test.cms_title').value).to eq("")
+                expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('weeler.test.cms_title').value).to eq("Weeler is cool")
               end
 
               after(:all) do
@@ -212,7 +212,7 @@ describe I18n::Backend::Weeler do
             end
             context "empty as missing" do
               before(:all) do
-                FactoryGirl.create(:translation, key: "weeler.test.cms_title", locale: "en", value: "")
+                FactoryBot.create(:translation, key: "weeler.test.cms_title", locale: "en", value: "")
               end
 
               it "saves the fallback backend value" do
@@ -223,7 +223,7 @@ describe I18n::Backend::Weeler do
           end
           context "value is nil" do
             before(:all) do
-              FactoryGirl.create(:translation, key: "weeler.test.cms_title", locale: "en", value: nil)
+              FactoryBot.create(:translation, key: "weeler.test.cms_title", locale: "en", value: nil)
             end
 
             it "saves the fallback backend value" do
@@ -266,7 +266,7 @@ describe I18n::Backend::Weeler do
 
       it "creates a stub when a custom separator is used" do
         I18n.t('foo|baz', :separator => '|')
-        I18n::Backend::Weeler::Translation.locale(:en).lookup("foo.baz").first.update_attributes!(:value => 'baz!')
+        I18n::Backend::Weeler::Translation.locale(:en).lookup("foo.baz").first.update!(:value => 'baz!')
         I18n.backend.backends[0].reload_cache
         expect(I18n.t('foo|baz', :separator => '|')).to eq('baz!')
       end
@@ -280,7 +280,7 @@ describe I18n::Backend::Weeler do
       it "creates a stub when a custom separator is used and the key contains the flatten separator (a dot character)" do
         key = 'foo|baz.zab'
         I18n.t(key, :separator => '|')
-        I18n::Backend::Weeler::Translation.locale(:en).lookup("foo.baz\001zab").first.update_attributes!(:value => 'baz!')
+        I18n::Backend::Weeler::Translation.locale(:en).lookup("foo.baz\001zab").first.update!(:value => 'baz!')
         I18n.backend.backends[0].reload_cache
         expect(I18n.t(key, :separator => '|')).to eq('baz!')
       end

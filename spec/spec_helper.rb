@@ -10,9 +10,11 @@ end
 
 ENV['RAILS_ENV'] ||= 'test'
 
-require File.expand_path("../dummy/config/environment.rb",  __FILE__)
+# require File.expand_path('../dummy/config/environment.rb', __FILE__)
+require File.expand_path('../dummy/config/environment', __FILE__)
+
 require 'rspec/rails'
-require 'factory_girl'
+require 'factory_bot'
 require 'capybara/rspec'
 require 'database_cleaner'
 require 'shoulda-matchers'
@@ -34,8 +36,8 @@ RSpec.configure do |config|
 
   config.include Rails.application.routes.url_helpers
 
-  # FactoryGirl
-  config.include FactoryGirl::Syntax::Methods
+  # FactoryBot
+  config.include FactoryBot::Syntax::Methods
 
   Capybara.javascript_driver = :webkit
 

@@ -7,12 +7,20 @@
 
 ## Installation
 
+### Rails 6.0
+
+2.0.0 version only supports Rails 6.0 and ruby 2.5 or higher version. In Gemfile include:
+
+```ruby
+gem 'weeler', '~> 2.0'
+```
+
 ### Rails 5.0
 
 1.6.0 version only supports Rails 5.0 and ruby 2.2.2 and higher version. In Gemfile include:
 
 ```ruby
-gem 'weeler'
+gem 'weeler', '~> 1.6'
 ```
 
 ### Rails 4.2
@@ -154,26 +162,6 @@ Also you can override all standart restful action view and implement, if you nee
 ### View partials for restful controllers:
 
 Weeler have default views for index, new, edit actions. You should override <tt>_form.html.haml</tt> partial.
-
-### View helper image_upload_field :
-
-Weeler action view helper method.
-It creates file upload field with info and preview for image.
-
-e.g.
-
-    <%= f.image_upload_field :image, size_info: "270x294" %>
-
-It creates:
-
-    <div class="col-lg-10 col-md-10">
-      <label class="col-lg-2 col-md-2 control-label" for="object_image">Image</label><div class="col-lg-5 col-md-5"><div class="row"><div class="col-lg-12 col-md-12"><input class="form-control" id="object_image" name="object[image]" type="file"></div></div><div class="row"><div class="col-lg-12 col-md-12">Size should be 270x294</div></div></div><div class="col-lg-5 col-md-5"><div class="row"><div class="col-lg-12 col-md-12"><img alt="Name" src="/images/name.jpg" style="height: 80px;"></div></div></div>
-    </div>
-
-If you use another image handler than Paperclip, you can also pass <tt>image_url_method</tt> for image preview.
-
-Also with remove_image action in controller and route for that,
-it removes only image from object.
 
 ## Contributing
 

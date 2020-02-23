@@ -1,3 +1,15 @@
+## 2.0.0
+
+### Features & Enhancements
+
+* Add Rails 6.0 support
+* Add Ruby 2.6 - 2.7 support (drop other rubys)
+* Removed 'image_upload_field' helper
+
+### Contributors
+
+* Arturs Braucs
+
 ## 1.6.0
 
 ### Features & Enhancements

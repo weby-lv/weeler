@@ -1,4 +1,4 @@
-class CreateWeelerSeos < ActiveRecord::Migration
+class CreateWeelerSeos < ActiveRecord::Migration[4.2]
   def change
     create_table :weeler_seos do |t|
       t.string :title

@@ -90,7 +90,7 @@ module Weeler
           end
 
           def update
-            if @item.update_attributes(items_params)
+            if @item.update(items_params)
               after_update_action
             else
               render :action => 'edit'

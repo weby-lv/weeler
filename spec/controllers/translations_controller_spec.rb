@@ -10,8 +10,8 @@ describe Weeler::TranslationsController, type: :controller do
 
   describe "GET #index" do
     before do
-      FactoryGirl.create(:translation, key: 'foo.bar')
-      FactoryGirl.create(:translation, key: 'bar.foo')
+      FactoryBot.create(:translation, key: 'foo.bar')
+      FactoryBot.create(:translation, key: 'bar.foo')
     end
 
     it "list translations" do
@@ -25,7 +25,7 @@ describe Weeler::TranslationsController, type: :controller do
       expect(I18n.t("title", locale: :en)).to eq("Title")
       I18n::Backend::Weeler::Translation.delete_all
 
-      post :create, params: { i18n_backend_weeler_translation: FactoryGirl.attributes_for(:translation) }
+      post :create, params: { i18n_backend_weeler_translation: FactoryBot.attributes_for(:translation) }
 
       expect(I18n.t("title", locale: :en)).to eq("This is weeler")
     end
@@ -44,7 +44,7 @@ describe Weeler::TranslationsController, type: :controller do
   describe "PUT #update" do
     it "update translation in DB" do
       I18n::Backend::Weeler::Translation.delete_all
-      translation = FactoryGirl.create(:translation, key: 'foo.updated', value: nil)
+      translation = FactoryBot.create(:translation, key: 'foo.updated', value: nil)
 
       put "update", params: { id: translation.id, i18n_backend_weeler_translation: {value: "Updated weeler!"} }
       expect(I18n.t("foo.updated", locale: :en)).to eq("Updated weeler!")
@@ -52,7 +52,7 @@ describe Weeler::TranslationsController, type: :controller do
 
     it "dont updates if key is empty" do
       I18n::Backend::Weeler::Translation.delete_all
-      translation = FactoryGirl.create(:translation, key: 'foo.updated', value: nil)
+      translation = FactoryBot.create(:translation, key: 'foo.updated', value: nil)
 
       put "update", params: { id: translation.id, i18n_backend_weeler_translation: {value: "Updated weeler!", key: nil} }
       expect(response).to render_template(:edit)
@@ -68,7 +68,7 @@ describe Weeler::TranslationsController, type: :controller do
 
   describe "GET #edit" do
     it "retern edit translation form" do
-      translation = FactoryGirl.create(:translation, key: 'foo.updated', value: nil)
+      translation = FactoryBot.create(:translation, key: 'foo.updated', value: nil)
       get "edit", params: { id: translation.id }
       expect(response).to render_template(:edit)
     end
@@ -76,7 +76,7 @@ describe Weeler::TranslationsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys translation" do
-      translation = FactoryGirl.create(:translation, key: 'foo.removing', value: "Bla bla")
+      translation = FactoryBot.create(:translation, key: 'foo.removing', value: "Bla bla")
       delete "destroy", params: { id: translation.id }
 
       expect(I18n.t("foo.removing", locale: :en)).to eq("Removing") # Returns empty key
@@ -110,7 +110,7 @@ describe Weeler::TranslationsController, type: :controller do
     it "retursns translation file" do
       get "export", format: :xlsx
       expect(response.headers["Content-Type"]).to eq("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-      expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"translations.xlsx\"")
+      expect(response.headers["Content-Disposition"]).to eq("attachment; filename=\"translations.xlsx\"; filename*=UTF-8''translations.xlsx")
     end
   end
 
