@@ -118,7 +118,7 @@ module I18n
             translation = result.first
             if translation.value.blank?
               fallback_value = fallback_backend_translation locale, key
-              translation.update_attributes value: fallback_value if fallback_value.present?
+              translation.update value: fallback_value if fallback_value.present?
             end
             return translation.value
           else

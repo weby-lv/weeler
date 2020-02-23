@@ -1,4 +1,4 @@
-class CreateWeelerLocks < ActiveRecord::Migration
+class CreateWeelerLocks < ActiveRecord::Migration[4.2]
   def self.up
     create_table :weeler_locks do |t|
       t.string :name, :limit => 40

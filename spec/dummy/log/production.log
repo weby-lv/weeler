@@ -1,4 +1,0 @@
-E, [2013-10-17T10:41:04.917821 #2089] ERROR -- : SQLite3::SQLException: no such table: weeler_translations: SELECT "weeler_translations".* FROM "weeler_translations"  WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('some.missing translation') OR "key" LIKE 'some.missing translation.%')
-E, [2013-10-17T10:41:04.924139 #2089] ERROR -- : SQLite3::SQLException: no such table: weeler_translations: SELECT "weeler_translations".* FROM "weeler_translations"  WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('i18n.transliterate.rule') OR "key" LIKE 'i18n.transliterate.rule.%')
-E, [2013-10-17T10:41:04.930056 #2089] ERROR -- : SQLite3::SQLException: no such table: weeler_translations: SELECT "weeler_translations".* FROM "weeler_translations"  WHERE "weeler_translations"."locale" = 'en' AND ("key" IN ('hello') OR "key" LIKE 'hello.%')
-I, [2013-10-17T10:42:06.994964 #2101]  INFO -- : Migrating to CreateWeelerTranslations (20131015144900)

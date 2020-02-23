@@ -1,4 +1,4 @@
-class TranslateWeelerSeos < ActiveRecord::Migration
+class TranslateWeelerSeos < ActiveRecord::Migration[4.2]
   def self.up
     Weeler::Seo.create_translation_table!({
       title: :string,

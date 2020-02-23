@@ -1,4 +1,4 @@
-class CreateWeelerTranslations < ActiveRecord::Migration
+class CreateWeelerTranslations < ActiveRecord::Migration[4.2]
   def change
     create_table :weeler_translations do |t|
       t.string :locale
