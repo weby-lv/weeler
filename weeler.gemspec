@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'jquery-ui-rails'
   spec.add_dependency 'rails-settings-cached', '< 2.0'
 
-  spec.add_dependency 'axlsx'
+  spec.add_dependency 'caxlsx'
   spec.add_dependency 'roo'
 
   spec.add_development_dependency 'bundler'
