@@ -17,8 +17,12 @@
           .form-group
             = label_tag key, key.to_s.split('.').last.humanize, class: "col-lg-2 col-md-2 control-label"
             %div{class: "col-lg-10 col-md-10"}
+              
               - if translation.html?
-                = text_area_tag "translations[#{translation.id}]", translation.value, class: 'form-control redactor'
+                - if ::Weeler.use_rails_rich_text_editor
+                  = rich_text_area_tag "translations[#{translation.id}]", translation.value
+                - else
+                  = text_area_tag "translations[#{translation.id}]", translation.value, class: 'form-control html'
               - else
                 = text_area_tag "translations[#{translation.id}]", translation.value, class: 'form-control'
 

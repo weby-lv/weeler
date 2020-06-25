@@ -66,6 +66,9 @@ module Weeler
   mattr_accessor :mount_location_namespace
   @@mount_location_namespace = "weeler"
 
+  mattr_accessor :use_rails_rich_text_editor
+  @@use_rails_rich_text_editor = true
+
   def self.setup
     yield self
     if Weeler.use_weeler_i18n == true && ActiveRecord::Base.connection.data_source_exists?('weeler_translations')

@@ -10,8 +10,12 @@
 .form-group
   %label.col-lg-2.col-md-2.control-label Value
   .col-lg-10.col-md-10
-    %textarea.form-control{class: "#{'redactor' if translation.html?}", name: 'i18n_backend_weeler_translation[value]', id: 'i18n_backend_weeler_translation_value'}
-      = translation.value
+    = raw(translation.value)
+    - if ::Weeler.use_rails_rich_text_editor && translation.html?
+      = rich_text_area_tag 'i18n_backend_weeler_translation[value]', translation.value
+    - else
+      %textarea.form-control{class: "#{'html' if translation.html?}", name: 'i18n_backend_weeler_translation[value]', id: 'i18n_backend_weeler_translation_value'}
+        = translation.value
 %h4 Info
 .form-group
   %label.col-lg-2.col-md-2.control-label Variables
