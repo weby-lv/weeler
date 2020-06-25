@@ -11,7 +11,6 @@ require "haml"
 require "kaminari"
 require "globalize"
 require "jquery-ui-rails"
-require "jquery-turbolinks"
 require "rails-settings-cached"
 
 module Weeler

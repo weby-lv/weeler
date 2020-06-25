@@ -1,8 +1,6 @@
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery-ui
 //= require jquery_ujs
-//= require turbolinks
 //= require ./vendor/moment
 //= require_tree ./vendor
 //= require_tree ./lib
