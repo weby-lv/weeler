@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'factory_bot_rails'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'rspec-rails', '4.0.0.beta3'
+  spec.add_development_dependency 'rspec-rails', '~> 4.0.0'
   spec.add_development_dependency 'webrat'
 
   if RUBY_PLATFORM == 'java'

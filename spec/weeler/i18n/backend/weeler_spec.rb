@@ -43,11 +43,40 @@ describe I18n::Backend::Weeler do
   end
 
   describe "#available_locales" do
-
-    it "finds one locale" do
-      expect(I18n.available_locales.count).to be(2)
+    before do
+      I18n.available_locales = nil
+    end
+    
+    context "when no translations and available_locales provided" do
+      it "returns one :en locale" do
+        expect(I18n.available_locales.count).to be(1)
+        expect(I18n.available_locales.first).to eq(:en)
+      end
     end
 
+    context "when available_locales provided" do
+      before do
+        I18n.available_locales = [:en, :es, :lv]
+      end
+
+      it "returns provided available_locales" do
+        expect(I18n.available_locales.count).to be(3)
+        expect(I18n.available_locales).to eq([:en, :es, :lv])
+      end
+    end
+
+    context "when no available_locales provided but have translations" do
+      before do
+        I18n::Backend::Weeler::Translation.create(key: 'weeler.test.value', locale: 'en')
+        I18n::Backend::Weeler::Translation.create(key: 'weeler.test.value', locale: 'es')
+        I18n::Backend::Weeler::Translation.create(key: 'weeler.test.value_two', locale: 'en')
+      end
+
+      it "returns locales from translations" do
+        expect(I18n.available_locales.count).to be(2)
+        expect(I18n.available_locales).to eq([:es, :en])
+      end
+    end
   end
 
   describe "#value" do

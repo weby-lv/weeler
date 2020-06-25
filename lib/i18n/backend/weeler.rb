@@ -60,6 +60,10 @@ module I18n
           i18n_cache.write('UPDATED_AT', Settings.i18n_updated_at) if ActiveRecord::Base.connection.data_source_exists?('settings')
         end
 
+        def available_locales
+          I18n::Backend::Weeler::Translation.distinct.pluck(:locale).compact.map(&:to_sym)
+        end
+
         protected
 
         def lookup(locale, key, scope = [], options = {})
