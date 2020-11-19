@@ -10,15 +10,6 @@
           = link_to 'Show translations', weeler_translations_path(show_translation_keys: false)
         - else
           = link_to 'Show translation keys', weeler_translations_path(show_translation_keys: true)
-      %h1 Stats
-      %p.lead.text-muted
-        - if Settings.log_key_usage == 'true'
-          = 'Translation usage stat gathering is ON'
-        - else
-          = 'Translation usage stat gathering is OFF'
-      %p.lead.text-muted
-        = link_to 'Go to Stats', {action: :usage_stats}
-
 .row
   .col-xs-12
     %nav.navbar.navbar-default{ role: "navigation" }
@@ -38,7 +29,6 @@
                 - if locale.present?
                   %li
                     %a{href: weeler_translations_path(group: params[:group], filtered_locale: locale)}= locale.capitalize
-
 
         / key group lookup
         %ul.nav.navbar-nav.navbar-left

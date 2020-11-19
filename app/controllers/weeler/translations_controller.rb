@@ -49,19 +49,6 @@ module Weeler
       redirect_to ({ action: :index }), flash: {success: "Translation succesfully removed."}
     end
 
-    def usage_stats
-      @used_keys = []
-      if Settings.log_key_usage == 'dump'
-        I18n::Backend::Weeler::TranslationStat.all.each do |translation_stat|
-          @used_keys << [translation_stat.key, translation_stat.usage_count]
-        end
-      else
-        Weeler.i18n_cache.instance_variable_get(:@data).keys.each do |key|
-          @used_keys << [key, Weeler.i18n_cache.read(key)] if key.start_with?('usage_stats')
-        end
-      end
-    end
-
     def export
       respond_to do |format|
         format.xlsx do

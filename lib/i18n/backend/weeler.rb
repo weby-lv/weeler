@@ -4,8 +4,6 @@ require 'i18n/backend/weeler/dedupe'
 require 'i18n/backend/weeler/html_checker'
 require 'i18n/backend/weeler/exporter'
 require 'i18n/backend/weeler/importer'
-require 'i18n/backend/weeler/usage_logger'
-require 'i18n/backend/weeler/translation_stat'
 require 'i18n/backend/weeler/lock'
 
 module I18n
@@ -31,8 +29,6 @@ module I18n
       autoload :Translation,     'i18n/backend/weeler/translation'
       autoload :Exporter,        'i18n/backend/weeler/exporter'
       autoload :Importer,        'i18n/backend/weeler/importer'
-      autoload :UsageLogger,     'i18n/backend/weeler/usage_logger'
-      autoload :TranslationStat, 'i18n/backend/weeler/translation_stat'
       autoload :Lock,            'i18n/backend/weeler/lock'
 
       module Implementation
@@ -78,22 +74,11 @@ module I18n
           # reload cache if cache timestamp differs from last translations update
           reload_cache if ((!ActiveRecord::Base.connection.data_source_exists?('settings')) || i18n_cache.read('UPDATED_AT') != Settings.i18n_updated_at)
 
-          # log locale/key usage for statistics
-          if Settings.log_key_usage == 'true'
-            i18n_cache.delete([:dump_usage_stats, Process.pid])
-            log_key_usage(locale, key)
-          end
-
-          if Settings.log_key_usage == 'dump'
-            dump_key_usage
-          end
-
           return nil if i18n_cache.read([:missing, [locale, key]])
 
           keys = expand_keys key
 
           keys.reverse.each do |check_key|
-
             result = i18n_cache.read([locale, check_key])
 
             return result.value unless result.blank?

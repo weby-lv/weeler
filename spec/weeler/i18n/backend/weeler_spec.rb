@@ -74,7 +74,7 @@ describe I18n::Backend::Weeler do
 
       it "returns locales from translations" do
         expect(I18n.available_locales.count).to be(2)
-        expect(I18n.available_locales).to eq([:es, :en])
+        expect(I18n.available_locales).to eq([:en, :es])
       end
     end
   end
@@ -314,28 +314,6 @@ describe I18n::Backend::Weeler do
         expect(I18n.t(key, :separator => '|')).to eq('baz!')
       end
 
-    end
-
-    context "usage logging" do
-
-      it "translation stores all translation in each locale" do
-        Settings.log_key_usage = 'true'
-        expect(I18n.backend.backends[0]).to receive(:log_key_usage)
-        I18n.t("random.key")
-      end
-
-      it "doesn't log keys" do
-        Settings.log_key_usage = 'false'
-        expect(I18n.backend.backends[0]).not_to receive(:log_key_usage)
-        I18n.t("random.key")
-      end
-
-      it "dumps logged keys to database" do
-        Settings.log_key_usage = 'dump'
-        expect(I18n.backend.backends[0]).to receive(:dump_key_usage)
-        I18n.t("random.key")
-      end
-      
     end
 
   end
