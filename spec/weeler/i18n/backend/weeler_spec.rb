@@ -74,7 +74,8 @@ describe I18n::Backend::Weeler do
 
       it "returns locales from translations" do
         expect(I18n.available_locales.count).to be(2)
-        expect(I18n.available_locales).to eq([:en, :es])
+        expect(I18n.available_locales).to include(:en)
+        expect(I18n.available_locales).to include(:es)
       end
     end
   end

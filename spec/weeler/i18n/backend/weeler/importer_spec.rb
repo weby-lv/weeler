@@ -6,7 +6,6 @@ describe I18n::Backend::Weeler::Importer do
   let(:file_path) { Rack::Test::UploadedFile.new(File.dirname(__FILE__) + '/../../../../fixtures/test.xlsx') }
 
   describe :import do
-
     context "empty db" do
       before(:each) do
         I18n::Backend::Weeler::Translation.delete_all
@@ -24,9 +23,24 @@ describe I18n::Backend::Weeler::Importer do
       it "returns nil if value is not file" do
         expect(I18n.t(:"product.list.open", :locale => :en)).to eq("")
       end
-
     end
 
+    context 'when file includes created_at and updated_at dates' do
+      let(:file_path) { Rack::Test::UploadedFile.new(File.dirname(__FILE__) + '/../../../../fixtures/test_2020_format.xlsx') }
+
+      before(:each) do
+        I18n::Backend::Weeler::Translation.delete_all
+        I18n::Backend::Weeler::Translation.import file_path
+      end
+
+      it "translation stores all translation in each locale" do
+        expect(I18n::Backend::Weeler::Translation.count).to eq(30)
+      end
+
+      it "stores only values from locals" do
+        expect(I18n::Backend::Weeler::Translation.distinct.pluck(:locale).sort).to eq(['en', 'lt', 'lv'])
+      end
+    end
 
     context "full db" do
       before(:each) do
@@ -42,9 +56,7 @@ describe I18n::Backend::Weeler::Importer do
 
         expect(I18n.t(:"welcome.title", :locale => :en)).to eq("EN welcome")
       end
-
     end
-
   end
 
 end

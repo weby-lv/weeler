@@ -25,7 +25,6 @@ module I18n
         extend ActiveSupport::Concern
 
         module ClassMethods
-
           # Prepare xlsx package from current scope
           # Stores all translations in translations worksheet.
           def as_xlsx_package
@@ -42,33 +41,51 @@ module I18n
 
             included_keys = []
 
-            self.current_scope.each do |translation|
+            current_scope.each do |translation|
               unless included_keys.include? translation.key
-                sheet.add_row(Translation.translation_row_by_key_and_locales(translation.key, locales), types: types)
+                row = Translation.translation_row_by_key_and_locales(translation.key, locales)
+                sheet.add_row(row, types: types)
                 included_keys << translation.key
               end
             end
-            return package
+
+            package
           end
 
-          def title_row locales
+          def title_row(locales)
             row = [ 'Key' ]
             locales.each do |locale|
               row.push(locale.capitalize)
             end
+
+            row.push('Created at')
+            row.push('Updated at')
+
             row
           end
 
-          def translation_row_by_key_and_locales key, locales
-            row = [ key ]
+          def translation_row_by_key_and_locales(key, locales)
+            row = [key]
+            created_ats = []
+            updated_ats = []
+
             locales.each do |locale|
               result = Translation.locale(locale).lookup(key).load
-              if result.first.present?
-                row.push(result.first.value)
+
+              first_result = result.first
+              if first_result.present?
+                created_ats.push(first_result.created_at)
+                updated_ats.push(first_result.updated_at)
+
+                row.push(first_result.value)
               else
-                row.push("")
+                row.push('')
               end
             end
+
+            row.push(created_ats.min)
+            row.push(updated_ats.max)
+
             row
           end
         end

@@ -22,12 +22,18 @@ describe I18n::Backend::Weeler::Exporter do
         expect(@rows.first.cells[0].value).to eq("Key")
         expect(@rows.first.cells[1].value).to eq("En")
         expect(@rows.first.cells[2].value).to eq("Lv")
+
+        expect(@rows.first.cells[3].value).to eq("Created at")
+        expect(@rows.first.cells[4].value).to eq("Updated at")
       end
 
       it "other row with one translation" do
         expect(@rows[1].cells[0].value).to eq("foo.one")
         expect(@rows[1].cells[1].value).to eq("test")
         expect(@rows[1].cells[2].value).to eq("")
+
+        expect(@rows[1].cells[3].value&.is_a?(Time)).to eq(true)
+        expect(@rows[1].cells[4].value&.is_a?(Time)).to eq(true)
       end
 
       it "other row with two translation" do
