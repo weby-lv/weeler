@@ -79,3 +79,9 @@ span.weeler_version{
   font-size:10px;
   color:#C2C2C2;
 }
+
+.sidebar-nav {
+  .nav > li > a:hover, .nav > li > a:focus, .nav > li > a.active {
+    background-color: #ddd;
+  }
+}
