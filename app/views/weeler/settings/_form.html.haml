@@ -1,0 +1,16 @@
+= form_for [:weeler, item], html: {class: "form-vertical", role: "form"} do |f|
+  - if item.new_record?
+    = f.hidden_field :var
+
+  .form-group
+    %label.col-lg-4.col-md-4.control-label
+      = "#{item.var.humanize.capitalize}:"
+    .col-lg-6.col-md-6
+      - type = item.class.get_field(item.var)[:type]
+      - if type == :boolean
+        = f.check_box :value, class: "form-check-input"
+      - else
+        = f.text_field :value, class: "form-control"
+
+  .col-lg-2.col-md-2
+    = f.submit "Save", class: "btn btn-primary"

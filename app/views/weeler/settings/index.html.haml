@@ -9,11 +9,7 @@
   %div{class: "col-lg-8 col-md-8"}
     - @settings.each do |item|
       %div{style: "min-height: 50px;"}
-        = form_for [:weeler, item], html: {class: "form-vertical", role: "form"} do |f|
-          .form-group
-            %label.col-lg-4.col-md-4.control-label
-              = "#{item.var.humanize.capitalize}:"
-            .col-lg-6.col-md-6
-              = f.text_field :value, value: item.value, class: "form-control"
-          .col-lg-2.col-md-2
-            = f.submit "Save", class: "btn btn-primary"
+        = render 'form', item: item
+    - Setting.keys.each do |key|
+      - if !Setting.all.map(&:var).include?(key)
+        = render 'form', item: Setting.new(var: key)

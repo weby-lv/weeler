@@ -12,8 +12,8 @@ module Weeler
         translation.value = value
         translation.save
       end
-      Settings.i18n_updated_at = Time.now
-      redirect_to({action: :show, id: params[:id]}, {flash: {success: "Section updated."}})
+      Setting.i18n_updated_at = Time.current
+      redirect_to({ action: :show, id: params[:id] }, { flash: { success: "Section updated." } })
     end
   end
 end

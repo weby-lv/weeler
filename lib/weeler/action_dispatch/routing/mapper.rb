@@ -57,7 +57,7 @@ module Weeler
             end
           end
           resources :seo_items
-          resources :settings, :only => [:index, :edit, :update]
+          resources :settings, :only => [:index, :update, :create]
         end
 
         # Ordable route concern for dynamic sorting and removing image

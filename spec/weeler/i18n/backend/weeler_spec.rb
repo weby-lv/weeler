@@ -2,16 +2,13 @@
 require "spec_helper"
 
 describe I18n::Backend::Weeler do
-
   describe "#interpolations" do
-
     it "can persist" do
       translation = I18n::Backend::Weeler::Translation.new(:key => 'foo', :value => 'bar', :locale => :en)
       translation.interpolations = %w(count name)
       translation.save
       expect(translation.valid?).to be(true)
     end
-
   end
 
   before do
@@ -26,9 +23,9 @@ describe I18n::Backend::Weeler do
     end
 
     it "writes last translations update timestamp to cache" do
-      Settings.i18n_updated_at = Time.now
+      Setting.i18n_updated_at = Time.now
       I18n.backend.backends[0].reload_cache
-      expect(Weeler.i18n_cache.read('UPDATED_AT')).to eq(Settings.i18n_updated_at)
+      expect(Weeler.i18n_cache.read('UPDATED_AT')).to eq(Setting.i18n_updated_at)
     end
 
     it "loads all translated data to cache" do
@@ -46,7 +43,7 @@ describe I18n::Backend::Weeler do
     before do
       I18n.available_locales = nil
     end
-    
+
     context "when no translations and available_locales provided" do
       it "returns one :en locale" do
         expect(I18n.available_locales.count).to be(1)
@@ -81,7 +78,6 @@ describe I18n::Backend::Weeler do
   end
 
   describe "#value" do
-
     it "returns boolean if translation boolean" do
       true_t = I18n::Backend::Weeler::Translation.create(:key => 'valid', :value => true, :locale => :en)
       false_t = I18n::Backend::Weeler::Translation.create(:key => 'invalid', :value => false, :locale => :en)
@@ -94,11 +90,10 @@ describe I18n::Backend::Weeler do
       proc = I18n::Backend::Weeler::Translation.create(:key => 'valid', :value => "p 'This ir proc!'", :locale => :en, :is_proc => true)
       expect { proc.value }.to output("\"This ir proc!\"\n").to_stdout
     end
-
   end
 
   describe "#html?" do
-    before(:all) do
+    before do
       @html_key_translation = I18n::Backend::Weeler::Translation.create(:key => 'methods.body_html', :value => "Super duper", :locale => :en)
       @html_value_translation = I18n::Backend::Weeler::Translation.create(:key => 'methods.body', :value => "Super <b>duper</b>", :locale => :en)
       @html_fake_value_translation = I18n::Backend::Weeler::Translation.create(:key => 'methods.body_fake', :value => "Super b", :locale => :en)
@@ -113,18 +108,16 @@ describe I18n::Backend::Weeler do
     end
 
     it "is false if value not contains html" do
-
       expect(@html_fake_value_translation.html?).to be(false)
     end
-
   end
 
   describe "groups" do
-
-    before(:all) do
+    before do
       I18n.backend.store_translations(:en, :group2 => { :test2 => 'bar' } )
       I18n.backend.store_translations(:en, :group1 => { :test => 'bar' })
       I18n.backend.store_translations(:en, :group1 => { :test3 => 'bar' })
+
       @groups = I18n::Backend::Weeler::Translation.groups
     end
 
@@ -173,7 +166,6 @@ describe I18n::Backend::Weeler do
   end
 
   describe "#lookup" do
-
     it "show warning" do
       warning_message = "[DEPRECATION] Giving a separator to Translation.lookup is deprecated. You can change the internal separator by overwriting FLATTEN_SEPARATOR.\n"
       expect { I18n::Backend::Weeler::Translation.lookup("foo", "|") }.to output(warning_message).to_stderr
@@ -182,7 +174,7 @@ describe I18n::Backend::Weeler do
     context "cache" do
       context "differs from settings timestamp" do
         before do
-          Settings.i18n_updated_at = Time.now
+          Setting.i18n_updated_at = Time.now
         end
 
         it "reloads cache" do
@@ -193,7 +185,7 @@ describe I18n::Backend::Weeler do
 
       context "is same as updates timestamp" do
         before do
-          Weeler.i18n_cache.write('UPDATED_AT', Settings.i18n_updated_at)
+          Weeler.i18n_cache.write('UPDATED_AT', Setting.i18n_updated_at)
         end
 
         it "does not reload cache" do
@@ -210,49 +202,37 @@ describe I18n::Backend::Weeler do
     end
 
     context "missing translations" do
-
       context "exist in yml" do
-
         context "new translation" do
-
           it "persist it" do
             I18n.t('hello')
             expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('hello').value).to eq(I18n.t('hello'))
           end
-
         end
 
         context "already stored" do
-
           context "value is empty" do
-            context "empty as existing" do
-              before(:all) do
-                Weeler.empty_translation_acts_like_missing = false
-                FactoryBot.create(:translation, key: "weeler.test.cms_title", locale: "en", value: "")
-              end
-
-              it "saves the fallback backend value" do
-                I18n.t('weeler.test.cms_title')
-                expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('weeler.test.cms_title').value).to eq("Weeler is cool")
-              end
-
-              after(:all) do
-                Weeler.empty_translation_acts_like_missing = true
-              end
-            end
             context "empty as missing" do
-              before(:all) do
-                FactoryBot.create(:translation, key: "weeler.test.cms_title", locale: "en", value: "")
+              before do
+                Weeler.empty_translation_acts_like_missing = true
+
+                FactoryBot.create(:translation, key: 'weeler.test.cms_title', locale: 'en', value: '')
               end
 
-              it "saves the fallback backend value" do
+              it 'saves the fallback backend value' do
                 I18n.t('weeler.test.cms_title')
-                expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('weeler.test.cms_title').value).to eq("Weeler is cool")
+
+                expect(I18n::Backend::Weeler::Translation.locale(:en).find_by_key('weeler.test.cms_title').value).to eq('Weeler is cool')
+              end
+
+              after do
+                Weeler.empty_translation_acts_like_missing = false
               end
             end
           end
+
           context "value is nil" do
-            before(:all) do
+            before do
               FactoryBot.create(:translation, key: "weeler.test.cms_title", locale: "en", value: nil)
             end
 
@@ -314,9 +294,6 @@ describe I18n::Backend::Weeler do
         I18n.backend.backends[0].reload_cache
         expect(I18n.t(key, :separator => '|')).to eq('baz!')
       end
-
     end
-
   end
-
 end

@@ -48,12 +48,12 @@ module I18n
           Translation.all.each do |translation|
             # Load in cache unless value is nil or it is blank and empty
             # translation acts like missing
-            if !(translation.value.nil? || (::Weeler.empty_translation_acts_like_missing && translation.value.blank?))
-              i18n_cache.write [translation.locale, translation.key], translation
-            end
+            next if translation.value.nil? || (::Weeler.empty_translation_acts_like_missing && translation.value.blank?)
+
+            i18n_cache.write [translation.locale, translation.key], translation
           end
 
-          i18n_cache.write('UPDATED_AT', Settings.i18n_updated_at) if ActiveRecord::Base.connection.data_source_exists?('settings')
+          i18n_cache.write('UPDATED_AT', Setting.i18n_updated_at) if ActiveRecord::Base.connection.data_source_exists?('settings')
         end
 
         def available_locales
@@ -70,9 +70,9 @@ module I18n
 
         private
 
-        def lookup_in_cache locale, key, scope = [], options = {}
+        def lookup_in_cache(locale, key, scope = [], options = {})
           # reload cache if cache timestamp differs from last translations update
-          reload_cache if ((!ActiveRecord::Base.connection.data_source_exists?('settings')) || i18n_cache.read('UPDATED_AT') != Settings.i18n_updated_at)
+          reload_cache if ((!ActiveRecord::Base.connection.data_source_exists?('settings')) || i18n_cache.read('UPDATED_AT') != Setting.i18n_updated_at)
 
           return nil if i18n_cache.read([:missing, [locale, key]])
 
@@ -134,10 +134,12 @@ module I18n
 
           keys = options[:count] ? PLURAL_KEYS.map { |k| [singular_key, k].join(FLATTEN_SEPARATOR) } : [singular_key]
 
-
           keys.each do |key|
-            translation = Weeler::Translation.find_or_initialize_by locale: locale.to_s, key: key
+            translation = Weeler::Translation.find_or_initialize_by(locale: locale.to_s, key: key)
             translation.interpolations = interpolations
+
+            
+
             fallback_value = fallback_backend_translation locale, key
             if fallback_value.present?
               translation.value = fallback_value
@@ -151,7 +153,6 @@ module I18n
           return_value
         end
 
-
         def fallback_backend_translation locale, key
           if I18n.backend.backends.size > 1
             alternative_backend = I18n.backend.backends[1]
@@ -160,7 +161,6 @@ module I18n
             nil
           end
         end
-
       end
 
       include Implementation

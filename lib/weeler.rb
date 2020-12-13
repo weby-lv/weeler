@@ -68,6 +68,9 @@ module Weeler
   mattr_accessor :use_rails_rich_text_editor
   @@use_rails_rich_text_editor = true
 
+  mattr_accessor :settings_fields
+  @@settings_fields = []
+
   def self.setup
     yield self
     if Weeler.use_weeler_i18n == true && ActiveRecord::Base.connection.data_source_exists?('weeler_translations')

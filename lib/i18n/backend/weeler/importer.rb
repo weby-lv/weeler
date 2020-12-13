@@ -5,7 +5,7 @@
 #
 #   if params[:file].present?
 #     I18n::Backend::Weeler::Translation.import params[:file]
-#     Settings.i18n_updated_at = Time.now
+#     Setting.i18n_updated_at = Time.now
 #   end
 
 begin
