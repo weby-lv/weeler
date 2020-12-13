@@ -12,4 +12,5 @@
         = render 'form', item: item
     - Setting.keys.each do |key|
       - if !Setting.all.map(&:var).include?(key)
-        = render 'form', item: Setting.new(var: key)
+        %div{style: "min-height: 50px;"}
+          = render 'form', item: Setting.new(var: key)
