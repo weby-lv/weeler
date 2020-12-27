@@ -4,8 +4,8 @@ module Weeler
       module TranslationHelper
         extend ActiveSupport::Concern
 
-        def translate(key, options = {})
-          request.present? && request.params[:show_translation_keys] == "true" ? key : super(key, options)
+        def translate(key, **options)
+          request.present? && request.params[:show_translation_keys] == "true" ? key : super(key, **options)
         end
         alias :t :translate
 

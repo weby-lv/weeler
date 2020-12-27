@@ -8,7 +8,8 @@ before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
 rvm:
   - "2.6.0"
-  - "2.7.0"
+  - "2.7.2"
+  - "3.0.0"
 # uncomment this line if your project needs to run something other than `rake`:
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace

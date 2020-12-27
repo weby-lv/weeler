@@ -142,7 +142,7 @@ describe I18n::Backend::Weeler do
       I18n.backend.backends[0].reload_cache
 
       translations = I18n::Backend::Weeler::Translation.locale(:en).lookup('foo')
-      expect(translations.map(&:value)).to eq(%w(bar baz))
+      expect(translations.map(&:value).sort).to eq(%w(bar baz))
 
       expect(I18n.t(:foo)).to eq("Foo") # no translation
     end
