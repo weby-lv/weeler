@@ -24,13 +24,15 @@ module I18n
           # Loads file and iterates each sheet and row.
           def import(file)
             xls = open_spreadsheet(file)
+
             xls.each_with_pagename do |_, sheet|
               # Lookup locales
               locales = locales_from_xlsx_sheet_row(sheet.row(1))
+              tranlsations_by_locales = Translation.where(locale: locales).group_by(&:locale)
 
               # Lookup values
               (2..sheet.last_row).each do |row_no|
-                store_translations_from_xlsx_row(sheet.row(row_no), locales)
+                store_translations_from_xlsx_row(tranlsations_by_locales, sheet.row(row_no), locales)
               end
             end
           end
@@ -65,7 +67,7 @@ module I18n
           end
 
           # Iterate each cell in row and store translation by locale
-          def store_translations_from_xlsx_row(row, locales)
+          def store_translations_from_xlsx_row(tranlsations_by_locales, row, locales)
             locale = nil
             key = nil
 
@@ -75,20 +77,22 @@ module I18n
               else
                 locale = locales[i - 1]
 
-                store_translation_from_xlsx_cell(locale, key, cell) if locale.present?
+                store_translation_from_xlsx_cell(tranlsations_by_locales[locale.to_s], locale, key, cell) if locale.present?
               end
             end
           end
 
           # Store locale if locale and key present
-          def store_translation_from_xlsx_cell(locale, key, cell)
+          def store_translation_from_xlsx_cell(locale_translations, locale, key, cell)
             value = cell.nil? ? '' : cell
 
             return if locale.blank? || key.blank?
 
-            translation = Translation.find_or_initialize_by locale: locale, key: key
-            return if translation.value == value
+            translation = locale_translations&.find { |t| t.key == key }
 
+            return if translation.present? && translation.value == value
+
+            translation ||= Translation.new(locale: locale, key: key)
             translation.value = value
             translation.save
           end

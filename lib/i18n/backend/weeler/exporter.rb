@@ -41,12 +41,14 @@ module I18n
 
             included_keys = []
 
+            tranlsations_by_locales = Translation.where(locale: locales).group_by(&:locale)
+
             current_scope.each do |translation|
-              unless included_keys.include? translation.key
-                row = Translation.translation_row_by_key_and_locales(translation.key, locales)
-                sheet.add_row(row, types: types)
-                included_keys << translation.key
-              end
+              next if included_keys.include?(translation.key)
+
+              row = Translation.translation_row_by_key_and_locales(tranlsations_by_locales, translation.key, locales)
+              sheet.add_row(row, types: types)
+              included_keys << translation.key
             end
 
             package
@@ -64,20 +66,19 @@ module I18n
             row
           end
 
-          def translation_row_by_key_and_locales(key, locales)
+          def translation_row_by_key_and_locales(tranlsations_by_locales, key, locales)
             row = [key]
             created_ats = []
             updated_ats = []
 
             locales.each do |locale|
-              result = Translation.locale(locale).lookup(key).load
+              translation = tranlsations_by_locales[locale.to_s]&.find { |t| t.key == key }
 
-              first_result = result.first
-              if first_result.present?
-                created_ats.push(first_result.created_at)
-                updated_ats.push(first_result.updated_at)
+              if translation.present?
+                created_ats.push(translation.created_at)
+                updated_ats.push(translation.updated_at)
 
-                row.push(first_result.value)
+                row.push(translation.value)
               else
                 row.push('')
               end

@@ -1,3 +1,9 @@
+## 2.0.1
+
+### Features & Enhancements
+
+* Optimized translation import and export (avoiding n+1 queries)
+
 ## 2.0.0
 
 ### Features & Enhancements
