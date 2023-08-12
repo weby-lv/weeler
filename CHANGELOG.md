@@ -1,3 +1,13 @@
+## 2.1.0
+
+### Features & Enhancements
+
+* Support from Ruby 3.0.0
+
+### Bug Fixes
+
+* Importer fixed
+
 ## 2.0.1
 
 ### Features & Enhancements

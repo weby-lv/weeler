@@ -25,15 +25,14 @@ module I18n
           def import(file)
             xls = open_spreadsheet(file)
 
-            xls.each_with_pagename do |_, sheet|
-              # Lookup locales
-              locales = locales_from_xlsx_sheet_row(sheet.row(1))
-              tranlsations_by_locales = Translation.where(locale: locales).group_by(&:locale)
+            first_row = xls.first
+            locales = locales_from_xlsx_sheet_row(first_row)
+            tranlsations_by_locales = Translation.where(locale: locales).group_by(&:locale)
 
-              # Lookup values
-              (2..sheet.last_row).each do |row_no|
-                store_translations_from_xlsx_row(tranlsations_by_locales, sheet.row(row_no), locales)
-              end
+            xls.each_with_index do |row, index|
+              next if index.zero?
+
+              store_translations_from_xlsx_row(tranlsations_by_locales, row, locales)
             end
           end
 
@@ -42,7 +41,7 @@ module I18n
           # Open csv, xls, xlsx or ods file and read content
           def open_spreadsheet(file)
             case File.extname(file.original_filename)
-            when ".csv"  then Roo::Csv.new(file.path, file_warning: :ignore)
+            when ".csv"  then Roo::CSV.new(file.path, file_warning: :ignore)
             when ".xls"  then Roo::Excel.new(file.path, file_warning: :ignore)
             when ".xlsx" then Roo::Excelx.new(file.path, file_warning: :ignore)
             when ".ods"  then Roo::OpenOffice.new(file.path, file_warning: :ignore)
